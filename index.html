@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Bootstrap TouchSpin</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="A mobile and touch friendly input spinner component for Bootstrap 3.">
+        <meta name="author" content="István Ujj-Mészáros">
+
+        <meta itemprop="name" content="Bootstrap Touchspin">
+        <meta itemprop="description" content="A mobile and touch friendly input spinner component for Bootstrap 3.">
+
+        <link rel="shortcut icon" href="libraries/favicon.ico">
+
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+        <link href="libraries/prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+        <link href="libraries/demo.css" rel="stylesheet" type="text/css" media="all">
+
+        <script src="libraries/jquery-1.9.0.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="libraries/prettify/prettify.js"></script>
+        <script src="bootstrap-touchspin/bootstrap.touchspin.js"></script>
+
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="hero-unit">
+
+                <h1>Bootstrap TouchSpin</h1>
+
+                <a id="link-ghp" class="btn btn-primary" href="https://github.com/istvan-ujjmeszaros/bootstrap-touchspin" target="_blank"><span class="glyphicon glyphicon-link"></span> Github project page</a>
+                <a id="link-ghdl" href="https://github.com/istvan-ujjmeszaros/bootstrap-touchspin/archive/master.zip" class="btn btn-primary" title="download"><span class="glyphicon glyphicon-download"></span> Download</a>
+
+            </div>
+
+            <p>
+                A mobile and touch friendly input spinner component for Bootstrap 3.
+            </p>
+
+            <h2>Examples</h2>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="demo1">Example with postfix:</label> <input id="demo1" type="text" value="55" name="demo1">
+                </div>
+
+                <div class="col-md-8">
+<pre class="prettyprint">
+&lt;script&gt;
+    $(&quot;input[name='demo1']&quot;).TouchSpin({
+        min: 0,
+        max: 100,
+        boostat: 5,
+        maxboostedstep: 10,
+        postfix: '%'
+    });
+&lt;/script&gt;
+</pre>
+
+                    <script>
+                        $("input[name='demo1']").TouchSpin({
+                            min: 0,
+                            max: 100,
+                            boostat: 5,
+                            maxboostedstep: 10,
+                            postfix: '%'
+                        });
+                    </script>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="demo2" class="col-md-4 control-label">With prefix</label> <input id="demo2" type="text" value="0" name="demo2" class="col-md-8 form-control">
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-md-8">
+<pre class="prettyprint">
+&lt;form class=&quot;form-horizontal&quot; role=&quot;form&quot;&gt;
+    &lt;div class=&quot;form-group&quot;&gt;
+        &lt;label for=&quot;demo2&quot; class=&quot;col-md-4 control-label&quot;&gt;Example:&lt;/label&gt; &lt;input id=&quot;demo2&quot; type=&quot;text&quot; value=&quot;0&quot; name=&quot;demo2&quot; class=&quot;col-md-8 form-control&quot;&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+    $(&quot;input[name='demo2']&quot;).TouchSpin({
+        min: -1000000000,
+        max: 1000000000,
+        stepinterval: 50,
+        maxboostedstep: 10000000,
+        prefix: '$'
+    });
+&lt;/script&gt;
+</pre>
+                    <script>
+                        $("input[name='demo2']").TouchSpin({
+                            min: -1000000000,
+                            max: 1000000000,
+                            stepinterval: 50,
+                            maxboostedstep: 10000000,
+                            prefix: '$'
+                        });
+                    </script>
+
+                </div>
+            </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+            <div class="row">
+                <div class="col-md-4">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="demo3" class="col-md-4 control-label">With prefix</label> <input id="demo3" type="text" value="0" name="demo3" class="col-md-3 form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="demo4" class="col-md-4 control-label">With postfix</label> <input id="demo4" type="text" value="0" name="demo4" class="col-md-3 form-control">
+                        </div>
+                    </form>
+                    <script>
+                        $("input[name='demo3']").TouchSpin({
+                            prefix: 'USD'
+                        });
+                        $("input[name='demo4']").TouchSpin({
+                            postfix: '%'
+                        });
+                    </script>
+                </div>
+            </div>
+
+            <h2>Settings</h2>
+            <table class="table table-striped table-bordered docs">
+                <thead>
+                    <tr>
+                        <th>Option</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>min</code></td>
+                        <td><code>0</code></td>
+                        <td>Minimum value.</td>
+                    </tr>
+                    <tr>
+                        <td><code>max</code></td>
+                        <td><code>100</code></td>
+                        <td>Maximum value.</td>
+                    </tr>
+                    <tr>
+                        <td><code>step</code></td>
+                        <td><code>1</code></td>
+                        <td>Incremental/decremental step on up/down change.</td>
+                    </tr>
+                    <tr>
+                        <td><code>stepinterval</code></td>
+                        <td><code>100</code></td>
+                        <td>Refresh rate of the spinner in milliseconds.</td>
+                    </tr>
+                    <tr>
+                        <td><code>stepintervaldelay</code></td>
+                        <td><code>500</code></td>
+                        <td>Time in milliseconds before the spinner starts to spin.</td>
+                    </tr>
+                    <tr>
+                        <td><code>prefix</code></td>
+                        <td><code>""</code></td>
+                        <td>Text before the input.</td>
+                    </tr>
+                    <tr>
+                        <td><code>postfix</code></td>
+                        <td><code>""</code></td>
+                        <td>Text after the input.</td>
+                    </tr>
+                    <tr>
+                        <td><code>booster</code></td>
+                        <td><code>true</code></td>
+                        <td>If enabled, the the spinner is continually becoming faster as holding the button.</td>
+                    </tr>
+                    <tr>
+                        <td><code>boostat</code></td>
+                        <td><code>10</code></td>
+                        <td>Boost at every nth step.</td>
+                    </tr>
+                    <tr>
+                        <td><code>maxboostedstep</code></td>
+                        <td><code>false</code></td>
+                        <td>Maximum step when boosted.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Events</h2>
+
+            <h3>Triggered events</h3>
+
+            <p>The following events are triggered on the original input by the plugin and can be listened on.</p>
+
+            <table class="table table-striped table-bordered docs">
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>change</code></td>
+                        <td>Triggered when the value is changed with one of the buttons (but not triggered when the spinner hits the limit set by <code>settings.min</code> or <code>settings.max</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>touchspin.min</code></td>
+                        <td>Triggered when the spinner hits the limit set by <code>settings.min</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>touchspin.max</code></td>
+                        <td>Triggered when the spinner hits the limit set by <code>settings.max</code>.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Callable events</h3>
+
+            <p>The following events can be triggered on the original input.</p>
+            <p>Example usage: <code class="prettyprint">$("input").trigger("touchspin.uponce"));</code></p>
+
+            <table class="table table-striped table-bordered docs">
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>touchspin.uponce</code></td>
+                        <td>Increase the value by one step.</td>
+                    </tr>
+                    <tr>
+                        <td><code>touchspin.downonce</code></td>
+                        <td>Decrease the value by one step.</td>
+                    </tr>
+                    <tr>
+                        <td><code>touchspin.startupspin</code></td>
+                        <td>Starts the spinner upwards.</td>
+                    </tr>
+                    <tr>
+                        <td><code>touchspin.startdownspin</code></td>
+                        <td>Starts the spinner downwards.</td>
+                    </tr>
+                    <tr>
+                        <td><code>touchspin.stopspin</code></td>
+                        <td>Stops the spinner.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Download</h2>
+            <p><a id="link-ghd" href="https://github.com/istvan-ujjmeszaros/bootstrap-touchspin" target="_blank">Download</a> from github. Please report issues and suggestions to github's issue tracker or contact me on <a id="link-gp" href="https://plus.google.com/101242556570448529330/posts" target="_blank">g+</a> or <a id="link-tw" href="https://twitter.com/styu007" target="_blank">twitter</a>!</p>
+
+        </div>
+
+        <script>
+            prettyPrint();
+        </script>
