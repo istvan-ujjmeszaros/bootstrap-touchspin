@@ -3,7 +3,7 @@
 
 /*!=========================================================================
  *  Bootstrap TouchSpin
- *  v1.0.0
+ *  v1.1.0
  *
  *  A mobile and touch friendly input spinner component for Bootstrap 3.
  *
@@ -42,7 +42,8 @@
                 upSpinTimer,
                 downDelayTimeout,
                 upDelayTimeout,
-                spincount = 0;
+                spincount = 0,
+                spinning = false;
 
             init();
 
@@ -119,8 +120,37 @@
                     downOnce();
                 });
 
-                originalinput.on("keyup", function() {
-                    _checkValue();
+                originalinput.on("keydown", function(ev) {
+                    var code = ev.keyCode || ev.which;
+
+                    if (code == 38) {
+                        if (spinning !== "up") {
+                            startUpSpin();
+                        }
+                        ev.preventDefault();
+                    }
+                    else if (code == 40) {
+                        if (spinning !== "down") {
+                            startDownSpin();
+                        }
+                        ev.preventDefault();
+                    }
+                });
+
+                originalinput.on("keyup", function(ev) {
+                    var code = ev.keyCode || ev.which;
+
+                    if (code == 38) {
+                        upOnce();
+                        stopSpin();
+                    }
+                    else if (code == 40) {
+                        downOnce();
+                        stopSpin();
+                    }
+                    else {
+                        _checkValue();
+                    }
                 });
 
                 elements.down.on("mousedown touchstart", function(ev) {
@@ -141,6 +171,20 @@
 
                 $(document).on("mouseup touchend touchcancel", function() {
                     stopSpin();
+                });
+
+                originalinput.bind("mousewheel DOMMouseScroll", function(ev) {
+                    var delta = ev.originalEvent.wheelDelta || -ev.originalEvent.detail;
+
+                    ev.stopPropagation();
+                    ev.preventDefault();
+
+                    if (delta < 0) {
+                        downOnce();
+                    }
+                    else {
+                        upOnce();
+                    }
                 });
             }
 
@@ -262,6 +306,7 @@
                 stopSpin();
 
                 spincount = 0;
+                spinning = "down";
 
                 downDelayTimeout = setTimeout(function() {
                     downSpinTimer = setInterval(function() {
@@ -275,6 +320,7 @@
                 stopSpin();
 
                 spincount = 0;
+                spinning = "up";
 
                 upDelayTimeout = setTimeout(function() {
                     upSpinTimer = setInterval(function() {
@@ -291,6 +337,7 @@
                 clearInterval(upSpinTimer);
 
                 spincount = 0;
+                spinning = false;
             }
 
         });
