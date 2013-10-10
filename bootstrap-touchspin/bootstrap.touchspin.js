@@ -3,7 +3,7 @@
 
 /*!=========================================================================
  *  Bootstrap TouchSpin
- *  v1.1.0
+ *  v1.2.0
  *
  *  A mobile and touch friendly input spinner component for Bootstrap 3.
  *
@@ -74,6 +74,7 @@
                     min: 0,
                     max: 100,
                     step: 1,
+                    decimals: 0,
                     stepinterval: 100,
                     stepintervaldelay: 500,
                     prefix: "",
@@ -86,7 +87,7 @@
 
             function _buildHtml()
             {
-                originalinput.data("initvalue", originalinput.val());
+                originalinput.data("initvalue", originalinput.val()).val(Number(originalinput.val()).toFixed(settings.decimals));
 
                 var html = '<div class="input-group bootstrap-touchspin" style=""><span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-down" type="button">-</button></span><span class="input-group-addon bootstrap-touchspin-prefix">' + settings.prefix + '</span><span class="input-group-addon bootstrap-touchspin-postfix">' + settings.postfix + '</span><span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-up" type="button">+</button></span></div>';
 
@@ -216,7 +217,12 @@
                 var val, parsedval, returnval;
 
                 val = originalinput.val();
-                parsedval = parseInt(val, 10);
+
+                if (settings.decimals > 0 && val === ".") {
+                    return;
+                }
+
+                parsedval = parseFloat(val);
 
                 if (isNaN(parsedval)) {
                     parsedval = 0;
@@ -236,7 +242,7 @@
                     returnval = settings.max;
                 }
 
-                if (val !== returnval.toString()) {
+                if (Number(val).toString() !== returnval.toString()) {
                     originalinput.val(returnval);
                     originalinput.trigger("change");
                 }
@@ -247,12 +253,12 @@
                     return settings.step;
                 }
                 else {
-                    var boosted = Math.pow(2,Math.floor(spincount / settings.boostat));
+                    var boosted = Math.pow(2,Math.floor(spincount / settings.boostat)) * settings.step;
 
                     if (settings.maxboostedstep) {
                         if (boosted > settings.maxboostedstep) {
                             boosted = settings.maxboostedstep;
-                            value = Math.round(value / boosted) * boosted;
+                            value = Math.round((value / boosted) * boosted);
                         }
                     }
 
@@ -274,7 +280,7 @@
                     originalinput.trigger("touchspin.max");
                 }
 
-                elements.input.val(value);
+                elements.input.val(Number(value).toFixed(settings.decimals));
 
                 if (initvalue !== value) {
                     originalinput.trigger("change");
@@ -295,7 +301,7 @@
                     originalinput.trigger("touchspin.min");
                 }
 
-                elements.input.val(value);
+                elements.input.val(value.toFixed(settings.decimals));
 
                 if (initvalue !== value) {
                     originalinput.trigger("change");

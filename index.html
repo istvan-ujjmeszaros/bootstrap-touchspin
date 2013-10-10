@@ -52,6 +52,8 @@
     $(&quot;input[name='demo1']&quot;).TouchSpin({
         min: 0,
         max: 100,
+        step: 0.1,
+        decimals: 2,
         boostat: 5,
         maxboostedstep: 10,
         postfix: '%'
@@ -63,6 +65,8 @@
                         $("input[name='demo1']").TouchSpin({
                             min: 0,
                             max: 100,
+                            step: 0.1,
+                            decimals: 2,
                             boostat: 5,
                             maxboostedstep: 10,
                             postfix: '%'
@@ -164,6 +168,11 @@
                         <td><code>step</code></td>
                         <td><code>1</code></td>
                         <td>Incremental/decremental step on up/down change.</td>
+                    </tr>
+                    <tr>
+                        <td><code>decimals</code></td>
+                        <td><code>0</code></td>
+                        <td>Number of decimal points.</td>
                     </tr>
                     <tr>
                         <td><code>stepinterval</code></td>
