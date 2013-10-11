@@ -3,7 +3,7 @@
 
 /*!=========================================================================
  *  Bootstrap TouchSpin
- *  v1.2.0
+ *  v1.2.1
  *
  *  A mobile and touch friendly input spinner component for Bootstrap 3.
  *
@@ -160,6 +160,9 @@
                     }
 
                     startDownSpin();
+
+                    ev.preventDefault();
+                    ev.stopPropagation();
                 });
 
                 elements.up.on("mousedown touchstart", function(ev) {
@@ -168,6 +171,9 @@
                     }
 
                     startUpSpin();
+
+                    ev.preventDefault();
+                    ev.stopPropagation();
                 });
 
                 $(document).on("mouseup touchend touchcancel", function() {
