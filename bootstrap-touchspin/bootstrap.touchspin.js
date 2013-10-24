@@ -113,11 +113,11 @@
 
             function _bindEvents()
             {
-                elements.up.on("click", function() {
+                elements.up.on("click touchstart", function() {
                     upOnce();
                 });
 
-                elements.down.on("click", function() {
+                elements.down.on("click touchstart", function() {
                     downOnce();
                 });
 
