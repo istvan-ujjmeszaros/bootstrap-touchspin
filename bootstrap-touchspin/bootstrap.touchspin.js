@@ -81,7 +81,8 @@
                     postfix: "",
                     booster: true,
                     boostat: 10,
-                    maxboostedstep: false
+                    maxboostedstep: false,
+                    mousewheel: true
                 }, options);
             }
 
@@ -256,19 +257,21 @@
                     stopSpin();
                 });
 
-                originalinput.bind("mousewheel DOMMouseScroll", function(ev) {
-                    var delta = ev.originalEvent.wheelDelta || -ev.originalEvent.detail;
+                if (settings.mousewheel) {
+                    originalinput.bind("mousewheel DOMMouseScroll", function(ev) {
+                        var delta = ev.originalEvent.wheelDelta || -ev.originalEvent.detail;
 
-                    ev.stopPropagation();
-                    ev.preventDefault();
+                        ev.stopPropagation();
+                        ev.preventDefault();
 
-                    if (delta < 0) {
-                        downOnce();
-                    }
-                    else {
-                        upOnce();
-                    }
-                });
+                        if (delta < 0) {
+                            downOnce();
+                        }
+                        else {
+                            upOnce();
+                        }
+                    });
+                }
             }
 
             function _bindEventsInterface() {
