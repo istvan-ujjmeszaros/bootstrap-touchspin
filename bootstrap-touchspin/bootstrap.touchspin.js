@@ -3,7 +3,7 @@
 
 /*!=========================================================================
  *  Bootstrap TouchSpin
- *  v1.2.1
+ *  v1.3.0
  *
  *  A mobile and touch friendly input spinner component for Bootstrap 3.
  *
@@ -113,25 +113,19 @@
 
             function _bindEvents()
             {
-                elements.up.on("click", function() {
-                    upOnce();
-                });
-
-                elements.down.on("click", function() {
-                    downOnce();
-                });
-
                 originalinput.on("keydown", function(ev) {
                     var code = ev.keyCode || ev.which;
 
-                    if (code == 38) {
+                    if (code === 38) {
                         if (spinning !== "up") {
+                            upOnce();
                             startUpSpin();
                         }
                         ev.preventDefault();
                     }
-                    else if (code == 40) {
+                    else if (code === 40) {
                         if (spinning !== "down") {
+                            downOnce();
                             startDownSpin();
                         }
                         ev.preventDefault();
@@ -141,12 +135,10 @@
                 originalinput.on("keyup", function(ev) {
                     var code = ev.keyCode || ev.which;
 
-                    if (code == 38) {
-                        upOnce();
+                    if (code === 38) {
                         stopSpin();
                     }
-                    else if (code == 40) {
-                        downOnce();
+                    else if (code === 40) {
                         stopSpin();
                     }
                     else {
@@ -154,11 +146,48 @@
                     }
                 });
 
-                elements.down.on("mousedown touchstart", function(ev) {
-                    if (ev.which > 1) {
-                        return;
-                    }
+                elements.down.on("keydown", function(ev) {
+                    var code = ev.keyCode || ev.which;
 
+                    if (code === 32 || code === 13) {
+                        if (spinning !== "down") {
+                            downOnce();
+                            startDownSpin();
+                        }
+                        ev.preventDefault();
+                    }
+                });
+
+                elements.down.on("keyup", function(ev) {
+                    var code = ev.keyCode || ev.which;
+
+                    if (code === 32 || code === 13) {
+                        stopSpin();
+                    }
+                });
+
+                elements.up.on("keydown", function(ev) {
+                    var code = ev.keyCode || ev.which;
+
+                    if (code === 32 || code === 13) {
+                        if (spinning !== "up") {
+                            upOnce();
+                            startUpSpin();
+                        }
+                        ev.preventDefault();
+                    }
+                });
+
+                elements.up.on("keyup", function(ev) {
+                    var code = ev.keyCode || ev.which;
+
+                    if (code === 32 || code === 13) {
+                        stopSpin();
+                    }
+                });
+
+                elements.down.on("mousedown touchstart", function(ev) {
+                    downOnce();
                     startDownSpin();
 
                     ev.preventDefault();
@@ -166,17 +195,64 @@
                 });
 
                 elements.up.on("mousedown touchstart", function(ev) {
-                    if (ev.which > 1) {
-                        return;
-                    }
-
+                    upOnce();
                     startUpSpin();
 
-                    ev.preventDefault();
+                    ev.stopPropagation();
                     ev.stopPropagation();
                 });
 
-                $(document).on("mouseup touchend touchcancel", function() {
+                elements.up.on("mouseout touchleave touchend touchcancel", function(ev) {
+                    if (!spinning) {
+                        return;
+                    }
+
+                    ev.stopPropagation();
+                    stopSpin();
+                });
+
+                elements.down.on("mouseout touchleave touchend touchcancel", function(ev) {
+                    if (!spinning) {
+                        return;
+                    }
+
+                    ev.stopPropagation();
+                    stopSpin();
+                });
+
+                elements.down.on("mousemove touchmove", function(ev) {
+                    if (!spinning) {
+                        return;
+                    }
+
+                    ev.stopPropagation();
+                    ev.preventDefault();
+                });
+
+                elements.up.on("mousemove touchmove", function(ev) {
+                    if (!spinning) {
+                        return;
+                    }
+
+                    ev.stopPropagation();
+                    ev.preventDefault();
+                });
+
+                $(document).on("mouseup touchend touchcancel", function(ev) {
+                    if (!spinning) {
+                        return;
+                    }
+
+                    ev.preventDefault();
+                    stopSpin();
+                });
+
+                $(document).on("mousemove touchmove scroll scrollstart", function(ev) {
+                    if (!spinning) {
+                        return;
+                    }
+
+                    ev.preventDefault();
                     stopSpin();
                 });
 
