@@ -353,6 +353,9 @@
 
             function upOnce() {
                 value = parseFloat(elements.input.val());
+                if (isNaN(value)) {
+                    value = 0;
+                }
 
                 var initvalue = value,
                     boostedstep = _getBoostedStep();
@@ -374,6 +377,9 @@
 
             function downOnce() {
                 value = parseFloat(elements.input.val());
+                if (isNaN(value)) {
+                    value = 0;
+                }
 
                 var initvalue = value,
                     boostedstep = _getBoostedStep();
