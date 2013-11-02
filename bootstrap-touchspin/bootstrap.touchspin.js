@@ -12,6 +12,9 @@
  *
  *  Copyright 2013 István Ujj-Mészáros
  *
+ *  Thanks for the contributors:
+ *      Stefan Bauer - https://github.com/sba
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
@@ -24,7 +27,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  *
- * ====================================================================== */
+* ====================================================================== */
 
 (function($) {
     "use strict";

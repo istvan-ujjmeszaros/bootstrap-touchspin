@@ -114,35 +114,6 @@
 
                 </div>
             </div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-            <div class="row">
-                <div class="col-md-4">
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label for="demo3" class="col-md-4 control-label">With prefix</label> <input id="demo3" type="text" value="0" name="demo3" class="col-md-3 form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="demo4" class="col-md-4 control-label">With postfix</label> <input id="demo4" type="text" value="0" name="demo4" class="col-md-3 form-control">
-                        </div>
-                    </form>
-                    <script>
-                        $("input[name='demo3']").TouchSpin({
-                            prefix: 'USD'
-                        });
-                        $("input[name='demo4']").TouchSpin({
-                            postfix: '%'
-                        });
-                    </script>
-                </div>
-            </div>
 
             <h2>Settings</h2>
             <table class="table table-striped table-bordered docs">
@@ -208,6 +179,11 @@
                         <td><code>maxboostedstep</code></td>
                         <td><code>false</code></td>
                         <td>Maximum step when boosted.</td>
+                    </tr>
+                    <tr>
+                        <td><code>mousewheel</code></td>
+                        <td><code>true</code></td>
+                        <td>Enables the mouse wheel to change the value of the input.</td>
                     </tr>
                 </tbody>
             </table>
