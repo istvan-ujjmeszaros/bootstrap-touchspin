@@ -3,7 +3,7 @@
 
 /*!=========================================================================
  *  Bootstrap TouchSpin
- *  v1.3.1
+ *  v1.3.2
  *
  *  A mobile and touch friendly input spinner component for Bootstrap 3.
  *
@@ -145,9 +145,10 @@
                     else if (code === 40) {
                         stopSpin();
                     }
-                    else {
-                        _checkValue();
-                    }
+                });
+
+                originalinput.blur(function() {
+                    _checkValue();
                 });
 
                 elements.down.on("keydown", function(ev) {
@@ -355,6 +356,8 @@
             }
 
             function upOnce() {
+                _checkValue();
+
                 value = parseFloat(elements.input.val());
                 if (isNaN(value)) {
                     value = 0;
@@ -379,6 +382,8 @@
             }
 
             function downOnce() {
+                _checkValue();
+
                 value = parseFloat(elements.input.val());
                 if (isNaN(value)) {
                     value = 0;
