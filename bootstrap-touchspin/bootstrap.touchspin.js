@@ -3,7 +3,7 @@
 
 /*!=========================================================================
  *  Bootstrap TouchSpin
- *  v1.3.2
+ *  v1.3.3
  *
  *  A mobile and touch friendly input spinner component for Bootstrap 3.
  *
@@ -91,7 +91,13 @@
 
             function _buildHtml()
             {
-                originalinput.data("initvalue", originalinput.val()).val(Number(originalinput.val()).toFixed(settings.decimals));
+                var initval = originalinput.val();
+
+                if (initval !== "") {
+                    initval = Number(initval).toFixed(settings.decimals);
+                }
+
+                originalinput.data("initvalue", initval).val(initval);
 
                 var html = '<div class="input-group bootstrap-touchspin" style=""><span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-down" type="button">-</button></span><span class="input-group-addon bootstrap-touchspin-prefix">' + settings.prefix + '</span><span class="input-group-addon bootstrap-touchspin-postfix">' + settings.postfix + '</span><span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-up" type="button">+</button></span></div>';
 
@@ -306,6 +312,10 @@
                 var val, parsedval, returnval;
 
                 val = originalinput.val();
+
+                if (val === "") {
+                    return;
+                }
 
                 if (settings.decimals > 0 && val === ".") {
                     return;

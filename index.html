@@ -75,6 +75,7 @@
 
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-4">
                     <form class="form-horizontal" role="form">
@@ -110,6 +111,26 @@
                             maxboostedstep: 10000000,
                             prefix: '$'
                         });
+                    </script>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="demo3">Init with empty value:</label> <input id="demo3" type="text" value="" name="demo3">
+                </div>
+
+                <div class="col-md-8">
+<pre class="prettyprint">
+&lt;input id=&quot;demo3&quot; type=&quot;text&quot; value=&quot;&quot; name=&quot;demo3&quot;&gt;
+&lt;script&gt;
+    $(&quot;input[name='demo3']&quot;).TouchSpin();
+&lt;/script&gt;
+</pre>
+
+                    <script>
+                        $("input[name='demo3']").TouchSpin();
                     </script>
 
                 </div>
