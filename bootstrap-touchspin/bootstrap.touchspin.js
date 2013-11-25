@@ -3,7 +3,7 @@
 
 /*!=========================================================================
  *  Bootstrap TouchSpin
- *  v1.3.3
+ *  v1.3.4
  *
  *  A mobile and touch friendly input spinner component for Bootstrap 3.
  *
@@ -82,6 +82,8 @@
                     stepintervaldelay: 500,
                     prefix: "",
                     postfix: "",
+                    prefix_extraclass: "btn btn-default",
+                    postfix_extraclass: "",
                     booster: true,
                     boostat: 10,
                     maxboostedstep: false,
@@ -116,8 +118,8 @@
                     down: $(".bootstrap-touchspin-down", container),
                     up: $(".bootstrap-touchspin-up", container),
                     input: $("input", container),
-                    prefix: $(".bootstrap-touchspin-prefix", container),
-                    postfix: $(".bootstrap-touchspin-postfix", container)
+                    prefix: $(".bootstrap-touchspin-prefix", container).addClass(settings.prefix_extraclass),
+                    postfix: $(".bootstrap-touchspin-postfix", container).addClass(settings.postfix_extraclass)
                 };
             }
 
