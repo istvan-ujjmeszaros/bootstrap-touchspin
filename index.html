@@ -136,6 +136,32 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="demo3">Button postfix:</label> <input id="demo4" type="text" value="" name="demo4">
+                </div>
+
+                <div class="col-md-8">
+<pre class="prettyprint">
+&lt;input id=&quot;demo4&quot; type=&quot;text&quot; value=&quot;&quot; name=&quot;demo4&quot;&gt;
+&lt;script&gt;
+    $(&quot;input[name='demo4']&quot;).TouchSpin({
+        postfix: &quot;a button&quot;,
+        postfix_extraclass: &quot;btn btn-default&quot;
+    });
+&lt;/script&gt;
+</pre>
+
+                    <script>
+                        $("input[name='demo4']").TouchSpin({
+                            postfix: "a button",
+                            postfix_extraclass: "btn btn-default"
+                        });
+                    </script>
+
+                </div>
+            </div>
+
             <h2>Settings</h2>
             <table class="table table-striped table-bordered docs">
                 <thead>
