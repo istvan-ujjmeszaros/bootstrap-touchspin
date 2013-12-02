@@ -3,7 +3,7 @@
 
 /*!=========================================================================
  *  Bootstrap TouchSpin
- *  v1.3.4
+ *  v1.3.5
  *
  *  A mobile and touch friendly input spinner component for Bootstrap 3.
  *
@@ -71,8 +71,15 @@
                 _bindEventsInterface();
             }
 
-            function _initSettings()
-            {
+            function changeSettings(newsettings) {
+                _updateSettings(newsettings);
+                _checkValue();
+
+                var value = Number(elements.input.val());
+                elements.input.val(value.toFixed(settings.decimals));
+            }
+
+            function _initSettings() {
                 settings = $.extend({
                     min: 0,
                     max: 100,
@@ -82,7 +89,7 @@
                     stepintervaldelay: 500,
                     prefix: "",
                     postfix: "",
-                    prefix_extraclass: "btn btn-default",
+                    prefix_extraclass: "",
                     postfix_extraclass: "",
                     booster: true,
                     boostat: 10,
@@ -91,8 +98,11 @@
                 }, options);
             }
 
-            function _buildHtml()
-            {
+            function _updateSettings(newsettings) {
+                settings = $.extend({}, settings, newsettings);
+            }
+
+            function _buildHtml() {
                 var initval = originalinput.val();
 
                 if (initval !== "") {
@@ -112,8 +122,7 @@
                 originalinput.addClass("form-control");
             }
 
-            function _initElements()
-            {
+            function _initElements() {
                 elements = {
                     down: $(".bootstrap-touchspin-down", container),
                     up: $(".bootstrap-touchspin-up", container),
@@ -123,8 +132,7 @@
                 };
             }
 
-            function _bindEvents()
-            {
+            function _bindEvents() {
                 originalinput.on("keydown", function(ev) {
                     var code = ev.keyCode || ev.which;
 
@@ -307,6 +315,10 @@
 
                 originalinput.on('touchspin.stopspin', function() {
                     stopSpin();
+                });
+
+                originalinput.on('touchspin.updatesettings', function(e, newsettings) {
+                    changeSettings(newsettings);
                 });
             }
 

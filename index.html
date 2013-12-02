@@ -277,7 +277,11 @@
             <h3>Callable events</h3>
 
             <p>The following events can be triggered on the original input.</p>
-            <p>Example usage: <code class="prettyprint">$("input").trigger("touchspin.uponce"));</code></p>
+            <p>
+                Example usages:<br>
+                <code class="prettyprint">$("input").trigger("touchspin.uponce");</code><br>
+                <code class="prettyprint">$("input").trigger("touchspin.updatesettings", {max: 1000});</code>
+            </p>
 
             <table class="table table-striped table-bordered docs">
                 <thead>
@@ -287,6 +291,10 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td><code>touchspin.updatesettings</code></td>
+                        <td><code>function(newoptions)</code>: Update any setting of an already initialized TouchSpin instance.</td>
+                    </tr>
                     <tr>
                         <td><code>touchspin.uponce</code></td>
                         <td>Increase the value by one step.</td>
