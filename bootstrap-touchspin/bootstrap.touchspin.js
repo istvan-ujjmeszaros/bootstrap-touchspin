@@ -3,7 +3,7 @@
 
 /*!=========================================================================
  *  Bootstrap TouchSpin
- *  v1.3.5
+ *  v2.0.0
  *
  *  A mobile and touch friendly input spinner component for Bootstrap 3.
  *
@@ -103,7 +103,8 @@
             }
 
             function _buildHtml() {
-                var initval = originalinput.val();
+                var initval = originalinput.val(),
+                    parentelement = originalinput.parent();
 
                 if (initval !== "") {
                     initval = Number(initval).toFixed(settings.decimals);
@@ -111,13 +112,58 @@
 
                 originalinput.data("initvalue", initval).val(initval);
 
-                var html = '<div class="input-group bootstrap-touchspin" style=""><span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-down" type="button">-</button></span><span class="input-group-addon bootstrap-touchspin-prefix">' + settings.prefix + '</span><span class="input-group-addon bootstrap-touchspin-postfix">' + settings.postfix + '</span><span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-up" type="button">+</button></span></div>';
+                $("<style type='text/css'>.bootstrap-touchspin-prefix:empty,.bootstrap-touchspin-postfix:empty{display:none;}</style>").appendTo("head");
+
+                if (parentelement.hasClass("input-group")) {
+                    _advanceInputGroup(parentelement);
+                }
+                else {
+                    _buildInputGroup();
+                }
+
+            }
+
+            function _advanceInputGroup(parentelement) {
+                parentelement.addClass("bootstrap-touchspin");
+
+                var prev = originalinput.prev(),
+                    next = originalinput.next();
+
+                var downhtml,
+                    uphtml,
+                    prefixhtml = '<span class="input-group-addon bootstrap-touchspin-prefix">' + settings.prefix + '</span>',
+                    postfixhtml = '<span class="input-group-addon bootstrap-touchspin-postfix">' + settings.postfix + '</span>';
+
+                if (prev.hasClass("input-group-btn")) {
+                    downhtml = '<button class="btn btn-default bootstrap-touchspin-down" type="button">-</button>',
+                    prev.append(downhtml);
+                }
+                else {
+                    downhtml = '<span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-down" type="button">-</button></span>';
+                    $(downhtml).insertBefore(originalinput);
+                }
+
+                if (next.hasClass("input-group-btn")) {
+                    uphtml = '<button class="btn btn-default bootstrap-touchspin-up" type="button">+</button>',
+                    next.prepend(uphtml);
+                }
+                else {
+                    uphtml = '<span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-up" type="button">+</button></span>';
+                    $(uphtml).insertAfter(originalinput);
+                }
+
+                $(prefixhtml).insertBefore(originalinput);
+                $(postfixhtml).insertAfter(originalinput);
+
+                container = parentelement;
+            }
+
+            function _buildInputGroup() {
+                var html = '<div class="input-group bootstrap-touchspin"><span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-down" type="button">-</button></span><span class="input-group-addon bootstrap-touchspin-prefix">' + settings.prefix + '</span><span class="input-group-addon bootstrap-touchspin-postfix">' + settings.postfix + '</span><span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-up" type="button">+</button></span></div>';
 
                 container = $(html).insertBefore(originalinput);
 
                 $(".bootstrap-touchspin-prefix", container).after(originalinput);
-
-                $("<style type='text/css'>.bootstrap-touchspin-prefix:empty,.bootstrap-touchspin-postfix:empty{display:none;}</style>").appendTo("head");
 
                 originalinput.addClass("form-control");
             }
