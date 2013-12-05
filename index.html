@@ -43,11 +43,12 @@
 
             <div class="row">
                 <div class="col-md-4">
-                    <label for="demo1">Example with postfix:</label> <input id="demo1" type="text" value="55" name="demo1">
+                    <label for="demo1">Example with postfix (large):</label> <input id="demo1" type="text" value="55" name="demo1">
                 </div>
 
                 <div class="col-md-8">
 <pre class="prettyprint">
+&lt;input id=&quot;demo1&quot; type=&quot;text&quot; value=&quot;55&quot; name=&quot;demo1&quot;&gt;
 &lt;script&gt;
     $(&quot;input[name='demo1']&quot;).TouchSpin({
         min: 0,
@@ -75,7 +76,6 @@
 
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-md-4">
                     <form class="form-horizontal" role="form">
@@ -136,14 +136,17 @@
                 </div>
             </div>
 
+            <p>
+                Size of the whole controller can be set with applying <code>input-sm</code> or <code>input-lg</code> class on the input, or by applying the plugin on an input inside an <code>input-group</code> with the proper size class(<code>input-group-sm</code> or <code>input-group-lg</code>).
+            </p>
             <div class="row">
                 <div class="col-md-4">
-                    <label for="demo3">Button postfix:</label> <input id="demo4" type="text" value="" name="demo4">
+                    <label for="demo4">Button postfix (small):</label> <input id="demo4" type="text" value="" name="demo4" class="input-sm">
                 </div>
 
                 <div class="col-md-8">
 <pre class="prettyprint">
-&lt;input id=&quot;demo4&quot; type=&quot;text&quot; value=&quot;&quot; name=&quot;demo4&quot;&gt;
+&lt;input id=&quot;demo4&quot; type=&quot;text&quot; value=&quot;&quot; name=&quot;demo4&quot; class=&quot;input-sm&quot;&gt;
 &lt;script&gt;
     $(&quot;input[name='demo4']&quot;).TouchSpin({
         postfix: &quot;a button&quot;,
@@ -154,6 +157,37 @@
 
                     <script>
                         $("input[name='demo4']").TouchSpin({
+                            postfix: "a button",
+                            postfix_extraclass: "btn btn-default"
+                        });
+                    </script>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="demo4">Button postfix (large):</label>
+                    <div class="input-group input-group-lg">
+                        <input id="demo4_2" type="text" value="" name="demo4_2" class="form-control input-lg">
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+<pre class="prettyprint">
+&lt;div class=&quot;input-group input-group-lg&quot;&gt;
+    &lt;input id=&quot;demo4_2&quot; type=&quot;text&quot; value=&quot;&quot; name=&quot;demo4_2&quot; class=&quot;form-control input-lg&quot;&gt;
+&lt;/div&gt;
+&lt;script&gt;
+    $(&quot;input[name='demo4_2']&quot;).TouchSpin({
+        postfix: &quot;a button&quot;,
+        postfix_extraclass: &quot;btn btn-default&quot;
+    });
+&lt;/script&gt;
+</pre>
+
+                    <script>
+                        $("input[name='demo4_2']").TouchSpin({
                             postfix: "a button",
                             postfix_extraclass: "btn btn-default"
                         });

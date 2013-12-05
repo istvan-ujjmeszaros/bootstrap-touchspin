@@ -3,7 +3,7 @@
 
 /*!=========================================================================
  *  Bootstrap TouchSpin
- *  v2.0.0
+ *  v2.1.0
  *
  *  A mobile and touch friendly input spinner component for Bootstrap 3.
  *
@@ -166,6 +166,13 @@
                 $(".bootstrap-touchspin-prefix", container).after(originalinput);
 
                 originalinput.addClass("form-control");
+
+                if (originalinput.hasClass("input-sm")) {
+                    container.addClass("input-group-sm");
+                }
+                else if (originalinput.hasClass("input-lg")) {
+                    container.addClass("input-group-lg");
+                }
             }
 
             function _initElements() {
