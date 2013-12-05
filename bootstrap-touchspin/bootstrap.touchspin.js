@@ -111,6 +111,7 @@
                 }
 
                 originalinput.data("initvalue", initval).val(initval);
+                originalinput.addClass("form-control");
 
                 $("<style type='text/css'>.bootstrap-touchspin-prefix:empty,.bootstrap-touchspin-postfix:empty{display:none;}</style>").appendTo("head");
 
@@ -164,8 +165,6 @@
                 container = $(html).insertBefore(originalinput);
 
                 $(".bootstrap-touchspin-prefix", container).after(originalinput);
-
-                originalinput.addClass("form-control");
 
                 if (originalinput.hasClass("input-sm")) {
                     container.addClass("input-group-sm");
