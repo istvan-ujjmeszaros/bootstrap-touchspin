@@ -3,7 +3,7 @@
 
 /*!=========================================================================
  *  Bootstrap TouchSpin
- *  v2.1.0
+ *  v2.2.0
  *
  *  A mobile and touch friendly input spinner component for Bootstrap 3.
  *
@@ -94,7 +94,9 @@
                     booster: true,
                     boostat: 10,
                     maxboostedstep: false,
-                    mousewheel: true
+                    mousewheel: true,
+                    buttondown_class: "btn btn-default",
+                    buttonup_class: "btn btn-default"
                 }, options);
             }
 
@@ -136,20 +138,20 @@
                     postfixhtml = '<span class="input-group-addon bootstrap-touchspin-postfix">' + settings.postfix + '</span>';
 
                 if (prev.hasClass("input-group-btn")) {
-                    downhtml = '<button class="btn btn-default bootstrap-touchspin-down" type="button">-</button>',
+                    downhtml = '<button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">-</button>',
                     prev.append(downhtml);
                 }
                 else {
-                    downhtml = '<span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-down" type="button">-</button></span>';
+                    downhtml = '<span class="input-group-btn"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">-</button></span>';
                     $(downhtml).insertBefore(originalinput);
                 }
 
                 if (next.hasClass("input-group-btn")) {
-                    uphtml = '<button class="btn btn-default bootstrap-touchspin-up" type="button">+</button>',
+                    uphtml = '<button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">+</button>',
                     next.prepend(uphtml);
                 }
                 else {
-                    uphtml = '<span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-up" type="button">+</button></span>';
+                    uphtml = '<span class="input-group-btn"><button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">+</button></span>';
                     $(uphtml).insertAfter(originalinput);
                 }
 
@@ -160,7 +162,7 @@
             }
 
             function _buildInputGroup() {
-                var html = '<div class="input-group bootstrap-touchspin"><span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-down" type="button">-</button></span><span class="input-group-addon bootstrap-touchspin-prefix">' + settings.prefix + '</span><span class="input-group-addon bootstrap-touchspin-postfix">' + settings.postfix + '</span><span class="input-group-btn"><button class="btn btn-default bootstrap-touchspin-up" type="button">+</button></span></div>';
+                var html = '<div class="input-group bootstrap-touchspin"><span class="input-group-btn"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">-</button></span><span class="input-group-addon bootstrap-touchspin-prefix">' + settings.prefix + '</span><span class="input-group-addon bootstrap-touchspin-postfix">' + settings.postfix + '</span><span class="input-group-btn"><button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">+</button></span></div>';
 
                 container = $(html).insertBefore(originalinput);
 

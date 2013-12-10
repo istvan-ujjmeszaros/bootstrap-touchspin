@@ -257,6 +257,29 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="demo6">Change button class:</label> <input id="demo6" type="text" value="50" name="demo6">
+                </div>
+
+                <div class="col-md-8">
+<pre class="prettyprint">
+$(&quot;input[name='demo6']&quot;).TouchSpin({
+    buttondown_class: &quot;btn btn-link&quot;,
+    buttonup_class: &quot;btn btn-link&quot;
+});
+</pre>
+
+                    <script>
+                        $("input[name='demo6']").TouchSpin({
+                            buttondown_class: "btn btn-link",
+                            buttonup_class: "btn btn-link"
+                        });
+                    </script>
+
+                </div>
+            </div>
+
             <h2>Settings</h2>
             <table class="table table-striped table-bordered docs">
                 <thead>
