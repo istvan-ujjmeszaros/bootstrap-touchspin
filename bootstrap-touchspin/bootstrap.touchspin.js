@@ -105,7 +105,7 @@
             }
 
             function _buildHtml() {
-                var initval = originalinput.val(),
+                var initval = originalinput.val()||settings.min,
                     parentelement = originalinput.parent();
 
                 if (initval !== "") {
