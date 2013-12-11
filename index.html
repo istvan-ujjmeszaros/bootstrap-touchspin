@@ -136,6 +136,43 @@
                 </div>
             </div>
 
+            <div class="row">
+                <p>
+                    The <code>initval</code> setting is only applied when no explicit value is set on the input with the <code>value</code> attribute.
+                </p>
+                <div class="col-md-4">
+                    <label for="demo3_21">Value attribute is not set <small>(applying settings.initval)</small>:</label> <input id="demo3_21" type="text" value="" name="demo3_21">
+                    <label for="demo3_22">Value is set explicitly to 33 <small>(skipping settings.initval)</small>:</label> <input id="demo3_22" type="text" value="33" name="demo3_22">
+                </div>
+
+                <div class="col-md-8">
+<pre class="prettyprint">
+&lt;input id=&quot;demo3_21&quot; type=&quot;text&quot; value=&quot;&quot; name=&quot;demo3_21&quot;&gt;
+&lt;script&gt;
+    $(&quot;input[name='demo3_21']&quot;).TouchSpin({
+        initval: 40
+    });
+&lt;/script&gt;
+&lt;input id=&quot;demo3_22&quot; type=&quot;text&quot; value=&quot;33&quot; name=&quot;demo3_22&quot;&gt;
+&lt;script&gt;
+    $(&quot;input[name='demo3_22']&quot;).TouchSpin({
+        initval: 40
+    });
+&lt;/script&gt;
+</pre>
+
+                    <script>
+                        $("input[name='demo3_21']").TouchSpin({
+                            initval: 40
+                        });
+                        $("input[name='demo3_22']").TouchSpin({
+                            initval: 40
+                        });
+                    </script>
+
+                </div>
+            </div>
+
             <p>
                 Size of the whole controller can be set with applying <code>input-sm</code> or <code>input-lg</code> class on the input, or by applying the plugin on an input inside an <code>input-group</code> with the proper size class(<code>input-group-sm</code> or <code>input-group-lg</code>).
             </p>
