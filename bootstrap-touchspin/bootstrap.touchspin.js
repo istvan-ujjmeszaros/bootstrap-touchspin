@@ -137,21 +137,23 @@
                     prefixhtml = '<span class="input-group-addon bootstrap-touchspin-prefix">' + settings.prefix + '</span>',
                     postfixhtml = '<span class="input-group-addon bootstrap-touchspin-postfix">' + settings.postfix + '</span>';
 
+                var buttonDisabled = originalinput.prop('disabled')?' disabled="disabled"':'';
+					
                 if (prev.hasClass("input-group-btn")) {
-                    downhtml = '<button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">-</button>',
+                    downhtml = '<button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button"' + buttonDisabled + '>-</button>',
                     prev.append(downhtml);
                 }
                 else {
-                    downhtml = '<span class="input-group-btn"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">-</button></span>';
+                    downhtml = '<span class="input-group-btn"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button"' + buttonDisabled + '>-</button></span>';
                     $(downhtml).insertBefore(originalinput);
                 }
 
                 if (next.hasClass("input-group-btn")) {
-                    uphtml = '<button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">+</button>',
+                    uphtml = '<button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button"' + buttonDisabled + '>+</button>',
                     next.prepend(uphtml);
                 }
                 else {
-                    uphtml = '<span class="input-group-btn"><button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">+</button></span>';
+                    uphtml = '<span class="input-group-btn"><button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button"' + buttonDisabled + '>+</button></span>';
                     $(uphtml).insertAfter(originalinput);
                 }
 
@@ -162,7 +164,8 @@
             }
 
             function _buildInputGroup() {
-                var html = '<div class="input-group bootstrap-touchspin"><span class="input-group-btn"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">-</button></span><span class="input-group-addon bootstrap-touchspin-prefix">' + settings.prefix + '</span><span class="input-group-addon bootstrap-touchspin-postfix">' + settings.postfix + '</span><span class="input-group-btn"><button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">+</button></span></div>';
+                var buttonDisabled = originalinput.prop('disabled')?' disabled="disabled"':'';                
+				var html = '<div class="input-group bootstrap-touchspin"><span class="input-group-btn"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button"' + buttonDisabled + '>-</button></span><span class="input-group-addon bootstrap-touchspin-prefix">' + settings.prefix + '</span><span class="input-group-addon bootstrap-touchspin-postfix">' + settings.postfix + '</span><span class="input-group-btn"><button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button"' + buttonDisabled + '>+</button></span></div>';
 
                 container = $(html).insertBefore(originalinput);
 
