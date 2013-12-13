@@ -34,10 +34,33 @@
 
     $.fn.TouchSpin = function(options) {
 
+        var defaults = {
+            min: 0,
+            max: 100,
+            initval: "",
+            step: 1,
+            decimals: 0,
+            stepinterval: 100,
+            stepintervaldelay: 500,
+            prefix: "",
+            postfix: "",
+            prefix_extraclass: "",
+            postfix_extraclass: "",
+            booster: true,
+            boostat: 10,
+            maxboostedstep: false,
+            mousewheel: true,
+            buttondown_class: "btn btn-default",
+            buttonup_class: "btn btn-default"
+        };
+
+        options = $.extend({}, defaults, options);
+
         return this.each(function() {
 
             var settings,
                 originalinput = $(this),
+                originalinput_data = originalinput.data(),
                 container,
                 elements,
                 value,
@@ -50,8 +73,7 @@
 
             init();
 
-            function init()
-            {
+            function init() {
                 if (originalinput.data("alreadyinitialized")) {
                     return;
                 }
@@ -87,25 +109,7 @@
             }
 
             function _initSettings() {
-                settings = $.extend({
-                    min: 0,
-                    max: 100,
-                    initval: "",
-                    step: 1,
-                    decimals: 0,
-                    stepinterval: 100,
-                    stepintervaldelay: 500,
-                    prefix: "",
-                    postfix: "",
-                    prefix_extraclass: "",
-                    postfix_extraclass: "",
-                    booster: true,
-                    boostat: 10,
-                    maxboostedstep: false,
-                    mousewheel: true,
-                    buttondown_class: "btn btn-default",
-                    buttonup_class: "btn btn-default"
-                }, options);
+                settings = $.extend({}, options, originalinput_data);
             }
 
             function _updateSettings(newsettings) {
@@ -225,7 +229,7 @@
                     }
                 });
 
-                originalinput.blur(function() {
+                originalinput.on("blur", function() {
                     _checkValue();
                 });
 
@@ -340,7 +344,7 @@
                 });
 
                 if (settings.mousewheel) {
-                    originalinput.bind("mousewheel DOMMouseScroll", function(ev) {
+                    originalinput.on("mousewheel DOMMouseScroll", function(ev) {
                         var delta = ev.originalEvent.wheelDelta || -ev.originalEvent.detail;
 
                         ev.stopPropagation();
