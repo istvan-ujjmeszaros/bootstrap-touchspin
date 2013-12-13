@@ -54,8 +54,6 @@
             buttonup_class: "btn btn-default"
         };
 
-        options = $.extend({}, defaults, options);
-
         return this.each(function() {
 
             var settings,
@@ -109,7 +107,7 @@
             }
 
             function _initSettings() {
-                settings = $.extend({}, options, originalinput_data);
+                settings = $.extend({}, defaults, originalinput_data, options);
             }
 
             function _updateSettings(newsettings) {
