@@ -3,7 +3,7 @@
 
 /*!=========================================================================
  *  Bootstrap TouchSpin
- *  v2.3.0
+ *  v2.4.0
  *
  *  A mobile and touch friendly input spinner component for Bootstrap 3.
  *
@@ -14,6 +14,7 @@
  *
  *  Thanks for the contributors:
  *      Stefan Bauer - https://github.com/sba
+ *      amid2887 - https://github.com/amid2887
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
