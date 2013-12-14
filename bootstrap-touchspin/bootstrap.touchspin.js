@@ -3,7 +3,7 @@
 
 /*!=========================================================================
  *  Bootstrap TouchSpin
- *  v2.4.0
+ *  v2.5.0
  *
  *  A mobile and touch friendly input spinner component for Bootstrap 3.
  *
@@ -42,6 +42,7 @@
             step: 1,
             decimals: 0,
             stepinterval: 100,
+            forcestepdivisibility: 'round',  // none | floor | round | ceil
             stepintervaldelay: 500,
             prefix: "",
             postfix: "",
@@ -387,6 +388,22 @@
                 });
             }
 
+            function _forcestepdivisibility(value) {
+                switch(settings.forcestepdivisibility) {
+                    case 'round':
+                        return (Math.round(value / settings.step) * settings.step).toFixed(settings.decimals);
+                        break;
+                    case 'floor':
+                        return (Math.floor(value / settings.step) * settings.step).toFixed(settings.decimals);
+                        break;
+                    case 'ceil':
+                        return (Math.ceil(value / settings.step) * settings.step).toFixed(settings.decimals);
+                        break;
+                    default:
+                        return value;
+                }
+            }
+
             function _checkValue() {
                 var val, parsedval, returnval;
 
@@ -419,6 +436,8 @@
                 if (parsedval > settings.max) {
                     returnval = settings.max;
                 }
+
+                returnval = _forcestepdivisibility(returnval);
 
                 if (Number(val).toString() !== returnval.toString()) {
                     originalinput.val(returnval);
