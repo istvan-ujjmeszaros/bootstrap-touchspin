@@ -3,7 +3,7 @@
 
 /*!=========================================================================
  *  Bootstrap TouchSpin
- *  v2.5.0
+ *  v2.5.1
  *
  *  A mobile and touch friendly input spinner component for Bootstrap 3.
  *
@@ -90,8 +90,10 @@
                 _checkValue();
                 _buildHtml();
                 _initElements();
+                _hideEmptyPrefixPostfix();
                 _bindEvents();
                 _bindEventsInterface();
+                elements.input.css("display", "block");
             }
 
             function _setInitval() {
@@ -127,15 +129,12 @@
                 originalinput.data("initvalue", initval).val(initval);
                 originalinput.addClass("form-control");
 
-                $("<style type='text/css'>.bootstrap-touchspin-prefix:empty,.bootstrap-touchspin-postfix:empty{display:none;}</style>").appendTo("head");
-
                 if (parentelement.hasClass("input-group")) {
                     _advanceInputGroup(parentelement);
                 }
                 else {
                     _buildInputGroup();
                 }
-
             }
 
             function _advanceInputGroup(parentelement) {
@@ -196,6 +195,16 @@
                     prefix: $(".bootstrap-touchspin-prefix", container).addClass(settings.prefix_extraclass),
                     postfix: $(".bootstrap-touchspin-postfix", container).addClass(settings.postfix_extraclass)
                 };
+            }
+
+            function _hideEmptyPrefixPostfix() {
+                if (settings.prefix == "") {
+                    elements.prefix.hide();
+                }
+
+                if (settings.postfix == "") {
+                    elements.postfix.hide();
+                }
             }
 
             function _bindEvents() {
