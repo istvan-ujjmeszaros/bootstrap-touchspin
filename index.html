@@ -20,7 +20,6 @@
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <script src="libraries/prettify/prettify.js"></script>
         <script src="bootstrap-touchspin/bootstrap.touchspin.js"></script>
-
     </head>
 
     <body>
@@ -317,6 +316,58 @@ $(&quot;input[name='demo6']&quot;).TouchSpin({
                 </div>
             </div>
 
+            <h3>Event demo</h3>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <input id="demo7" type="text" value="50" name="demo7">
+                </div>
+                <div class="col-md-9">
+                    <pre id="demo7textarea" style="height:200px;overflow:auto;"></pre>
+                </div>
+
+                <script>
+                    var i = $("input[name='demo7']"),
+                        demoarea = $("#demo7textarea"),
+                        text = "";
+
+                    function writeLine(line) {
+                        text += line + "\n";
+                        demoarea.text(text);
+                        demoarea.scrollTop(
+                            demoarea[0].scrollHeight - demoarea.height()
+                        );
+                    }
+
+                    i.TouchSpin({});
+                    i.on("touchspin.on.startspin", function() {
+                        writeLine("touchspin.on.startspin");
+                    });
+                    i.on("touchspin.on.startupspin", function() {
+                        writeLine("touchspin.on.startupspin");
+                    });
+                    i.on("touchspin.on.startdownspin", function() {
+                        writeLine("touchspin.on.startdownspin");
+                    });
+                    i.on("touchspin.on.stopspin", function() {
+                        writeLine("touchspin.on.stopspin");
+                    });
+                    i.on("touchspin.on.stopupspin", function() {
+                        writeLine("touchspin.on.stopupspin");
+                    });
+                    i.on("touchspin.on.stopdownspin", function() {
+                        writeLine("touchspin.on.stopdownspin");
+                    });
+                    i.on("touchspin.on.min", function() {
+                        writeLine("touchspin.on.min");
+                    });
+                    i.on("touchspin.on.max", function() {
+                        writeLine("touchspin.on.max");
+                    });
+                </script>
+
+            </div>
+
             <h2>Settings</h2>
             <table class="table table-striped table-bordered docs">
                 <thead>
@@ -439,11 +490,35 @@ $(&quot;input[name='demo6']&quot;).TouchSpin({
                         <td>Triggered when the value is changed with one of the buttons (but not triggered when the spinner hits the limit set by <code>settings.min</code> or <code>settings.max</code>.</td>
                     </tr>
                     <tr>
-                        <td><code>touchspin.min</code></td>
+                        <td><code>touchspin.on.startspin</code></td>
+                        <td>Triggered when the spinner starts spinning upwards or downwards.</td>
+                    </tr>
+                    <tr>
+                        <td><code>touchspin.on.startupspin</code></td>
+                        <td>Triggered when the spinner starts spinning upwards.</td>
+                    </tr>
+                    <tr>
+                        <td><code>touchspin.on.startdownspin</code></td>
+                        <td>Triggered when the spinner starts spinning downwards.</td>
+                    </tr>
+                    <tr>
+                        <td><code>touchspin.on.stopspin</code></td>
+                        <td>Triggered when the spinner stops spinning.</td>
+                    </tr>
+                    <tr>
+                        <td><code>touchspin.on.stopupspin</code></td>
+                        <td>Triggered when the spinner stops upspinning.</td>
+                    </tr>
+                    <tr>
+                        <td><code>touchspin.on.stopdownspin</code></td>
+                        <td>Triggered when the spinner stops downspinning.</td>
+                    </tr>
+                    <tr>
+                        <td><code>touchspin.on.min</code></td>
                         <td>Triggered when the spinner hits the limit set by <code>settings.min</code>.</td>
                     </tr>
                     <tr>
-                        <td><code>touchspin.max</code></td>
+                        <td><code>touchspin.on.max</code></td>
                         <td>Triggered when the spinner hits the limit set by <code>settings.max</code>.</td>
                     </tr>
                 </tbody>

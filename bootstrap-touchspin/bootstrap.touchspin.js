@@ -3,7 +3,7 @@
 
 /*!=========================================================================
  *  Bootstrap TouchSpin
- *  v2.6.1
+ *  v2.6.2
  *
  *  A mobile and touch friendly input spinner component for Bootstrap 3.
  *
@@ -380,7 +380,7 @@
                     downOnce();
                 });
 
-                originalinput.on('touchspin.startupspin', function() {
+                originalinput.on('touchspin.startupspin', function(e) {
                     startUpSpin();
                 });
 
@@ -486,9 +486,9 @@
                 value =  value + boostedstep;
 
                 if (value > settings.max) {
-                    stopSpin();
                     value = settings.max;
-                    originalinput.trigger("touchspin.max");
+                    originalinput.trigger("touchspin.on.max");
+                    stopSpin();
                 }
 
                 elements.input.val(Number(value).toFixed(settings.decimals));
@@ -512,9 +512,9 @@
                 value = value - boostedstep;
 
                 if (value < settings.min) {
-                    stopSpin();
                     value = settings.min;
-                    originalinput.trigger("touchspin.min");
+                    originalinput.trigger("touchspin.on.min");
+                    stopSpin();
                 }
 
                 elements.input.val(value.toFixed(settings.decimals));
@@ -530,6 +530,9 @@
                 spincount = 0;
                 spinning = "down";
 
+                originalinput.trigger("touchspin.on.startspin");
+                originalinput.trigger("touchspin.on.startdownspin");
+
                 downDelayTimeout = setTimeout(function() {
                     downSpinTimer = setInterval(function() {
                         spincount++;
@@ -544,6 +547,9 @@
                 spincount = 0;
                 spinning = "up";
 
+                originalinput.trigger("touchspin.on.startspin");
+                originalinput.trigger("touchspin.on.startupspin");
+
                 upDelayTimeout = setTimeout(function() {
                     upSpinTimer = setInterval(function() {
                         spincount++;
@@ -557,6 +563,17 @@
                 clearTimeout(upDelayTimeout);
                 clearInterval(downSpinTimer);
                 clearInterval(upSpinTimer);
+
+                switch(spinning) {
+                    case "up":
+                        originalinput.trigger("touchspin.on.stopupspin");
+                        originalinput.trigger("touchspin.on.stopspin");
+                        break;
+                    case "down":
+                        originalinput.trigger("touchspin.on.stopdownspin");
+                        originalinput.trigger("touchspin.on.stopspin");
+                        break;
+                }
 
                 spincount = 0;
                 spinning = false;
