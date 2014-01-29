@@ -3,7 +3,7 @@
 
 /*!=========================================================================
  *  Bootstrap TouchSpin
- *  v2.5.1
+ *  v2.6.0
  *
  *  A mobile and touch friendly input spinner component for Bootstrap 3.
  *
@@ -530,6 +530,9 @@
                 spincount = 0;
                 spinning = "down";
 
+                originalinput.trigger("touchspin.startspin");
+                originalinput.trigger("touchspin.startdownspin");
+
                 downDelayTimeout = setTimeout(function() {
                     downSpinTimer = setInterval(function() {
                         spincount++;
@@ -544,6 +547,9 @@
                 spincount = 0;
                 spinning = "up";
 
+                originalinput.trigger("touchspin.startspin");
+                originalinput.trigger("touchspin.startupspin");
+
                 upDelayTimeout = setTimeout(function() {
                     upSpinTimer = setInterval(function() {
                         spincount++;
@@ -557,6 +563,8 @@
                 clearTimeout(upDelayTimeout);
                 clearInterval(downSpinTimer);
                 clearInterval(upSpinTimer);
+
+                originalinput.trigger("touchspin.stopspin");
 
                 spincount = 0;
                 spinning = false;
