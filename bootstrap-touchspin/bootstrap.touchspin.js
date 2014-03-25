@@ -33,7 +33,35 @@
 (function($) {
     "use strict";
 
+    var _currentSpinnerId = 0;
+
+    function _scopedEventName(name, id) {
+        return name + ".touchspin_" + id;
+    }
+
+    function _scopeEventNames(names, id) {
+        return $.map(names, function(name) {
+            return _scopedEventName(name, id);
+        });
+    }
+
     $.fn.TouchSpin = function(options) {
+
+        if (options === "destroy") {
+            this.each(function() {
+                var originalinput = $(this),
+                    originalinput_data = originalinput.data();
+                $(document).off(_scopeEventNames([
+                    "mouseup",
+                    "touchend",
+                    "touchcancel",
+                    "mousemove",
+                    "touchmove", 
+                    "scroll", 
+                    "scrollstart"], originalinput_data.spinnerid).join(" "));
+            });
+            return;
+        }
 
         var defaults = {
             min: 0,
@@ -72,6 +100,7 @@
                 spinning = false;
 
             init();
+            
 
             function init() {
                 if (originalinput.data("alreadyinitialized")) {
@@ -79,6 +108,9 @@
                 }
 
                 originalinput.data("alreadyinitialized", true);
+                _currentSpinnerId +=1;
+                originalinput.data("spinnerid", _currentSpinnerId);
+
 
                 if (!originalinput.is("input")) {
                     console.log("Must be an input.");
@@ -334,7 +366,7 @@
                     ev.preventDefault();
                 });
 
-                $(document).on("mouseup touchend touchcancel", function(ev) {
+                $(document).on(_scopeEventNames(["mouseup", "touchend", "touchcancel"], _currentSpinnerId).join(" "), function(ev) {
                     if (!spinning) {
                         return;
                     }
@@ -343,7 +375,7 @@
                     stopSpin();
                 });
 
-                $(document).on("mousemove touchmove scroll scrollstart", function(ev) {
+                $(document).on(_scopeEventNames(["mousemove", "touchmove", "scroll", "scrollstart"], _currentSpinnerId).join(" "), function(ev) {
                     if (!spinning) {
                         return;
                     }
