@@ -100,6 +100,7 @@
                 spinning = false;
 
             init();
+            
 
             function init() {
                 if (originalinput.data("alreadyinitialized")) {
@@ -107,6 +108,9 @@
                 }
 
                 originalinput.data("alreadyinitialized", true);
+                _currentSpinnerId +=1;
+                originalinput.data("spinnerid", _currentSpinnerId);
+
 
                 if (!originalinput.is("input")) {
                     console.log("Must be an input.");
