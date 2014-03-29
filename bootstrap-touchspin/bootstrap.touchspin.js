@@ -3,7 +3,7 @@
 
 /*!=========================================================================
  *  Bootstrap TouchSpin
- *  v2.7.0
+ *  v2.7.1
  *
  *  A mobile and touch friendly input spinner component for Bootstrap 3.
  *
@@ -138,8 +138,12 @@
                 _updateSettings(newsettings);
                 _checkValue();
 
-                var value = Number(elements.input.val());
-                elements.input.val(value.toFixed(settings.decimals));
+                var value = elements.input.val();
+
+                if (value !== "") {
+                    value = Number(elements.input.val());
+                    elements.input.val(value.toFixed(settings.decimals));
+                }
             }
 
             function _initSettings() {
