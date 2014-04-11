@@ -179,7 +179,6 @@
                         data[key] = originalinput.data(attrName);
                     }
                 });
-                console.log(data);
                 return data;
             }
 
