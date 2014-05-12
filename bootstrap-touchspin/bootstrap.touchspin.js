@@ -422,7 +422,7 @@
 
         if (settings.mousewheel) {
           originalinput.on('mousewheel DOMMouseScroll', function(ev) {
-            var delta = ev.originalEvent.wheelDelta || -ev.originalEvent.detail;
+            var delta = ev.originalEvent.wheelDelta || -ev.originalEvent.deltaY || -ev.originalEvent.detail;
 
             ev.stopPropagation();
             ev.preventDefault();
