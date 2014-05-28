@@ -10,21 +10,22 @@
     <meta itemprop="name" content="Bootstrap Touchspin">
     <meta itemprop="description" content="A mobile and touch friendly input spinner component for Bootstrap 3.">
 
-    <link rel="shortcut icon" href="libraries/favicon.ico">
+    <link rel="shortcut icon" href="favicon.ico">
 
-    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
-    <link href="libraries/prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
-    <link href="libraries/demo.css" rel="stylesheet" type="text/css" media="all">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../src/bootstrap-touchspin.css" rel="stylesheet" type="text/css" media="all">
+    <link href="demo.css" rel="stylesheet" type="text/css" media="all">
 
-    <script src="libraries/jquery-1.9.0.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="libraries/prettify/prettify.js"></script>
-    <script src="bootstrap-touchspin/bootstrap.touchspin.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+    <script src="../src/bootstrap.touchspin.js"></script>
 </head>
 
 <body>
 <div class="container">
-<div class="hero-unit">
+  <div class="hero-unit">
 
     <h1>Bootstrap TouchSpin</h1>
 
@@ -103,6 +104,58 @@
 
         <script>
             $("input[name='demo0']").TouchSpin({
+            });
+        </script>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <label for="demo_vertical">Vertical button alignment:</label> <input id="demo3" type="text" value="" name="demo_vertical">
+    </div>
+
+    <div class="col-md-7">
+<pre class="prettyprint">
+&lt;input id=&quot;demo_vertical&quot; type=&quot;text&quot; value=&quot;&quot; name=&quot;demo_vertical&quot;&gt;
+&lt;script&gt;
+    $(&quot;input[name='demo_vertical']&quot;).TouchSpin({
+      verticalbuttons: true
+    });
+&lt;/script&gt;
+</pre>
+
+        <script>
+            $("input[name='demo_vertical']").TouchSpin({
+              verticalbuttons: true
+            });
+        </script>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <label for="demo_vertical2">Vertical buttons with custom icons:</label> <input id="demo3" type="text" value="" name="demo_vertical2">
+    </div>
+
+    <div class="col-md-7">
+<pre class="prettyprint">
+&lt;input id=&quot;demo_vertical2&quot; type=&quot;text&quot; value=&quot;&quot; name=&quot;demo_vertical2&quot;&gt;
+&lt;script&gt;
+    $(&quot;input[name='demo_vertical2']&quot;).TouchSpin({
+      verticalbuttons: true,
+      verticalupclass: 'glyphicon glyphicon-plus',
+      verticaldownclass: 'glyphicon glyphicon-minus'
+    });
+&lt;/script&gt;
+</pre>
+
+        <script>
+            $("input[name='demo_vertical2']").TouchSpin({
+              verticalbuttons: true,
+              verticalupclass: 'glyphicon glyphicon-plus',
+              verticaldownclass: 'glyphicon glyphicon-minus'
             });
         </script>
 
