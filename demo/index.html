@@ -453,6 +453,27 @@ $(&quot;input[name='demo6']&quot;).TouchSpin({
     </div>
 </div>
 
+<div class="row">
+    <div class="col-md-5">
+        <label for="demo7">Change button class:</label> <input id="demo7" type="text" value="50" name="demo7">
+    </div>
+
+    <div class="col-md-7">
+<pre class="prettyprint">
+$(&quot;input[name='demo7']&quot;).TouchSpin({
+    emptyval: 0
+});
+</pre>
+
+        <script>
+            $("input[name='demo7']").TouchSpin({
+                emptyval: 0
+            });
+        </script>
+
+    </div>
+</div>
+
 <h3>Event demo</h3>
 
 <div class="row">
@@ -520,6 +541,12 @@ $(&quot;input[name='demo6']&quot;).TouchSpin({
         <td><code>""</code></td>
         <td>Applied when no explicit value is set on the input with the <code>value</code> attribute. Empty string means
             that the value remains empty on initialization.
+        </td>
+    </tr>
+    <tr>
+        <td><code>emptyval</code></td>
+        <td><code>""</code></td>
+        <td>Applied when user leaves the field empty/blank or enters non-number. Empty string means that the value will not be changed.
         </td>
     </tr>
     <tr>

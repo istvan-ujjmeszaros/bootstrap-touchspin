@@ -35,6 +35,7 @@
       min: 0,
       max: 100,
       initval: '',
+      emptyval: '',
       step: 1,
       decimals: 0,
       stepinterval: 100,
@@ -59,6 +60,7 @@
       min: 'min',
       max: 'max',
       initval: 'init-val',
+      emptyval: 'empty-val',
       step: 'step',
       decimals: 'decimals',
       stepinterval: 'step-interval',
@@ -506,10 +508,6 @@
 
         val = originalinput.val();
 
-        if (val === '') {
-          return;
-        }
-
         if (settings.decimals > 0 && val === '.') {
           return;
         }
@@ -517,7 +515,12 @@
         parsedval = parseFloat(val);
 
         if (isNaN(parsedval)) {
-          parsedval = 0;
+          if (settings.emptyval === '') {
+            return;
+          }
+          else {
+            parsedval = settings.emptyval;
+          }
         }
 
         returnval = parsedval;
