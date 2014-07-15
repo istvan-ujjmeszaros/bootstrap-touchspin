@@ -508,6 +508,14 @@
 
         val = originalinput.val();
 
+        if (val === '') {
+          if (settings.emptyval !== '') {
+            originalinput.val(settings.emptyval);
+            originalinput.trigger('change');
+          }
+          return;
+        }
+
         if (settings.decimals > 0 && val === '.') {
           return;
         }
@@ -515,11 +523,11 @@
         parsedval = parseFloat(val);
 
         if (isNaN(parsedval)) {
-          if (settings.emptyval === '') {
-            return;
+          if (settings.emptyval !== '') {
+            parsedval = settings.emptyval;
           }
           else {
-            parsedval = settings.emptyval;
+            parsedval = 0;
           }
         }
 
