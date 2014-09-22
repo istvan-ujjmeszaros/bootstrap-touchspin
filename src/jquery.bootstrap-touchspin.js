@@ -35,6 +35,7 @@
       min: 0,
       max: 100,
       initval: '',
+      replacementval: '',
       step: 1,
       decimals: 0,
       stepinterval: 100,
@@ -61,6 +62,7 @@
       min: 'min',
       max: 'max',
       initval: 'init-val',
+      replacementval: 'replacement-val',
       step: 'step',
       decimals: 'decimals',
       stepinterval: 'step-interval',
@@ -511,6 +513,10 @@
         val = originalinput.val();
 
         if (val === '') {
+          if (settings.replacementval !== '') {
+            originalinput.val(settings.replacementval);
+            originalinput.trigger('change');
+          }
           return;
         }
 
@@ -521,7 +527,12 @@
         parsedval = parseFloat(val);
 
         if (isNaN(parsedval)) {
-          parsedval = 0;
+          if (settings.replacementval !== '') {
+            parsedval = settings.replacementval;
+          }
+          else {
+            parsedval = 0;
+          }
         }
 
         returnval = parsedval;
