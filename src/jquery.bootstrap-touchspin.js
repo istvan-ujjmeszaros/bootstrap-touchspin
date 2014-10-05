@@ -497,14 +497,14 @@
       function _forcestepdivisibility(value) {
         switch (settings.forcestepdivisibility) {
           case 'round':
-            return (Math.round(value / settings.step) * settings.step).toFixed(settings.decimals);
+            return (Math.round((value - settings.min) / settings.step) * settings.step + settings.min).toFixed(settings.decimals);
           case 'floor':
-            return (Math.floor(value / settings.step) * settings.step).toFixed(settings.decimals);
+            return (Math.floor((value - settings.min) / settings.step) * settings.step + settings.min).toFixed(settings.decimals);
           case 'ceil':
-            return (Math.ceil(value / settings.step) * settings.step).toFixed(settings.decimals);
+            return (Math.ceil((value - settings.min) / settings.step) * settings.step + settings.min).toFixed(settings.decimals);
           default:
             return value;
-        }
+          }
       }
 
       function _checkValue() {
