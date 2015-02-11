@@ -299,7 +299,7 @@
           }
         });
 
-        originalinput.on('blur', function() {
+        originalinput.on('change', function() {
           _checkValue();
         });
 
