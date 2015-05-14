@@ -620,7 +620,7 @@
           stopSpin();
         }
 
-        elements.input.val(value.toFixed(settings.decimals));
+        elements.input.val(Number(value).toFixed(settings.decimals));
 
         if (initvalue !== value) {
           originalinput.trigger('change');
