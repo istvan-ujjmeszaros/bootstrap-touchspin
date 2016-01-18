@@ -1,12 +1,12 @@
 Bootstrap TouchSpin
-v1.0.0
+v3.1.1
 
 A mobile and touch friendly input spinner component for Bootstrap 3.
 
     https://github.com/istvan-meszaros/bootstrap-touchspin
     http://www.virtuosoft.eu/code/bootstrap-touchspin/
 
-Copyright 2013 István Ujj-Mészáros
+Copyright 2013-2015 István Ujj-Mészáros
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
