@@ -531,9 +531,9 @@
         parsedval = parseFloat(val);
 
         if (isNaN(parsedval)) {
-          if (settings.replacementmin && val == settings.replacementmin) {
+          if (settings.replacementmin && val === settings.replacementmin) {
             parsedval = settings.replacementmin;
-          } else if (settings.replacementmax && val == settings.replacementmax) {
+          } else if (settings.replacementmax && val === settings.replacementmax) {
             parsedval = settings.replacementmax;
           } else {
             parsedval = settings.replacementval ? settings.replacementval : 0;
@@ -584,7 +584,7 @@
         _checkValue();
 
         value = parseFloat(elements.input.val());
-        if (isNaN(value) && value != value.replacementmin) {
+        if (isNaN(value) && value !== value.replacementmin) {
           value = 0;
         }
 
@@ -595,7 +595,7 @@
           value = value + boostedstep;
         }
 
-        if (value > settings.max || value == settings.replacementmax) {
+        if (value > settings.max || value === settings.replacementmax) {
           value = settings.max;
           originalinput.trigger('touchspin.on.max');
           stopSpin();
@@ -615,7 +615,7 @@
         _checkValue();
 
         value = parseFloat(elements.input.val());
-        if (isNaN(value) && value != value.replacementmin) {
+        if (isNaN(value) && value !== value.replacementmin) {
           value = 0;
         }
 
@@ -626,7 +626,7 @@
           value = value - boostedstep;
         }
 
-        if (value < settings.min || value == settings.replacementmin) {
+        if (value < settings.min || value === settings.replacementmin) {
           value = settings.min;
           originalinput.trigger('touchspin.on.min');
           stopSpin();
