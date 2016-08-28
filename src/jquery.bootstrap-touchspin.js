@@ -164,6 +164,15 @@
 
       function _updateSettings(newsettings) {
         settings = $.extend({}, settings, newsettings);
+
+
+        // Update postfix and prefix texts if those settings were changed.
+        if (newsettings.postfix) {
+          originalinput.parent().find('.bootstrap-touchspin-postfix').text(newsettings.postfix);
+        }
+        if (newsettings.prefix) {
+          originalinput.parent().find('.bootstrap-touchspin-prefix').text(newsettings.prefix);
+        }
       }
 
       function _buildHtml() {
