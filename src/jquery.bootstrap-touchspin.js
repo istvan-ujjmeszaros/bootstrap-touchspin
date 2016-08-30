@@ -36,6 +36,8 @@
       max: 100,
       initval: '',
       replacementval: '',
+      replacementmin: '',
+      replacementmax: '',
       step: 1,
       decimals: 0,
       stepinterval: 100,
@@ -63,6 +65,8 @@
       max: 'max',
       initval: 'init-val',
       replacementval: 'replacement-val',
+      replacementmin: 'replacement-min',
+      replacementmax: 'replacement-max',
       step: 'step',
       decimals: 'decimals',
       stepinterval: 'step-interval',
@@ -535,11 +539,12 @@
         parsedval = parseFloat(val);
 
         if (isNaN(parsedval)) {
-          if (settings.replacementval !== '') {
-            parsedval = settings.replacementval;
-          }
-          else {
-            parsedval = 0;
+          if (settings.replacementmin && val === settings.replacementmin) {
+            parsedval = settings.replacementmin;
+          } else if (settings.replacementmax && val === settings.replacementmax) {
+            parsedval = settings.replacementmax;
+          } else {
+            parsedval = settings.replacementval ? settings.replacementval : 0;
           }
         }
 
@@ -549,12 +554,12 @@
           returnval = parsedval;
         }
 
-        if (parsedval < settings.min) {
-          returnval = settings.min;
+        if (parsedval <= settings.min) {
+          returnval = settings.replacementmin ? settings.replacementmin : settings.min;
         }
 
-        if (parsedval > settings.max) {
-          returnval = settings.max;
+        if (parsedval >= settings.max) {
+          returnval = settings.replacementmax ? settings.replacementmax : settings.max;
         }
 
         returnval = _forcestepdivisibility(returnval);
@@ -587,22 +592,27 @@
         _checkValue();
 
         value = parseFloat(elements.input.val());
-        if (isNaN(value)) {
+        if (isNaN(value) && value !== value.replacementmin) {
           value = 0;
         }
 
         var initvalue = value,
             boostedstep = _getBoostedStep();
 
-        value = value + boostedstep;
+        if (!isNaN(value)) {
+          value = value + boostedstep;
+        }
 
-        if (value > settings.max) {
+        if (value > settings.max || value === settings.replacementmax) {
           value = settings.max;
           originalinput.trigger('touchspin.on.max');
           stopSpin();
+          return;
         }
 
-        elements.input.val(Number(value).toFixed(settings.decimals));
+        if (!isNaN(value)) {
+          elements.input.val(Number(value).toFixed(settings.decimals));
+        }
 
         if (initvalue !== value) {
           originalinput.trigger('change');
@@ -613,22 +623,27 @@
         _checkValue();
 
         value = parseFloat(elements.input.val());
-        if (isNaN(value)) {
+        if (isNaN(value) && value !== value.replacementmin) {
           value = 0;
         }
 
         var initvalue = value,
             boostedstep = _getBoostedStep();
 
-        value = value - boostedstep;
+        if (!isNaN(value)) {
+          value = value - boostedstep;
+        }
 
-        if (value < settings.min) {
+        if (value < settings.min || value === settings.replacementmin) {
           value = settings.min;
           originalinput.trigger('touchspin.on.min');
           stopSpin();
+          return;
         }
 
-        elements.input.val(value.toFixed(settings.decimals));
+        if (!isNaN(value)) {
+          elements.input.val(Number(value).toFixed(settings.decimals));
+        }
 
         if (initvalue !== value) {
           originalinput.trigger('change');
