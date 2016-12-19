@@ -623,7 +623,7 @@
         value = value - boostedstep;
 
         if (value < settings.min) {
-          value = settings.min;
+          value = parseFloat(settings.min);
           originalinput.trigger('touchspin.on.min');
           stopSpin();
         }
