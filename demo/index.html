@@ -474,6 +474,54 @@ $(&quot;input[name='demo7']&quot;).TouchSpin({
     </div>
 </div>
 
+<h4>Disabling boundaries</h4>
+<p>By setting the min or max option to NULL no limit is enfored to the particular boundary.</p>
+<div class="row">
+    <div class="col-md-5">
+        <label for="demo8-1">via init option:</label> <input id="demo8-1" type="text" value="1234567890" name="demo8-1">
+    </div>
+
+    <div class="col-md-7">
+<pre class="prettyprint">
+&lt;input id="demo8-1" type="text" value="1234567890" name="demo8-1">
+&lt;script>
+    $(&quot;input[name='demo8-1']&quot;).TouchSpin({
+        min: null,
+        max: null
+    });
+&lt;/script>
+</pre>
+
+        <script>
+            $("input[name='demo8-1']").TouchSpin({
+                min: null,
+                max: null
+            });
+        </script>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <label for="demo8-2">via data-attribute:</label> <input id="demo8-2" type="text" value="1234567890" name="demo8-2" data-min="null" data-max="null">
+    </div>
+
+    <div class="col-md-7">
+<pre class="prettyprint">
+&lt;input id="demo8-2" type="text" value="1234567890" name="demo8-2" data-min="null" data-max="null">
+&lt;script>
+    $(&quot;input[name='demo8-2']&quot;).TouchSpin();
+&lt;/script>
+</pre>
+
+        <script>
+            $("input[name='demo8-2']").TouchSpin();
+        </script>
+
+    </div>
+</div>
+
 <h3>Event demo</h3>
 
 <div class="row">
