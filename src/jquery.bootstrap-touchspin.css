@@ -17,9 +17,19 @@
   position: relative;
 }
 
+.rtl .bootstrap-touchspin .input-group-btn-vertical > .btn {
+  margin-left: auto;
+  margin-right: -1px;
+}
+
 .bootstrap-touchspin .input-group-btn-vertical .bootstrap-touchspin-up {
   border-radius: 0;
   border-top-right-radius: 4px;
+}
+
+.rtl .bootstrap-touchspin .input-group-btn-vertical .bootstrap-touchspin-up {
+  border-top-right-radius: 0;
+  border-top-left-radius: 4px;
 }
 
 .bootstrap-touchspin .input-group-btn-vertical .bootstrap-touchspin-down {
@@ -28,10 +38,20 @@
   border-bottom-right-radius: 4px;
 }
 
+.rtl .bootstrap-touchspin .input-group-btn-vertical .bootstrap-touchspin-down {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 4px;
+}
+
 .bootstrap-touchspin .input-group-btn-vertical i {
   position: absolute;
   top: 3px;
   left: 5px;
   font-size: 9px;
   font-weight: normal;
+}
+
+.rtl .bootstrap-touchspin .input-group-btn-vertical i {
+  left: auto;
+  right: 5px;
 }
