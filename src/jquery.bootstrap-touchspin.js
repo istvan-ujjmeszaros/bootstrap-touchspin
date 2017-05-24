@@ -602,7 +602,7 @@
       }
 
       function unmaskValue(value) {
-        return value.replace(new RegExp("\\"+settings.decimal, 'g'), '.');
+        return value.replace(new RegExp('\\'+settings.decimal, 'g'), '.');
       }
 
       function maskValue(value) {
