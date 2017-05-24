@@ -178,7 +178,7 @@
       }
 
       function _buildHtml() {
-        var initval = originalinput.val(),
+        var initval = unmaskValue(originalinput.val()),
             parentelement = originalinput.parent();
 
         if (initval !== '') {
