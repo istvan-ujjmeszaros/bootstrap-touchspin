@@ -587,38 +587,38 @@
       }
 
       function getDefaultMask() {
-          var n = parseFloat("0") / Math.pow(10, settings.precision);
-          return (n.toFixed(settings.precision)).replace(new RegExp("\\.", "g"), settings.decimal);
+          var n = parseFloat('0') / Math.pow(10, settings.precision);
+          return (n.toFixed(settings.precision)).replace(new RegExp('\\.', 'g'), settings.decimal);
       }
 
       function setSymbol(value) {
-          var operator = "";
-          if (value.indexOf("-") > -1) {
-              value = value.replace("-", "");
-              operator = "-";
+          var operator = '';
+          if (value.indexOf('-') > -1) {
+              value = value.replace('-', '');
+              operator = '-';
           }
           return operator + settings.prefix + value + settings.postfix;
 
       }
 
       function unmaskValue(value) {
-        return value.replace(new RegExp("\\"+settings.decimal, "g"), ".");
+        return value.replace(new RegExp("\\"+settings.decimal, 'g'), '.');
       }
 
       function maskValue(value) {
-          var negative = (value.indexOf("-") > -1 && settings.allowNegative) ? "-" : "",
-              onlyNumbers = value.replace(/[^0-9]/g, ""),
+          var negative = (value.indexOf('-') > -1 && settings.allowNegative) ? '-' : '',
+              onlyNumbers = value.replace(/[^0-9]/g, ''),
               integerPart = onlyNumbers.slice(0, onlyNumbers.length - settings.precision),
               newValue,
               decimalPart,
               leadingZeros;
 
           // remove initial zeros
-          integerPart = integerPart.replace(/^0*/g, "");
+          integerPart = integerPart.replace(/^0*/g, '');
           // put settings.thousands every 3 chars
           integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, settings.thousands);
-          if (integerPart === "") {
-              integerPart = "0";
+          if (integerPart === '') {
+              integerPart = '0';
           }
           newValue = negative + integerPart;
 
