@@ -4,23 +4,37 @@
     <meta charset="utf-8">
     <title>Bootstrap TouchSpin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A mobile and touch friendly input spinner component for Bootstrap 3.">
+    <meta name="description" content="A mobile and touch friendly input spinner component for Bootstrap 3 & 4.">
     <meta name="author" content="István Ujj-Mészáros">
 
     <meta itemprop="name" content="Bootstrap Touchspin">
-    <meta itemprop="description" content="A mobile and touch friendly input spinner component for Bootstrap 3.">
+    <meta itemprop="description" content="A mobile and touch friendly input spinner component for Bootstrap 3 & 4.">
 
     <link rel="shortcut icon" href="favicon.ico">
 
-    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css" rel="stylesheet" type="text/css" media="all">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
+
+
+    <!-- BOOTSTRAP 3 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <!-- BOOTSTRAP 4 -->
+    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">-->
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>-->
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css" rel="stylesheet" type="text/css" media="all">
     <link href="../src/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" media="all">
     <link href="demo.css" rel="stylesheet" type="text/css" media="all">
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
     <script src="../src/jquery.bootstrap-touchspin.js"></script>
+
+
+
+
 </head>
 
 <body>
@@ -37,9 +51,13 @@
 </div>
 
 <p>
-    A mobile and touch friendly input spinner component for Bootstrap 3.<br>
+    A mobile and touch friendly input spinner component for Bootstrap 3 & 4.<br>
     It supports the mousewheel and the up/down keys.
 </p>
+
+<p>CSS file is necessary only if you are using vertical buttons functionality. In other cases plugin is using boostrap input-group component.</p>
+
+<p>All HTML examples are for bootstrap v3. For v4 visit bootstrap <a href="https://getbootstrap.com/docs/4.0/components/forms/" target="_blank">documentation</a> (small differences). Plugin usage is identical for both versions and uses same .js and .css file.</p>
 
 <h2>Examples</h2>
 
@@ -66,8 +84,8 @@
             data-bts-boostat="10"
             data-bts-max-boosted-step="false"
             data-bts-mousewheel="true"
-            data-bts-button-down-class="btn btn-default"
-            data-bts-button-up-class="btn btn-default"
+            data-bts-button-down-class="btn btn-success"
+            data-bts-button-up-class="btn btn-success"
             >
     </div>
 
@@ -93,8 +111,8 @@
        data-bts-boostat=&quot;10&quot;
        data-bts-max-boosted-step=&quot;false&quot;
        data-bts-mousewheel=&quot;true&quot;
-       data-bts-button-down-class=&quot;btn btn-default&quot;
-       data-bts-button-up-class=&quot;btn btn-default&quot;
+       data-bts-button-down-class=&quot;btn btn-secondary&quot;
+       data-bts-button-up-class=&quot;btn btn-secondary&quot;
         /&gt;
 &lt;script&gt;
     $(&quot;input[name='demo0']&quot;).TouchSpin({
@@ -110,9 +128,10 @@
     </div>
 </div>
 
-<div class="row">
+
+    <div class="row">
     <div class="col-md-5">
-        <label for="demo_vertical">Vertical button alignment:</label> <input id="demo_vertical" type="text" value="" name="demo_vertical">
+        <label for="demo_vertical">Vertical button alignment (large):</label> <input id="demo_vertical" type="text" value="" name="demo_vertical" class="input-lg">
     </div>
 
     <div class="col-md-7">
@@ -136,7 +155,7 @@
 
 <div class="row">
     <div class="col-md-5">
-        <label for="demo_vertical2">Vertical buttons with custom icons:</label> <input id="demo_vertical2" type="text" value="" name="demo_vertical2">
+        <label for="demo_vertical2">Vertical buttons with custom icons (small):</label> <input id="demo_vertical2" type="text" value="" name="demo_vertical2" class="input-sm">
     </div>
 
     <div class="col-md-7">
@@ -145,8 +164,8 @@
 &lt;script&gt;
     $(&quot;input[name='demo_vertical2']&quot;).TouchSpin({
       verticalbuttons: true,
-      verticalupclass: 'glyphicon glyphicon-plus',
-      verticaldownclass: 'glyphicon glyphicon-minus'
+      verticalup: '&lt;i class=&quot;fas fa-caret-up&quot;&gt;&lt;/i&gt;',
+      verticaldown: '&lt;i class=&quot;fas fa-caret-down&quot;&gt;&lt;/i&gt;'
     });
 &lt;/script&gt;
 </pre>
@@ -154,8 +173,8 @@
         <script>
             $("input[name='demo_vertical2']").TouchSpin({
               verticalbuttons: true,
-              verticalupclass: 'glyphicon glyphicon-plus',
-              verticaldownclass: 'glyphicon glyphicon-minus'
+              verticalup: '<i class="fas fa-caret-up"></i>',
+              verticaldown: '<i class="fas fa-caret-down"></i>'
             });
         </script>
 
@@ -164,7 +183,7 @@
 
 <div class="row">
     <div class="col-md-5">
-        <label for="demo1">Example with postfix (large):</label> <input id="demo1" type="text" value="55" name="demo1">
+        <label for="demo1">Example with postfix:</label> <input id="demo1" type="text" value="55" name="demo1">
     </div>
 
     <div class="col-md-7">
@@ -266,23 +285,23 @@
     </p>
 
     <div class="col-md-5">
-        <label for="demo3_21">Value attribute is not set
+        <label for="demo3_21">Value attribute is not set (Big)
             <small>(applying settings.initval)</small>
-            :</label> <input id="demo3_21" type="text" value="" name="demo3_21">
-        <label for="demo3_22">Value is set explicitly to 33
+            :</label> <input id="demo3_21" type="text" class="input-lg" value="" name="demo3_21">
+        <label for="demo3_22">Value is set explicitly to 33 (Small)
             <small>(skipping settings.initval)</small>
-            :</label> <input id="demo3_22" type="text" value="33" name="demo3_22">
+            :</label> <input id="demo3_22" type="text" class="input-sm" value="33" name="demo3_22">
     </div>
 
     <div class="col-md-7">
 <pre class="prettyprint">
-&lt;input id=&quot;demo3_21&quot; type=&quot;text&quot; value=&quot;&quot; name=&quot;demo3_21&quot;&gt;
+&lt;input id=&quot;demo3_21&quot; type=&quot;text&quot; class=&quot;input-lg&quot; value=&quot;&quot; name=&quot;demo3_21&quot;&gt;
 &lt;script&gt;
     $(&quot;input[name='demo3_21']&quot;).TouchSpin({
         initval: 40
     });
 &lt;/script&gt;
-&lt;input id=&quot;demo3_22&quot; type=&quot;text&quot; value=&quot;33&quot; name=&quot;demo3_22&quot;&gt;
+&lt;input id=&quot;demo3_22&quot; type=&quot;text&quot; class=&quot;input-sm&quot; value=&quot;33&quot; name=&quot;demo3_22&quot;&gt;
 &lt;script&gt;
     $(&quot;input[name='demo3_22']&quot;).TouchSpin({
         initval: 40
@@ -320,7 +339,7 @@
 &lt;script&gt;
     $(&quot;input[name='demo4']&quot;).TouchSpin({
         postfix: &quot;a button&quot;,
-        postfix_extraclass: &quot;btn btn-default&quot;
+        postfix_extraclass: &quot;btn btn-primary&quot;
     });
 &lt;/script&gt;
 </pre>
@@ -328,7 +347,7 @@
         <script>
             $("input[name='demo4']").TouchSpin({
                 postfix: "a button",
-                postfix_extraclass: "btn btn-default"
+                postfix_extraclass: "btn btn-primary"
             });
         </script>
 
@@ -352,7 +371,7 @@
 &lt;script&gt;
     $(&quot;input[name='demo4_2']&quot;).TouchSpin({
         postfix: &quot;a button&quot;,
-        postfix_extraclass: &quot;btn btn-default&quot;
+        postfix_extraclass: &quot;btn btn-primary&quot;
     });
 &lt;/script&gt;
 </pre>
@@ -360,7 +379,7 @@
         <script>
             $("input[name='demo4_2']").TouchSpin({
                 postfix: "a button",
-                postfix_extraclass: "btn btn-default"
+                postfix_extraclass: "btn btn-primary"
             });
         </script>
 
@@ -371,6 +390,9 @@
     <div class="col-md-5">
 
         <label for="demo5">Button group:</label>
+        <a href="https://getbootstrap.com/docs/4.0/components/input-group/#button-addons" target="_blank">
+            little different for bootstrap v4
+        </a>
 
         <div class="input-group">
             <input id="demo5" type="text" class="form-control" name="demo5" value="50">
@@ -591,13 +613,23 @@ $(&quot;input[name='demo7']&quot;).TouchSpin({
         <td>Enables the traditional up/down buttons.</td>
     </tr>
     <tr>
+        <td><code>verticalup</code></td>
+        <td><code>+</code></td>
+        <td>Content of the up button with vertical buttons mode enabled.</td>
+    </tr>
+    <tr>
+        <td><code>verticaldown</code></td>
+        <td><code>-</code></td>
+        <td>Content of the down button with vertical buttons mode enabled.</td>
+    </tr>
+    <tr>
         <td><code>verticalupclass</code></td>
-        <td><code>'glyphicon glyphicon-chevron-up'</code></td>
+        <td><code>""</code></td>
         <td>Class of the up button with vertical buttons mode enabled.</td>
     </tr>
     <tr>
         <td><code>verticaldownclass</code></td>
-        <td><code>'glyphicon glyphicon-chevron-down'</code></td>
+        <td><code>""</code></td>
         <td>Class of the down button with vertical buttons mode enabled.</td>
     </tr>
     <tr>
@@ -642,12 +674,12 @@ $(&quot;input[name='demo7']&quot;).TouchSpin({
     </tr>
     <tr>
         <td><code>buttondown_class</code></td>
-        <td><code>'btn btn-default'</code></td>
+        <td><code>'btn btn-primary'</code></td>
         <td>Class(es) of down button.</td>
     </tr>
     <tr>
         <td><code>buttonup_class</code></td>
-        <td><code>'btn btn-default'</code></td>
+        <td><code>'btn btn-primary'</code></td>
         <td>Class(es) of up button.</td>
     </tr>
     <tr>
@@ -776,3 +808,6 @@ $(&quot;input[name='demo7']&quot;).TouchSpin({
 <script>
     prettyPrint();
 </script>
+
+</body>
+</html>
