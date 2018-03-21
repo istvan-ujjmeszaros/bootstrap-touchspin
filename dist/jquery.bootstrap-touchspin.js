@@ -243,7 +243,13 @@
         var html;
 
         var inputGroupSize = '';
-        if (originalinput.hasClass('input-sm')) inputGroupSize = 'input-group-sm';
+        if (originalinput.hasClass('input-sm')) {
+          inputGroupSize = 'input-group-sm';
+        }
+
+        if (originalinput.hasClass('input-lg')) {
+            inputGroupSize = 'input-group-lg';
+        }
 
         if (settings.verticalbuttons) {
           html = '<div class="input-group '  + inputGroupSize +  ' bootstrap-touchspin"><span class="input-group-addon bootstrap-touchspin-prefix">' + settings.prefix + '</span><span class="input-group-addon bootstrap-touchspin-postfix input-group-prepend"><span class="input-group-text">' + settings.postfix + '</span></span><span class="input-group-btn-vertical"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-up ' + settings.verticalupclass + '" type="button">' + settings.verticalup + '</button><button class="' + settings.buttonup_class + ' bootstrap-touchspin-down ' + settings.verticaldownclass + '" type="button">' + settings.verticaldown + '</button></span></div>';
