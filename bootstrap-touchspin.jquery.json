@@ -1,7 +1,7 @@
 {
     "name": "bootstrap-touchspin",
     "title": "Bootstrap TouchSpin",
-    "description": "A mobile and touch friendly input spinner component for Bootstrap 3.",
+    "description": "A mobile and touch friendly input spinner component for Bootstrap 3 & 4.",
     "keywords": [
         "input",
         "bootstrap",
@@ -10,7 +10,7 @@
         "spinbutton",
         "spinner"
     ],
-    "version": "3.1.2",
+    "version": "4.0.0",
     "author": {
         "name": "István Ujj-Mészáros",
         "url": "https://github.com/istvan-ujjmeszaros"
