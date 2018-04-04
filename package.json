@@ -6,6 +6,7 @@
     "name": "István Ujj-Mészáros",
     "url": "https://github.com/istvan-ujjmeszaros"
   },
+  "license": "Apache-2.0",
   "main": "dist/jquery.bootstrap-touchspin.js",
   "contributors": [
     {
