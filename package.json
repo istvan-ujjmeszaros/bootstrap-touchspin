@@ -13,11 +13,23 @@
       "url": "https://github.com/istvan-ujjmeszaros"
     },
     {
+      "name": "Phil H",
+      "url": "https://github.com/pennstatephil"
+    },
+    {
+      "name": "lukchojnicki",
+      "url": "https://github.com/lukchojnicki"
+    },
+    {
       "name": "Stefan Bauer",
       "url": "https://github.com/sba"
     },
     {
-      "name": "Duy Anh Nguyen",
+      "name": "Serhan Apaydın",
+      "url": "https://github.com/monoblaine"
+    },
+    {
+      "name": "Dewey Nguyen",
       "url": "https://github.com/aduyng"
     },
     {
@@ -25,23 +37,31 @@
       "url": "https://github.com/lele85"
     },
     {
-      "name": "Eliak",
-      "url": "https://github.com/Eliak"
+      "name": "Greg Walker",
+      "url": "https://github.com/mgwalker"
     },
     {
       "name": "amid2887",
       "url": "https://github.com/amid2887"
     },
     {
-      "name": "lukchojnicki",
-      "url": "https://github.com/lukchojnicki"
+      "name": "Eliak",
+      "url": "https://github.com/Eliak"
+    },
+    {
+      "name": "Benjamin Cook",
+      "url": "https://github.com/blcook223"
+    },
+    {
+      "name": "Hendy Irawan",
+      "url": "https://github.com/ceefour"
     }
   ],
   "repository": {
     "type": "git",
-    "url": "http://github.com/istvan-ujjmeszaros/bootstrap-touchspin.git"
+    "url": "https://github.com/istvan-ujjmeszaros/bootstrap-touchspin.git"
   },
-  "homepage": "http://www.virtuosoft.eu/code/bootstrap-touchspin/",
+  "homepage": "httsp://www.virtuosoft.eu/code/bootstrap-touchspin/",
   "version": "4.0.0",
   "devDependencies": {
     "grunt": "~0.4.1",
