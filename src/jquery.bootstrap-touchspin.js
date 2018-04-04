@@ -37,7 +37,9 @@
       initval: '',
       replacementval: '',
       step: 1,
-      decimals: 0,
+      precision: 0,
+      decimal: '.',
+      thousands: ',',
       stepinterval: 100,
       forcestepdivisibility: 'round', // none | floor | round | ceil
       stepintervaldelay: 500,
@@ -66,7 +68,8 @@
       initval: 'init-val',
       replacementval: 'replacement-val',
       step: 'step',
-      decimals: 'decimals',
+      precision: 'precision',
+      decimal: 'decimal',
       stepinterval: 'step-interval',
       verticalbuttons: 'vertical-buttons',
       verticalupclass: 'vertical-up-class',
@@ -134,7 +137,7 @@
 
       function _setInitval() {
         if (settings.initval !== '' && originalinput.val() === '') {
-          originalinput.val(settings.initval);
+          originalinput.val(getDefaultMask(settings.initval));
         }
       }
 
@@ -146,7 +149,7 @@
 
         if (value !== '') {
           value = Number(elements.input.val());
-          elements.input.val(value.toFixed(settings.decimals));
+          elements.input.val(maskValue(value.toFixed(settings.precision)));
         }
       }
 
@@ -178,14 +181,14 @@
       }
 
       function _buildHtml() {
-        var initval = originalinput.val(),
+        var initval = unmaskValue(originalinput.val()),
             parentelement = originalinput.parent();
 
         if (initval !== '') {
-          initval = Number(initval).toFixed(settings.decimals);
+          initval = Number(initval).toFixed(settings.precision);
         }
 
-        originalinput.data('initvalue', initval).val(initval);
+        originalinput.data('initvalue', initval).val(maskValue(initval));
         originalinput.addClass('form-control');
 
         if (parentelement.hasClass('input-group')) {
@@ -517,11 +520,11 @@
       function _forcestepdivisibility(value) {
         switch (settings.forcestepdivisibility) {
           case 'round':
-            return (Math.round(value / settings.step) * settings.step).toFixed(settings.decimals);
+            return (Math.round(value / settings.step) * settings.step).toFixed(settings.precision);
           case 'floor':
-            return (Math.floor(value / settings.step) * settings.step).toFixed(settings.decimals);
+            return (Math.floor(value / settings.step) * settings.step).toFixed(settings.precision);
           case 'ceil':
-            return (Math.ceil(value / settings.step) * settings.step).toFixed(settings.decimals);
+            return (Math.ceil(value / settings.step) * settings.step).toFixed(settings.precision);
           default:
             return value;
         }
@@ -530,17 +533,17 @@
       function _checkValue() {
         var val, parsedval, returnval;
 
-        val = originalinput.val();
+        val = unmaskValue(originalinput.val());
 
         if (val === '') {
           if (settings.replacementval !== '') {
-            originalinput.val(settings.replacementval);
+            originalinput.val(getDefaultMask(settings.replacementval));
             originalinput.trigger('change');
           }
           return;
         }
 
-        if (settings.decimals > 0 && val === '.') {
+        if (settings.precision > 0 && val === '.') {
           return;
         }
 
@@ -572,7 +575,7 @@
         returnval = _forcestepdivisibility(returnval);
 
         if (Number(val).toString() !== returnval.toString()) {
-          originalinput.val(returnval);
+          originalinput.val(maskValue(returnval));
           originalinput.trigger('change');
         }
       }
@@ -595,10 +598,54 @@
         }
       }
 
+      function getDefaultMask() {
+          var n = parseFloat('0') / Math.pow(10, settings.precision);
+          return (n.toFixed(settings.precision)).replace(new RegExp('\\.', 'g'), settings.decimal);
+      }
+
+      function setSymbol(value) {
+          var operator = '';
+          if (value.indexOf('-') > -1) {
+              value = value.replace('-', '');
+              operator = '-';
+          }
+          return operator + settings.prefix + value + settings.postfix;
+
+      }
+
+      function unmaskValue(value) {
+        return value.replace(new RegExp('\\'+settings.decimal, 'g'), '.');
+      }
+
+      function maskValue(value) {
+          var negative = (value.indexOf('-') > -1 && settings.allowNegative) ? '-' : '',
+              onlyNumbers = value.replace(/[^0-9]/g, ''),
+              integerPart = onlyNumbers.slice(0, onlyNumbers.length - settings.precision),
+              newValue,
+              decimalPart,
+              leadingZeros;
+
+          // remove initial zeros
+          integerPart = integerPart.replace(/^0*/g, '');
+          // put settings.thousands every 3 chars
+          integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, settings.thousands);
+          if (integerPart === '') {
+              integerPart = '0';
+          }
+          newValue = negative + integerPart;
+
+          if (settings.precision > 0) {
+              decimalPart = onlyNumbers.slice(onlyNumbers.length - settings.precision);
+              leadingZeros = new Array((settings.precision + 1) - decimalPart.length).join(0);
+              newValue += settings.decimal + leadingZeros + decimalPart;
+          }
+          return setSymbol(newValue);
+      }
+
       function upOnce() {
         _checkValue();
 
-        value = parseFloat(elements.input.val());
+        value = parseFloat(unmaskValue(elements.input.val()));
         if (isNaN(value)) {
           value = 0;
         }
@@ -614,7 +661,7 @@
           stopSpin();
         }
 
-        elements.input.val(Number(value).toFixed(settings.decimals));
+        elements.input.val(maskValue(Number(value).toFixed(settings.precision)));
 
         if (initvalue !== value) {
           originalinput.trigger('change');
@@ -624,7 +671,7 @@
       function downOnce() {
         _checkValue();
 
-        value = parseFloat(elements.input.val());
+        value = parseFloat(unmaskValue(elements.input.val()));
         if (isNaN(value)) {
           value = 0;
         }
@@ -640,7 +687,7 @@
           stopSpin();
         }
 
-        elements.input.val(value.toFixed(settings.decimals));
+        elements.input.val(maskValue(value.toFixed(settings.precision)));
 
         if (initvalue !== value) {
           originalinput.trigger('change');
