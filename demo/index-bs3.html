@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ALL -->
 <html>
 <head>
     <meta charset="utf-8">
@@ -19,6 +20,8 @@
     <!-- BOOTSTRAP 3 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css" rel="stylesheet" type="text/css" media="all">
     <link href="../src/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" media="all">
@@ -119,6 +122,56 @@
 
     </div>
 </div>
+
+    <div class="row">
+        <div class="col-md-5">
+            <label for="demo_callback">Callback example to format the number with <a href="http://numeraljs.com/" target="_blank">numeraljs</a> (anything else can be used):</label>
+            <input id="demo_callback" type="text"
+                   value="10000.00"
+                   name="demo_callback"
+                   data-bts-min="-1000000"
+                   data-bts-max="1000000"
+                   data-bts-step=".01"
+                   data-bts-decimals="2"
+            />
+        </div>
+
+        <div class="col-md-7">
+<pre class="prettyprint">
+&lt;input id=&quot;demo_callback&quot; type=&quot;text&quot;
+       value=&quot;10000.00&quot;
+       name=&quot;demo_callback&quot;
+       data-bts-min=&quot;-1000000&quot;
+       data-bts-max=&quot;1000000&quot;
+       data-bts-step=&quot;.01&quot;
+       data-bts-decimals=&quot;2&quot;
+/&gt;
+&lt;script src=&quot;//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  $(&quot;input[name='demo_callback']&quot;).TouchSpin({
+    callback_before_calculation: function(v){
+      return numeral(v).value();
+    },
+    callback_after_calculation: function(v){
+      return numeral(v).format(&quot;$0,0.00&quot;);
+    }
+  });
+&lt;/script&gt;
+</pre>
+
+            <script>
+              $("input[name='demo_callback']").TouchSpin({
+                callback_before_calculation: function(v){
+                  return numeral(v).value();
+                },
+                callback_after_calculation: function(v){
+                  return numeral(v).format("$0,0.00");
+                }
+              });
+            </script>
+
+        </div>
+    </div>
 
 
     <div class="row">

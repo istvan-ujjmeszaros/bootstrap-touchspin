@@ -76,7 +76,9 @@
       buttondown_class: 'btn btn-primary',
       buttonup_class: 'btn btn-primary',
       buttondown_txt: '-',
-      buttonup_txt: '+'
+      buttonup_txt: '+',
+      callback_before_calculation: function(value){ return value; },
+      callback_after_calculation: function(value){ return value; }
     };
 
     var attributeMap = {
@@ -164,8 +166,8 @@
         var value = elements.input.val();
 
         if (value !== '') {
-          value = Number(elements.input.val());
-          elements.input.val(value.toFixed(settings.decimals));
+          value = Number(settings.callback_before_calculation(elements.input.val()));
+          elements.input.val(settings.callback_after_calculation(value.toFixed(settings.decimals)));
         }
       }
 
@@ -201,7 +203,7 @@
             parentelement = originalinput.parent();
 
         if (initval !== '') {
-          initval = Number(initval).toFixed(settings.decimals);
+          initval = settings.callback_after_calculation(Number(initval).toFixed(settings.decimals));
         }
 
         originalinput.data('initvalue', initval).val(initval);
@@ -334,6 +336,7 @@
 
         originalinput.on('blur', function() {
           _checkValue();
+          originalinput.val(settings.callback_after_calculation(originalinput.val()));
         });
 
         elements.down.on('keydown', function(ev) {
@@ -549,7 +552,7 @@
       function _checkValue() {
         var val, parsedval, returnval;
 
-        val = originalinput.val();
+        val = settings.callback_before_calculation(originalinput.val());
 
         if (val === '') {
           if (settings.replacementval !== '') {
@@ -617,7 +620,7 @@
       function upOnce() {
         _checkValue();
 
-        value = parseFloat(elements.input.val());
+        value = parseFloat(settings.callback_before_calculation(elements.input.val()));
         if (isNaN(value)) {
           value = 0;
         }
@@ -633,7 +636,7 @@
           stopSpin();
         }
 
-        elements.input.val(Number(value).toFixed(settings.decimals));
+        elements.input.val(settings.callback_after_calculation(Number(value).toFixed(settings.decimals)));
 
         if (initvalue !== value) {
           originalinput.trigger('change');
@@ -643,7 +646,7 @@
       function downOnce() {
         _checkValue();
 
-        value = parseFloat(elements.input.val());
+        value = parseFloat(settings.callback_before_calculation(elements.input.val()));
         if (isNaN(value)) {
           value = 0;
         }
@@ -659,7 +662,7 @@
           stopSpin();
         }
 
-        elements.input.val(value.toFixed(settings.decimals));
+        elements.input.val(settings.callback_after_calculation(value.toFixed(settings.decimals)));
 
         if (initvalue !== value) {
           originalinput.trigger('change');
