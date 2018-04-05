@@ -1,4 +1,23 @@
-(function($) {
+(function(factory) {
+  if (typeof define === 'function' && define.amd) {
+    define(['jquery'], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    module.exports = function(root, jQuery) {
+      if (jQuery === undefined) {
+        if (typeof window !== 'undefined') {
+          jQuery = require('jquery');
+        }
+        else {
+          jQuery = require('jquery')(root);
+        }
+      }
+      factory(jQuery);
+      return jQuery;
+    };
+  } else {
+    factory(jQuery);
+  }
+}(function($) {
   'use strict';
 
   var _currentSpinnerId = 0;
@@ -18,7 +37,7 @@
     if (options === 'destroy') {
       this.each(function() {
         var originalinput = $(this),
-            originalinput_data = originalinput.data();
+          originalinput_data = originalinput.data();
         $(document).off(_scopeEventNames([
           'mouseup',
           'touchend',
@@ -42,8 +61,10 @@
       forcestepdivisibility: 'round', // none | floor | round | ceil
       stepintervaldelay: 500,
       verticalbuttons: false,
-      verticalupclass: 'glyphicon glyphicon-chevron-up',
-      verticaldownclass: 'glyphicon glyphicon-chevron-down',
+      verticalup: '+',
+      verticaldown: '-',
+      verticalupclass: '',
+      verticaldownclass: '',
       prefix: '',
       postfix: '',
       prefix_extraclass: '',
@@ -52,10 +73,16 @@
       boostat: 10,
       maxboostedstep: false,
       mousewheel: true,
-      buttondown_class: 'btn btn-default',
-      buttonup_class: 'btn btn-default',
+      buttondown_class: 'btn btn-primary',
+      buttonup_class: 'btn btn-primary',
       buttondown_txt: '-',
-      buttonup_txt: '+'
+      buttonup_txt: '+',
+      callback_before_calculation: function(value) {
+        return value;
+      },
+      callback_after_calculation: function(value) {
+        return value;
+      }
     };
 
     var attributeMap = {
@@ -88,17 +115,18 @@
     return this.each(function() {
 
       var settings,
-          originalinput = $(this),
-          originalinput_data = originalinput.data(),
-          container,
-          elements,
-          value,
-          downSpinTimer,
-          upSpinTimer,
-          downDelayTimeout,
-          upDelayTimeout,
-          spincount = 0,
-          spinning = false;
+        originalinput = $(this),
+        originalinput_data = originalinput.data(),
+        container,
+        elements,
+        value,
+        downSpinTimer,
+        upSpinTimer,
+        downDelayTimeout,
+        upDelayTimeout,
+        spincount = 0,
+        spinning = false;
+
 
       init();
 
@@ -142,8 +170,8 @@
         var value = elements.input.val();
 
         if (value !== '') {
-          value = Number(elements.input.val());
-          elements.input.val(value.toFixed(settings.decimals));
+          value = Number(settings.callback_before_calculation(elements.input.val()));
+          elements.input.val(settings.callback_after_calculation(value.toFixed(settings.decimals)));
         }
       }
 
@@ -176,10 +204,10 @@
 
       function _buildHtml() {
         var initval = originalinput.val(),
-            parentelement = originalinput.parent();
+          parentelement = originalinput.parent();
 
         if (initval !== '') {
-          initval = Number(initval).toFixed(settings.decimals);
+          initval = settings.callback_after_calculation(Number(initval).toFixed(settings.decimals));
         }
 
         originalinput.data('initvalue', initval).val(initval);
@@ -197,28 +225,28 @@
         parentelement.addClass('bootstrap-touchspin');
 
         var prev = originalinput.prev(),
-            next = originalinput.next();
+          next = originalinput.next();
 
         var downhtml,
-            uphtml,
-            prefixhtml = '<span class="input-group-addon bootstrap-touchspin-prefix">' + settings.prefix + '</span>',
-            postfixhtml = '<span class="input-group-addon bootstrap-touchspin-postfix">' + settings.postfix + '</span>';
+          uphtml,
+          prefixhtml = '<span class="input-group-addon bootstrap-touchspin-prefix input-group-prepend"><span class="input-group-text">' + settings.prefix + '</span></span>',
+          postfixhtml = '<span class="input-group-addon bootstrap-touchspin-postfix input-group-append"><span class="input-group-text">' + settings.postfix + '</span></span>';
 
-        if (prev.hasClass('input-group-btn')) {
+        if (prev.hasClass('input-group-btn') || prev.hasClass('input-group-prepend')) {
           downhtml = '<button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">' + settings.buttondown_txt + '</button>';
           prev.append(downhtml);
         }
         else {
-          downhtml = '<span class="input-group-btn"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">' + settings.buttondown_txt + '</button></span>';
+          downhtml = '<span class="input-group-btn input-group-prepend"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">' + settings.buttondown_txt + '</button></span>';
           $(downhtml).insertBefore(originalinput);
         }
 
-        if (next.hasClass('input-group-btn')) {
+        if (next.hasClass('input-group-btn') || next.hasClass('input-group-append')) {
           uphtml = '<button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">' + settings.buttonup_txt + '</button>';
           next.prepend(uphtml);
         }
         else {
-          uphtml = '<span class="input-group-btn"><button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">' + settings.buttonup_txt + '</button></span>';
+          uphtml = '<span class="input-group-btn input-group-append"><button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">' + settings.buttonup_txt + '</button></span>';
           $(uphtml).insertAfter(originalinput);
         }
 
@@ -231,11 +259,20 @@
       function _buildInputGroup() {
         var html;
 
+        var inputGroupSize = '';
+        if (originalinput.hasClass('input-sm')) {
+          inputGroupSize = 'input-group-sm';
+        }
+
+        if (originalinput.hasClass('input-lg')) {
+          inputGroupSize = 'input-group-lg';
+        }
+
         if (settings.verticalbuttons) {
-          html = '<div class="input-group bootstrap-touchspin"><span class="input-group-addon bootstrap-touchspin-prefix">' + settings.prefix + '</span><span class="input-group-addon bootstrap-touchspin-postfix">' + settings.postfix + '</span><span class="input-group-btn-vertical"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-up" type="button"><i class="' + settings.verticalupclass + '"></i></button><button class="' + settings.buttonup_class + ' bootstrap-touchspin-down" type="button"><i class="' + settings.verticaldownclass + '"></i></button></span></div>';
+          html = '<div class="input-group ' + inputGroupSize + ' bootstrap-touchspin"><span class="input-group-addon bootstrap-touchspin-prefix">' + settings.prefix + '</span><span class="input-group-addon bootstrap-touchspin-postfix input-group-prepend"><span class="input-group-text">' + settings.postfix + '</span></span><span class="input-group-btn-vertical"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-up ' + settings.verticalupclass + '" type="button">' + settings.verticalup + '</button><button class="' + settings.buttonup_class + ' bootstrap-touchspin-down ' + settings.verticaldownclass + '" type="button">' + settings.verticaldown + '</button></span></div>';
         }
         else {
-          html = '<div class="input-group bootstrap-touchspin"><span class="input-group-btn"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">' + settings.buttondown_txt + '</button></span><span class="input-group-addon bootstrap-touchspin-prefix">' + settings.prefix + '</span><span class="input-group-addon bootstrap-touchspin-postfix">' + settings.postfix + '</span><span class="input-group-btn"><button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">' + settings.buttonup_txt + '</button></span></div>';
+          html = '<div class="input-group bootstrap-touchspin"><span class="input-group-btn input-group-prepend"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">' + settings.buttondown_txt + '</button></span><span class="input-group-addon bootstrap-touchspin-prefix input-group-prepend"><span class="input-group-text">' + settings.prefix + '</span></span><span class="input-group-addon bootstrap-touchspin-postfix input-group-append"><span class="input-group-text">' + settings.postfix + '</span></span><span class="input-group-btn input-group-append"><button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">' + settings.buttonup_txt + '</button></span></div>';
         }
 
         container = $(html).insertBefore(originalinput);
@@ -303,6 +340,7 @@
 
         originalinput.on('blur', function() {
           _checkValue();
+          originalinput.val(settings.callback_after_calculation(originalinput.val()));
         });
 
         elements.down.on('keydown', function(ev) {
@@ -518,7 +556,7 @@
       function _checkValue() {
         var val, parsedval, returnval;
 
-        val = originalinput.val();
+        val = settings.callback_before_calculation(originalinput.val());
 
         if (val === '') {
           if (settings.replacementval !== '') {
@@ -586,13 +624,13 @@
       function upOnce() {
         _checkValue();
 
-        value = parseFloat(elements.input.val());
+        value = parseFloat(settings.callback_before_calculation(elements.input.val()));
         if (isNaN(value)) {
           value = 0;
         }
 
         var initvalue = value,
-            boostedstep = _getBoostedStep();
+          boostedstep = _getBoostedStep();
 
         value = value + boostedstep;
 
@@ -602,7 +640,7 @@
           stopSpin();
         }
 
-        elements.input.val(Number(value).toFixed(settings.decimals));
+        elements.input.val(settings.callback_after_calculation(Number(value).toFixed(settings.decimals)));
 
         if (initvalue !== value) {
           originalinput.trigger('change');
@@ -612,13 +650,13 @@
       function downOnce() {
         _checkValue();
 
-        value = parseFloat(elements.input.val());
+        value = parseFloat(settings.callback_before_calculation(elements.input.val()));
         if (isNaN(value)) {
           value = 0;
         }
 
         var initvalue = value,
-            boostedstep = _getBoostedStep();
+          boostedstep = _getBoostedStep();
 
         value = value - boostedstep;
 
@@ -628,7 +666,7 @@
           stopSpin();
         }
 
-        elements.input.val(value.toFixed(settings.decimals));
+        elements.input.val(settings.callback_after_calculation(value.toFixed(settings.decimals)));
 
         if (initvalue !== value) {
           originalinput.trigger('change');
@@ -694,4 +732,4 @@
 
   };
 
-})(jQuery);
+}));

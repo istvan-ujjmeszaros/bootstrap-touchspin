@@ -1,23 +1,36 @@
 {
   "name": "bootstrap-touchspin",
   "title": "Bootstrap Touchspin",
-  "description": "A mobile and touch friendly input spinner component for Bootstrap 3.",
+  "description": "A mobile and touch friendly input spinner component for Bootstrap 3 & 4.",
   "author": {
     "name": "István Ujj-Mészáros",
     "url": "https://github.com/istvan-ujjmeszaros"
   },
   "main": "dist/jquery.bootstrap-touchspin.js",
+  "license": "Apache-2.0",
   "contributors": [
     {
       "name": "István Ujj-Mészáros",
       "url": "https://github.com/istvan-ujjmeszaros"
     },
     {
+      "name": "Phil H",
+      "url": "https://github.com/pennstatephil"
+    },
+    {
+      "name": "lukchojnicki",
+      "url": "https://github.com/lukchojnicki"
+    },
+    {
       "name": "Stefan Bauer",
       "url": "https://github.com/sba"
     },
     {
-      "name": "Duy Anh Nguyen",
+      "name": "Serhan Apaydın",
+      "url": "https://github.com/monoblaine"
+    },
+    {
+      "name": "Dewey Nguyen",
       "url": "https://github.com/aduyng"
     },
     {
@@ -25,29 +38,42 @@
       "url": "https://github.com/lele85"
     },
     {
-      "name": "Eliak",
-      "url": "https://github.com/Eliak"
+      "name": "Greg Walker",
+      "url": "https://github.com/mgwalker"
     },
     {
       "name": "amid2887",
       "url": "https://github.com/amid2887"
+    },
+    {
+      "name": "Eliak",
+      "url": "https://github.com/Eliak"
+    },
+    {
+      "name": "Benjamin Cook",
+      "url": "https://github.com/blcook223"
+    },
+    {
+      "name": "Hendy Irawan",
+      "url": "https://github.com/ceefour"
     }
   ],
   "repository": {
     "type": "git",
-    "url": "http://github.com/istvan-ujjmeszaros/bootstrap-touchspin.git"
+    "url": "https://github.com/istvan-ujjmeszaros/bootstrap-touchspin.git"
   },
-  "homepage": "http://www.virtuosoft.eu/code/bootstrap-touchspin/",
-  "version": "3.1.2",
+  "homepage": "httsp://www.virtuosoft.eu/code/bootstrap-touchspin/",
+  "version": "4.1.0",
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-cli": "~0.1.13",
-    "grunt-contrib-jshint": "~0.8.0",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-uglify": "~0.3.2",
-    "grunt-contrib-cssmin": "~0.9.0"
+    "grunt": "^1.0.2",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-uglify": "^3.3.0",
+    "grunt-contrib-cssmin": "^2.2.1"
   },
   "scripts": {
-    "test": "grunt travis --verbose"
+    "test": "grunt travis --verbose",
+    "concat": "grunt concat"
   }
 }
