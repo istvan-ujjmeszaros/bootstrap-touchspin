@@ -128,10 +128,10 @@
 
       <script>
         $("input[name='demo_callback']").TouchSpin({
-          callback_before_calculation: function (v) {
+          callback_before_calculation: function(v) {
             return numeral(v).value();
           },
-          callback_after_calculation: function (v) {
+          callback_after_calculation: function(v) {
             return numeral(v).format("$0,0.00");
           }
         });
@@ -497,6 +497,36 @@ $(&quot;input[name='demo7']&quot;).TouchSpin({
     </div>
   </div>
 
+  <div class="row">
+    <div>
+      <h4>Disabling boundaries</h4>
+      <p>By setting the min or max option to NULL no limit is enfored to the particular boundary.</p>
+    </div>
+    <div class="col-md-5">
+      <label for="demo8-1">via init option:</label> <input id="demo8-1" type="text" value="1234567890" name="demo8-1">
+    </div>
+
+    <div class="col-md-7">
+<pre class="prettyprint">
+&lt;input id="demo8-1" type="text" value="1234567890" name="demo8-1">
+&lt;script>
+    $(&quot;input[name='demo8-1']&quot;).TouchSpin({
+        min: null,
+        max: null
+    });
+&lt;/script>
+</pre>
+
+      <script>
+        $("input[name='demo8-1']").TouchSpin({
+          min: null,
+          max: null
+        });
+      </script>
+
+    </div>
+  </div>
+
 
   <div class="row">
     <div class="col-md-3">
@@ -521,28 +551,28 @@ $(&quot;input[name='demo7']&quot;).TouchSpin({
       }
 
       i.TouchSpin({});
-      i.on("touchspin.on.startspin", function () {
+      i.on("touchspin.on.startspin", function() {
         writeLine("touchspin.on.startspin");
       });
-      i.on("touchspin.on.startupspin", function () {
+      i.on("touchspin.on.startupspin", function() {
         writeLine("touchspin.on.startupspin");
       });
-      i.on("touchspin.on.startdownspin", function () {
+      i.on("touchspin.on.startdownspin", function() {
         writeLine("touchspin.on.startdownspin");
       });
-      i.on("touchspin.on.stopspin", function () {
+      i.on("touchspin.on.stopspin", function() {
         writeLine("touchspin.on.stopspin");
       });
-      i.on("touchspin.on.stopupspin", function () {
+      i.on("touchspin.on.stopupspin", function() {
         writeLine("touchspin.on.stopupspin");
       });
-      i.on("touchspin.on.stopdownspin", function () {
+      i.on("touchspin.on.stopdownspin", function() {
         writeLine("touchspin.on.stopdownspin");
       });
-      i.on("touchspin.on.min", function () {
+      i.on("touchspin.on.min", function() {
         writeLine("touchspin.on.min");
       });
-      i.on("touchspin.on.max", function () {
+      i.on("touchspin.on.max", function() {
         writeLine("touchspin.on.max");
       });
     </script>

@@ -51,8 +51,8 @@
     }
 
     var defaults = {
-      min: 0,
-      max: 100,
+      min: 0, // If null, there is no minimum enforced
+      max: 100, // If null, there is no maximum enforced
       initval: '',
       replacementval: '',
       step: 1,
@@ -587,11 +587,11 @@
           returnval = parsedval;
         }
 
-        if (parsedval < settings.min) {
+        if ((settings.min !== null) && (parsedval < settings.min)) {
           returnval = settings.min;
         }
 
-        if (parsedval > settings.max) {
+        if ((settings.max !== null) && (parsedval > settings.max)) {
           returnval = settings.max;
         }
 
@@ -634,7 +634,7 @@
 
         value = value + boostedstep;
 
-        if (value > settings.max) {
+        if ((settings.max !== null) && (value > settings.max)) {
           value = settings.max;
           originalinput.trigger('touchspin.on.max');
           stopSpin();
@@ -660,7 +660,7 @@
 
         value = value - boostedstep;
 
-        if (value < settings.min) {
+        if ((settings.min !== null) && (value < settings.min)) {
           value = settings.min;
           originalinput.trigger('touchspin.on.min');
           stopSpin();
