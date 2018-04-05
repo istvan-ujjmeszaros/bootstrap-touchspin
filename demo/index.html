@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!--suppress ALL -->
 <html>
 <head>
   <meta charset="utf-8">
@@ -99,15 +98,9 @@
 
   <div class="row">
     <div class="col-md-5">
-      <label for="demo_callback">Callback example to format the number with <a href="http://numeraljs.com/" target="_blank">numeraljs</a> (anything else can be used):</label>
-      <input id="demo_callback" type="text"
-             value="10000.00"
-             name="demo_callback"
-             data-bts-min="-1000000"
-             data-bts-max="1000000"
-             data-bts-step=".01"
-             data-bts-decimals="2"
-      />
+      <label for="demo_callback">Callback example to format the number with
+        <a href="http://numeraljs.com/" target="_blank">numeraljs</a> (anything else can be used):</label>
+      <input id="demo_callback" type="text" value="10000.00" name="demo_callback" data-bts-min="-1000000" data-bts-max="1000000" data-bts-step=".01" data-bts-decimals="2"/>
     </div>
 
     <div class="col-md-7">
@@ -135,10 +128,10 @@
 
       <script>
         $("input[name='demo_callback']").TouchSpin({
-          callback_before_calculation: function(v){
+          callback_before_calculation: function (v) {
             return numeral(v).value();
           },
-          callback_after_calculation: function(v){
+          callback_after_calculation: function (v) {
             return numeral(v).format("$0,0.00");
           }
         });
