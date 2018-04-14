@@ -22,33 +22,7 @@
 
   var _currentSpinnerId = 0;
 
-  function _scopedEventName(name, id) {
-    return name + '.touchspin_' + id;
-  }
-
-  function _scopeEventNames(names, id) {
-    return $.map(names, function(name) {
-      return _scopedEventName(name, id);
-    });
-  }
-
   $.fn.TouchSpin = function(options) {
-
-    if (options === 'destroy') {
-      this.each(function() {
-        var originalinput = $(this),
-          originalinput_data = originalinput.data();
-        $(document).off(_scopeEventNames([
-          'mouseup',
-          'touchend',
-          'touchcancel',
-          'mousemove',
-          'touchmove',
-          'scroll',
-          'scrollstart'], originalinput_data.spinnerid).join(' '));
-      });
-      return;
-    }
 
     var defaults = {
       min: 0, // If null, there is no minimum enforced
@@ -127,9 +101,7 @@
         spincount = 0,
         spinning = false;
 
-
       init();
-
 
       function init() {
         if (originalinput.data('alreadyinitialized')) {
@@ -139,7 +111,6 @@
         originalinput.data('alreadyinitialized', true);
         _currentSpinnerId += 1;
         originalinput.data('spinnerid', _currentSpinnerId);
-
 
         if (!originalinput.is('input')) {
           console.log('Must be an input.');
@@ -154,7 +125,6 @@
         _hideEmptyPrefixPostfix();
         _bindEvents();
         _bindEventsInterface();
-        elements.input.css('display', 'block');
       }
 
       function _setInitval() {
@@ -188,6 +158,25 @@
           }
         });
         return data;
+      }
+
+      function _destroy() {
+        var $parent = originalinput.parent();
+
+        stopSpin();
+
+        originalinput.off('.touchspin');
+
+        if ($parent.hasClass('bootstrap-touchspin-injected')) {
+          originalinput.siblings().remove();
+          originalinput.unwrap();
+        }
+        else {
+          $('.bootstrap-touchspin-injected', $parent).remove();
+          $parent.removeClass('bootstrap-touchspin');
+        }
+
+        originalinput.data('alreadyinitialized', false);
       }
 
       function _updateSettings(newsettings) {
@@ -229,24 +218,24 @@
 
         var downhtml,
           uphtml,
-          prefixhtml = '<span class="input-group-addon bootstrap-touchspin-prefix input-group-prepend"><span class="input-group-text">' + settings.prefix + '</span></span>',
-          postfixhtml = '<span class="input-group-addon bootstrap-touchspin-postfix input-group-append"><span class="input-group-text">' + settings.postfix + '</span></span>';
+          prefixhtml = '<span class="input-group-addon bootstrap-touchspin-prefix input-group-prepend bootstrap-touchspin-injected"><span class="input-group-text">' + settings.prefix + '</span></span>',
+          postfixhtml = '<span class="input-group-addon bootstrap-touchspin-postfix input-group-append bootstrap-touchspin-injected"><span class="input-group-text">' + settings.postfix + '</span></span>';
 
         if (prev.hasClass('input-group-btn') || prev.hasClass('input-group-prepend')) {
-          downhtml = '<button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">' + settings.buttondown_txt + '</button>';
+          downhtml = '<button class="' + settings.buttondown_class + ' bootstrap-touchspin-down bootstrap-touchspin-injected" type="button">' + settings.buttondown_txt + '</button>';
           prev.append(downhtml);
         }
         else {
-          downhtml = '<span class="input-group-btn input-group-prepend"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">' + settings.buttondown_txt + '</button></span>';
+          downhtml = '<span class="input-group-btn input-group-prepend bootstrap-touchspin-injected"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">' + settings.buttondown_txt + '</button></span>';
           $(downhtml).insertBefore(originalinput);
         }
 
         if (next.hasClass('input-group-btn') || next.hasClass('input-group-append')) {
-          uphtml = '<button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">' + settings.buttonup_txt + '</button>';
+          uphtml = '<button class="' + settings.buttonup_class + ' bootstrap-touchspin-up bootstrap-touchspin-injected" type="button">' + settings.buttonup_txt + '</button>';
           next.prepend(uphtml);
         }
         else {
-          uphtml = '<span class="input-group-btn input-group-append"><button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">' + settings.buttonup_txt + '</button></span>';
+          uphtml = '<span class="input-group-btn input-group-append bootstrap-touchspin-injected"><button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">' + settings.buttonup_txt + '</button></span>';
           $(uphtml).insertAfter(originalinput);
         }
 
@@ -269,10 +258,10 @@
         }
 
         if (settings.verticalbuttons) {
-          html = '<div class="input-group ' + inputGroupSize + ' bootstrap-touchspin"><span class="input-group-addon bootstrap-touchspin-prefix">' + settings.prefix + '</span><span class="input-group-addon bootstrap-touchspin-postfix input-group-prepend"><span class="input-group-text">' + settings.postfix + '</span></span><span class="input-group-btn-vertical"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-up ' + settings.verticalupclass + '" type="button">' + settings.verticalup + '</button><button class="' + settings.buttonup_class + ' bootstrap-touchspin-down ' + settings.verticaldownclass + '" type="button">' + settings.verticaldown + '</button></span></div>';
+          html = '<div class="input-group ' + inputGroupSize + ' bootstrap-touchspin bootstrap-touchspin-injected"><span class="input-group-addon bootstrap-touchspin-prefix">' + settings.prefix + '</span><span class="input-group-addon bootstrap-touchspin-postfix input-group-prepend"><span class="input-group-text">' + settings.postfix + '</span></span><span class="input-group-btn-vertical"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-up ' + settings.verticalupclass + '" type="button">' + settings.verticalup + '</button><button class="' + settings.buttonup_class + ' bootstrap-touchspin-down ' + settings.verticaldownclass + '" type="button">' + settings.verticaldown + '</button></span></div>';
         }
         else {
-          html = '<div class="input-group bootstrap-touchspin"><span class="input-group-btn input-group-prepend"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">' + settings.buttondown_txt + '</button></span><span class="input-group-addon bootstrap-touchspin-prefix input-group-prepend"><span class="input-group-text">' + settings.prefix + '</span></span><span class="input-group-addon bootstrap-touchspin-postfix input-group-append"><span class="input-group-text">' + settings.postfix + '</span></span><span class="input-group-btn input-group-append"><button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">' + settings.buttonup_txt + '</button></span></div>';
+          html = '<div class="input-group bootstrap-touchspin bootstrap-touchspin-injected"><span class="input-group-btn input-group-prepend"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">' + settings.buttondown_txt + '</button></span><span class="input-group-addon bootstrap-touchspin-prefix input-group-prepend"><span class="input-group-text">' + settings.prefix + '</span></span><span class="input-group-addon bootstrap-touchspin-postfix input-group-append"><span class="input-group-text">' + settings.postfix + '</span></span><span class="input-group-btn input-group-append"><button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">' + settings.buttonup_txt + '</button></span></div>';
         }
 
         container = $(html).insertBefore(originalinput);
@@ -308,7 +297,7 @@
       }
 
       function _bindEvents() {
-        originalinput.on('keydown', function(ev) {
+        originalinput.on('keydown.touchspin', function(ev) {
           var code = ev.keyCode || ev.which;
 
           if (code === 38) {
@@ -327,7 +316,7 @@
           }
         });
 
-        originalinput.on('keyup', function(ev) {
+        originalinput.on('keyup.touchspin', function(ev) {
           var code = ev.keyCode || ev.which;
 
           if (code === 38) {
@@ -338,7 +327,7 @@
           }
         });
 
-        originalinput.on('blur', function() {
+        originalinput.on('blur.touchspin', function() {
           _checkValue();
           originalinput.val(settings.callback_after_calculation(originalinput.val()));
         });
@@ -355,7 +344,7 @@
           }
         });
 
-        elements.down.on('keyup', function(ev) {
+        elements.down.on('keyup.touchspin', function(ev) {
           var code = ev.keyCode || ev.which;
 
           if (code === 32 || code === 13) {
@@ -363,7 +352,7 @@
           }
         });
 
-        elements.up.on('keydown', function(ev) {
+        elements.up.on('keydown.touchspin', function(ev) {
           var code = ev.keyCode || ev.which;
 
           if (code === 32 || code === 13) {
@@ -375,7 +364,7 @@
           }
         });
 
-        elements.up.on('keyup', function(ev) {
+        elements.up.on('keyup.touchspin', function(ev) {
           var code = ev.keyCode || ev.which;
 
           if (code === 32 || code === 13) {
@@ -439,7 +428,7 @@
           ev.stopPropagation();
         });
 
-        elements.up.on('mouseout touchleave touchend touchcancel', function(ev) {
+        elements.up.on('mouseout.touchspin touchleave.touchspin touchend.touchspin touchcancel.touchspin', function(ev) {
           if (!spinning) {
             return;
           }
@@ -448,7 +437,7 @@
           stopSpin();
         });
 
-        elements.down.on('mouseout touchleave touchend touchcancel', function(ev) {
+        elements.down.on('mouseout.touchspin touchleave.touchspin touchend.touchspin touchcancel.touchspin', function(ev) {
           if (!spinning) {
             return;
           }
@@ -457,7 +446,7 @@
           stopSpin();
         });
 
-        elements.down.on('mousemove touchmove', function(ev) {
+        elements.down.on('mousemove.touchspin touchmove.touchspin', function(ev) {
           if (!spinning) {
             return;
           }
@@ -466,7 +455,7 @@
           ev.preventDefault();
         });
 
-        elements.up.on('mousemove touchmove', function(ev) {
+        elements.up.on('mousemove.touchspin touchmove.touchspin', function(ev) {
           if (!spinning) {
             return;
           }
@@ -475,25 +464,7 @@
           ev.preventDefault();
         });
 
-        $(document).on(_scopeEventNames(['mouseup', 'touchend', 'touchcancel'], _currentSpinnerId).join(' '), function(ev) {
-          if (!spinning) {
-            return;
-          }
-
-          ev.preventDefault();
-          stopSpin();
-        });
-
-        $(document).on(_scopeEventNames(['mousemove', 'touchmove', 'scroll', 'scrollstart'], _currentSpinnerId).join(' '), function(ev) {
-          if (!spinning) {
-            return;
-          }
-
-          ev.preventDefault();
-          stopSpin();
-        });
-
-        originalinput.on('mousewheel DOMMouseScroll', function(ev) {
+        originalinput.on('mousewheel.touchspin DOMMouseScroll.touchspin', function(ev) {
           if (!settings.mousewheel || !originalinput.is(':focus')) {
             return;
           }
@@ -513,6 +484,10 @@
       }
 
       function _bindEventsInterface() {
+        originalinput.on('touchspin.destroy', function() {
+          _destroy();
+        });
+
         originalinput.on('touchspin.uponce', function() {
           stopSpin();
           upOnce();
