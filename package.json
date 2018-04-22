@@ -13,7 +13,7 @@
     "type": "git",
     "url": "https://github.com/istvan-ujjmeszaros/bootstrap-touchspin.git"
   },
-  "homepage": "httsp://www.virtuosoft.eu/code/bootstrap-touchspin/",
+  "homepage": "https://www.virtuosoft.eu/code/bootstrap-touchspin/",
   "version": "4.2.1",
   "devDependencies": {
     "grunt": "^1.0.2",
@@ -26,8 +26,5 @@
   "scripts": {
     "test": "grunt travis --verbose",
     "concat": "grunt concat"
-  },
-  "dependencies": {
-    "npm": "^5.8.0"
   }
 }
