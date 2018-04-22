@@ -141,7 +141,7 @@
 
         if (value !== '') {
           value = Number(settings.callback_before_calculation(elements.input.val()));
-          elements.input.val(settings.callback_after_calculation(value.toFixed(settings.decimals)));
+          elements.input.val(settings.callback_after_calculation(Number(value).toFixed(settings.decimals)));
         }
       }
 
@@ -641,7 +641,7 @@
           stopSpin();
         }
 
-        elements.input.val(settings.callback_after_calculation(value.toFixed(settings.decimals)));
+        elements.input.val(settings.callback_after_calculation(Number(value).toFixed(settings.decimals)));
 
         if (initvalue !== value) {
           originalinput.trigger('change');

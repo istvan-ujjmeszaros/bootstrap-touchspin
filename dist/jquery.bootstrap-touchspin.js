@@ -1,5 +1,5 @@
 /*
- *  Bootstrap TouchSpin - v4.2.0
+ *  Bootstrap TouchSpin - v4.2.1
  *  A mobile and touch friendly input spinner component for Bootstrap 3 & 4.
  *  http://www.virtuosoft.eu/code/bootstrap-touchspin/
  *
@@ -149,7 +149,7 @@
 
         if (value !== '') {
           value = Number(settings.callback_before_calculation(elements.input.val()));
-          elements.input.val(settings.callback_after_calculation(value.toFixed(settings.decimals)));
+          elements.input.val(settings.callback_after_calculation(Number(value).toFixed(settings.decimals)));
         }
       }
 
@@ -649,7 +649,7 @@
           stopSpin();
         }
 
-        elements.input.val(settings.callback_after_calculation(value.toFixed(settings.decimals)));
+        elements.input.val(settings.callback_after_calculation(Number(value).toFixed(settings.decimals)));
 
         if (initvalue !== value) {
           originalinput.trigger('change');

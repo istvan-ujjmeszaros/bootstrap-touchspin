@@ -1,5 +1,5 @@
 Bootstrap TouchSpin
-v4.2.0
+v4.2.1
 
 A mobile and touch friendly input spinner component for Bootstrap 3.
 
