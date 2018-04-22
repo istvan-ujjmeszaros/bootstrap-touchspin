@@ -1,5 +1,5 @@
 /*
- *  Bootstrap TouchSpin - v4.2.1
+ *  Bootstrap TouchSpin - v4.2.2
  *  A mobile and touch friendly input spinner component for Bootstrap 3 & 4.
  *  http://www.virtuosoft.eu/code/bootstrap-touchspin/
  *
@@ -99,6 +99,8 @@
       var settings,
         originalinput = $(this),
         originalinput_data = originalinput.data(),
+        _detached_prefix,
+        _detached_postfix,
         container,
         elements,
         value,
@@ -192,11 +194,28 @@
 
         // Update postfix and prefix texts if those settings were changed.
         if (newsettings.postfix) {
-          originalinput.parent().find('.bootstrap-touchspin-postfix').text(newsettings.postfix);
+          var $postfix = originalinput.parent().find('.bootstrap-touchspin-postfix');
+
+          if ($postfix.length === 0) {
+            _detached_postfix.insertAfter(originalinput).text(newsettings.postfix);
+          }
+          else {
+            $postfix.text(newsettings.postfix);
+          }
         }
+
         if (newsettings.prefix) {
-          originalinput.parent().find('.bootstrap-touchspin-prefix').text(newsettings.prefix);
+          var $prefix = originalinput.parent().find('.bootstrap-touchspin-prefix');
+
+          if ($prefix.length === 0) {
+            _detached_prefix.insertBefore(originalinput).text(newsettings.prefix);
+          }
+          else {
+            $prefix.text(newsettings.prefix);
+          }
         }
+
+        //_hideEmptyPrefixPostfix();
       }
 
       function _buildHtml() {
@@ -296,11 +315,11 @@
 
       function _hideEmptyPrefixPostfix() {
         if (settings.prefix === '') {
-          elements.prefix.hide();
+          _detached_prefix = elements.prefix.detach();
         }
 
         if (settings.postfix === '') {
-          elements.postfix.hide();
+          _detached_postfix = elements.postfix.detach();
         }
       }
 

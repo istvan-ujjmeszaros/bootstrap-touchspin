@@ -14,7 +14,7 @@
     "url": "https://github.com/istvan-ujjmeszaros/bootstrap-touchspin.git"
   },
   "homepage": "https://www.virtuosoft.eu/code/bootstrap-touchspin/",
-  "version": "4.2.1",
+  "version": "4.2.2",
   "devDependencies": {
     "grunt": "^1.0.2",
     "grunt-cli": "^1.2.0",
