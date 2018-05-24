@@ -541,7 +541,7 @@
           case 'ceil':
             return (Math.ceil(value / settings.step) * settings.step).toFixed(settings.decimals);
           default:
-            return value;
+            return value.toFixed(settings.decimals);
         }
       }
 
