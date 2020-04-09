@@ -37,6 +37,7 @@
       max: 100, // If null, there is no maximum enforced
       initval: '',
       replacementval: '',
+      firstclickvalueifempty: null,
       step: 1,
       decimals: 0,
       stepinterval: 100,
@@ -72,6 +73,7 @@
       max: 'max',
       initval: 'init-val',
       replacementval: 'replacement-val',
+      firstclickvalueifempty: 'first-click-value-if-empty',
       step: 'step',
       decimals: 'decimals',
       stepinterval: 'step-interval',
@@ -549,7 +551,7 @@
           case 'ceil':
             return (Math.ceil(value / settings.step) * settings.step).toFixed(settings.decimals);
           default:
-            return value;
+            return value.toFixed(settings.decimals);
         }
       }
 
@@ -621,18 +623,28 @@
         }
       }
 
+      function valueIfIsNaN() {
+        if(typeof(settings.firstclickvalueifempty) === 'number') {
+          return settings.firstclickvalueifempty;
+        } else {
+          return (settings.min + settings.max) / 2;
+        }
+      }
+
       function upOnce() {
         _checkValue();
 
         value = parseFloat(settings.callback_before_calculation(elements.input.val()));
+
+        var initvalue = value;
+        var boostedstep;
+
         if (isNaN(value)) {
-          value = 0;
-        }
-
-        var initvalue = value,
+          value = valueIfIsNaN();
+        } else {
           boostedstep = _getBoostedStep();
-
-        value = value + boostedstep;
+          value = value + boostedstep;
+        }
 
         if ((settings.max !== null) && (value > settings.max)) {
           value = settings.max;
@@ -651,14 +663,16 @@
         _checkValue();
 
         value = parseFloat(settings.callback_before_calculation(elements.input.val()));
+
+        var initvalue = value;
+        var boostedstep;
+
         if (isNaN(value)) {
-          value = 0;
-        }
-
-        var initvalue = value,
+          value = valueIfIsNaN();
+        } else {
           boostedstep = _getBoostedStep();
-
-        value = value - boostedstep;
+          value = value - boostedstep;
+        }
 
         if ((settings.min !== null) && (value < settings.min)) {
           value = settings.min;
