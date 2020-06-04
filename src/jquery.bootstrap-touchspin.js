@@ -159,7 +159,13 @@
           var attrName = 'bts-' + value + '';
           if (originalinput.is('[data-' + attrName + ']')) {
             data[key] = originalinput.data(attrName);
-          }
+          } else if (key == "min") {
+	      data[key]=originalinput.attr(key);
+          } else if (key == "max") {
+	      data[key]=originalinput.attr(key);
+          } else if (key == "step") {
+	      data[key]=originalinput.attr(key);
+	  }
         });
         return data;
       }
@@ -739,3 +745,4 @@
   };
 
 }));
+
