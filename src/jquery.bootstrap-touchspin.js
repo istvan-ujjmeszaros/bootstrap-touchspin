@@ -215,6 +215,8 @@
           parentelement = originalinput.parent();
 
         if (initval !== '') {
+	  // initval may not be parsable as a number (callback_after_calculation() may decorate it so it cant be parsed).  Use the callbacks if provided.
+	  initval = settings.callback_before_calculation(initval);
           initval = settings.callback_after_calculation(Number(initval).toFixed(settings.decimals));
         }
 
@@ -348,7 +350,9 @@
 
         originalinput.on('blur.touchspin', function() {
           _checkValue();
-          originalinput.val(settings.callback_after_calculation(originalinput.val()));
+	  // initval may not be parsable as a number (callback_after_calculation() may decorate it so it cant be parsed).  Use the callbacks if provided.
+	  var value = settings.callback_before_calculation(originalinput.val());
+          originalinput.val(settings.callback_after_calculation(value));
         });
 
         elements.down.on('keydown', function(ev) {
@@ -739,3 +743,4 @@
   };
 
 }));
+
