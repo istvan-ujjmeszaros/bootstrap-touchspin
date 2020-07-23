@@ -596,7 +596,7 @@
         returnval = _forcestepdivisibility(returnval);
 
         if (Number(val).toString() !== returnval.toString()) {
-          originalinput.val(returnval);
+          originalinput.val(settings.callback_after_calculation(returnval));
           originalinput.trigger('change');
         }
       }
