@@ -591,7 +591,7 @@
 
         returnval = _forcestepdivisibility(returnval);
 
-        if (Number(val).toString() !== returnval.toString()) {
+        if (parseFloat(Number(val).toString()) !== parseFloat(returnval.toString())) {
           originalinput.val(returnval);
           originalinput.trigger('change');
         }
