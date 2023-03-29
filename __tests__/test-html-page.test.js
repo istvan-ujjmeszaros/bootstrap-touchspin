@@ -44,4 +44,25 @@ describe('TouchSpin Tests', () => {
 
     expect(value).toBe('51');
   });
+
+  it('should fire the change event only once when updating the value', async () => {
+    await page.goto(`http://localhost:${port}/__tests__/html/index.html`);
+
+    await page.waitForSelector('#testinput1 + .input-group-btn > .bootstrap-touchspin-up');
+
+    // Trigger the TouchSpin button
+    await touchspinHelpers.touchspinClick(page, "#testinput1 + .input-group-btn > .bootstrap-touchspin-up");
+
+    // Wait for a short period to ensure all events are processed
+    await page.waitForTimeout(500);
+
+    // Get the event log content
+    const eventLogContent = await page.$eval('#events_log', el => el.textContent);
+
+    // Count the number of 'change' events
+    const changeEventCounter = (eventLogContent.match(/change/g) || []).length;
+
+    expect(changeEventCounter).toBe(1);
+  });
+
 });
