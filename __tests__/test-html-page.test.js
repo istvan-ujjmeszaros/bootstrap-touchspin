@@ -2,6 +2,8 @@ const express = require('express');
 const puppeteer = require('puppeteer');
 const path = require('path');
 
+const touchspinHelpers = require('./helpers/touchspin-helpers');
+
 const app = express();
 const port = 8080;
 app.use(express.static(path.join(__dirname, '..')));
@@ -10,14 +12,13 @@ const server = app.listen(port, () => {
   console.log(`Express server listening on port ${port}...`);
 });
 
-describe('Test', () => {
+describe('TouchSpin Tests', () => {
   let browser;
   let page;
 
   beforeAll(async () => {
-    browser = await puppeteer.launch({headless:false});
+    browser = await puppeteer.launch();
     page = await browser.newPage();
-    await page.goto(`http://localhost:${port}/demo/index.html`);
   });
 
   afterAll(async () => {
@@ -26,30 +27,21 @@ describe('Test', () => {
   });
 
   it('should have a TouchSpin button', async () => {
-    const button = await page.$('#demo0 + .input-group-btn > .bootstrap-touchspin-up');
+    await page.goto(`http://localhost:${port}/__tests__/html/index.html`);
+
+    const button = await page.$('#testinput1 + .input-group-btn > .bootstrap-touchspin-up');
     expect(button).toBeTruthy();
   });
 
-  // Create a test that is clicking the + button.
-  // Check if the initial value of 40 was changed to 41.
   it('should increase value by 1 when clicking the + button', async () => {
-    await page.waitForSelector('#demo0 + .input-group-btn > .bootstrap-touchspin-up');
-    const button = await page.$('#demo0 + .input-group-btn > .bootstrap-touchspin-up');
+    await page.goto(`http://localhost:${port}/__tests__/html/index.html`);
 
-    await page.evaluate(() => {
-      document.querySelector("#demo0 + .input-group-btn > .bootstrap-touchspin-up").dispatchEvent(new Event('mousedown'));
-    });
+    // We have to use the mousedown and mouseup events because the plugin is not handling the click event.
+    await touchspinHelpers.touchspinClick(page, "#testinput1 + .input-group-btn > .bootstrap-touchspin-up");
 
-    // Delay to allow the value to change.
-    await page.waitForTimeout(200);
-
-    await page.evaluate(() => {
-      document.querySelector("#demo0 + .input-group-btn > .bootstrap-touchspin-up").dispatchEvent(new Event('mouseup'));
-    });
-
-    const input = await page.$('#demo0');
+    const input = await page.$('#testinput1');
     const value = await input.evaluate(el => el.value);
 
-    expect(value).toBe('41');
+    expect(value).toBe('51');
   });
 });
