@@ -1,7 +1,16 @@
 {
   "name": "bootstrap-touchspin",
+  "version": "4.4.0",
   "title": "Bootstrap Touchspin",
   "description": "A mobile and touch friendly input spinner component for Bootstrap 3 & 4.",
+  "keywords": [
+    "input",
+    "bootstrap",
+    "number",
+    "range",
+    "spinbutton",
+    "spinner"
+  ],
   "author": {
     "name": "István Ujj-Mészáros",
     "url": "https://github.com/istvan-ujjmeszaros"
@@ -14,7 +23,15 @@
     "url": "https://github.com/istvan-ujjmeszaros/bootstrap-touchspin.git"
   },
   "homepage": "https://www.virtuosoft.eu/code/bootstrap-touchspin/",
-  "version": "4.4.0",
+  "demo": "https://www.virtuosoft.eu/code/bootstrap-touchspin/",
+  "docs": "https://www.virtuosoft.eu/code/bootstrap-touchspin/",
+  "download": "https://github.com/istvan-ujjmeszaros/bootstrap-touchspin/archive/master.zip",
+  "licenses": [
+    {
+      "type": "Apache License v2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
   "devDependencies": {
     "grunt": "^1.1.0",
     "grunt-cli": "^1.3.2",
