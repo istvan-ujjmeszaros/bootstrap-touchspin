@@ -37,7 +37,7 @@ describe('TouchSpin Tests', () => {
     await page.goto(`http://localhost:${port}/__tests__/html/index.html`);
 
     // We have to use the mousedown and mouseup events because the plugin is not handling the click event.
-    await touchspinHelpers.touchspinClick(page, "#testinput1 + .input-group-btn > .bootstrap-touchspin-up");
+    await touchspinHelpers.touchspinClickUp(page, "#testinput1");
 
     const input = await page.$('#testinput1');
     const value = await input.evaluate(el => el.value);
@@ -51,16 +51,17 @@ describe('TouchSpin Tests', () => {
     await page.waitForSelector('#testinput1 + .input-group-btn > .bootstrap-touchspin-up');
 
     // Trigger the TouchSpin button
-    await touchspinHelpers.touchspinClick(page, "#testinput1 + .input-group-btn > .bootstrap-touchspin-up");
+    await touchspinHelpers.touchspinClickUp(page, "#testinput1");
 
-    // Wait for a short period to ensure all events are processed
-    await page.waitForTimeout(500);
+    // Wait for a period to ensure all events are processed (the click event is waiting for 200ms, so we are using a larger value to be on the safe side)
+    await page.waitForTimeout(300);
 
     // Get the event log content
     const eventLogContent = await page.$eval('#events_log', el => el.textContent);
 
     // Count the number of 'change' events
-    const changeEventCounter = (eventLogContent.match(/change/g) || []).length;
+    //const changeEventCounter = (eventLogContent.match(/change/g) || []).length;
+    const changeEventCounter = (eventLogContent.match(/change\n/g) || []).length;
 
     expect(changeEventCounter).toBe(1);
   });

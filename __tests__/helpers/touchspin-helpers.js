@@ -12,4 +12,17 @@ async function touchspinClick(page, selector) {
   }, selector);
 }
 
-module.exports = { touchspinClick };
+async function touchspinClickUp(page, input_selector) {
+  await page.evaluate((selector) => {
+    document.querySelector(selector).dispatchEvent(new Event('mousedown'));
+  }, input_selector + ' + .input-group-btn > .bootstrap-touchspin-up');
+
+  // Delay to allow the value to change.
+  await page.waitForTimeout(200);
+
+  await page.evaluate((selector) => {
+    document.querySelector(selector).dispatchEvent(new Event('mouseup'));
+  }, input_selector + ' + .input-group-btn > .bootstrap-touchspin-up');
+}
+
+module.exports = { touchspinClick, touchspinClickUp };
