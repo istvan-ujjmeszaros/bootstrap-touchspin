@@ -57,7 +57,7 @@
       });
 
       inputs.on("change", function(e) {
-        writeLine($(this), "change");
+        writeLine($(this), "change[" + $(this).val() + "]");
       });
       inputs.on("touchspin.on.startspin", function() {
         writeLine($(this), "touchspin.on.startspin");

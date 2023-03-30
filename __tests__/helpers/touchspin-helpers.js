@@ -25,4 +25,12 @@ async function touchspinClickUp(page, input_selector) {
   }, input_selector + ' + .input-group-btn > .bootstrap-touchspin-up');
 }
 
-module.exports = { touchspinClick, touchspinClickUp };
+async function changeEventCounter(page) {
+  // Get the event log content
+  const eventLogContent = await page.$eval('#events_log', el => el.textContent);
+
+  // Count the number of 'change' events
+  return (eventLogContent.match(/change\[/g) || []).length;
+}
+
+module.exports = { touchspinClick, touchspinClickUp, changeEventCounter };

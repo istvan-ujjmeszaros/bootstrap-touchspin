@@ -152,8 +152,8 @@
         var value = elements.input.val();
 
         if (value !== '') {
-          value = Number(settings.callback_before_calculation(elements.input.val()));
-          elements.input.val(settings.callback_after_calculation(Number(value).toFixed(settings.decimals)));
+          value = parseFloat(settings.callback_before_calculation(elements.input.val()));
+          elements.input.val(settings.callback_after_calculation(parseFloat(value).toFixed(settings.decimals)));
         }
       }
 
@@ -223,7 +223,7 @@
           parentelement = originalinput.parent();
 
         if (initval !== '') {
-          initval = settings.callback_after_calculation(Number(initval).toFixed(settings.decimals));
+          initval = settings.callback_after_calculation(parseFloat(initval).toFixed(settings.decimals));
         }
 
         originalinput.data('initvalue', initval).val(initval);
@@ -340,6 +340,9 @@
               startDownSpin();
             }
             ev.preventDefault();
+          }
+          else if (code  ===  9 || code === 13)  {
+            originalinput.val(_forcestepdivisibility(originalinput.val()));
           }
         });
 
@@ -597,9 +600,7 @@
           returnval = settings.max;
         }
 
-        returnval = _forcestepdivisibility(returnval);
-
-        if (parseFloat(Number(val).toString()) !== parseFloat(returnval.toString())) {
+        if (parseFloat(val).toString() !== returnval.toString()) {
           originalinput.val(returnval);
           originalinput.trigger('change');
         }
@@ -652,7 +653,7 @@
           stopSpin();
         }
 
-        elements.input.val(settings.callback_after_calculation(Number(value).toFixed(settings.decimals)));
+        elements.input.val(settings.callback_after_calculation(parseFloat(value).toFixed(settings.decimals)));
 
         if (initvalue !== value) {
           originalinput.trigger('change');
@@ -680,7 +681,7 @@
           stopSpin();
         }
 
-        elements.input.val(settings.callback_after_calculation(Number(value).toFixed(settings.decimals)));
+        elements.input.val(settings.callback_after_calculation(parseFloat(value).toFixed(settings.decimals)));
 
         if (initvalue !== value) {
           originalinput.trigger('change');
