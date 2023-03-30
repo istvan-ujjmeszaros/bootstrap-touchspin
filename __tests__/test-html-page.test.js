@@ -4,6 +4,8 @@ const path = require('path');
 
 const touchspinHelpers = require('./helpers/touchspin-helpers');
 
+const puppeteerDebug = process.env.PUPPETEER_DEBUG === '1';
+
 const app = express();
 const port = 8080;
 app.use(express.static(path.join(__dirname, '..')));
@@ -17,7 +19,14 @@ describe('TouchSpin Tests', () => {
   let page;
 
   beforeAll(async () => {
-    browser = await puppeteer.launch();
+    if (puppeteerDebug)  {
+      browser = await puppeteer.launch({
+        headless: false,
+        slowMo: 300
+      });
+    } else {
+      browser = await puppeteer.launch();
+    }
     page = await browser.newPage();
   });
 
