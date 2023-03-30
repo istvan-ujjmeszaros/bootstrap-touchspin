@@ -100,7 +100,7 @@ describe('TouchSpin Tests', () => {
     const eventLogContent = await page.$eval('#events_log', el => el.textContent);
 
     // Count the number of 'change' events followed by a new line character
-    const changeEventCounter = (eventLogContent.match(/change\n/g) || []).length;
+    const changeEventCounter = (eventLogContent.match(/testinput1: change\n/g) || []).length;
 
     expect(changeEventCounter).toBe(1);
   });

@@ -28,50 +28,56 @@
       <label for="testinput1">#testinput1:</label>
       <input id="testinput1" type="text" value="50" name="testinput1">
     </div>
-    <div class="col-md-9">
+
+    <div class="col-md-3">
+      <label for="testinput2">#testinput2:</label>
+      <input id="testinput2" type="text" value="50" name="testinput2">
+    </div>
+
+    <div class="col-md-12">
       <pre id="events_log" style="height:200px;overflow:auto;"></pre>
     </div>
 
     <script>
-      var i = $("input[name='testinput1']"),
+      var inputs = $("input"),
         demoarea = $("#events_log"),
         text = "";
 
-      function writeLine(line) {
-        text += line + "\n";
+      function writeLine(input, line) {
+        text += input.attr('id') + ': ' + line + "\n";
         demoarea.text(text);
         demoarea.scrollTop(
           demoarea[0].scrollHeight - demoarea.height()
         );
       }
 
-      i.TouchSpin({});
-      i.on("change", function() {
-        writeLine("change");
+      inputs.TouchSpin({});
+      inputs.on("change", function(e) {
+        writeLine($(this), "change");
       });
-      i.on("touchspin.on.startspin", function() {
-        writeLine("touchspin.on.startspin");
+      inputs.on("touchspin.on.startspin", function() {
+        writeLine($(this), "touchspin.on.startspin");
       });
-      i.on("touchspin.on.startupspin", function() {
-        writeLine("touchspin.on.startupspin");
+      inputs.on("touchspin.on.startupspin", function() {
+        writeLine($(this), "touchspin.on.startupspin");
       });
-      i.on("touchspin.on.startdownspin", function() {
-        writeLine("touchspin.on.startdownspin");
+      inputs.on("touchspin.on.startdownspin", function() {
+        writeLine($(this), "touchspin.on.startdownspin");
       });
-      i.on("touchspin.on.stopspin", function() {
-        writeLine("touchspin.on.stopspin");
+      inputs.on("touchspin.on.stopspin", function() {
+        writeLine($(this), "touchspin.on.stopspin");
       });
-      i.on("touchspin.on.stopupspin", function() {
-        writeLine("touchspin.on.stopupspin");
+      inputs.on("touchspin.on.stopupspin", function() {
+        writeLine($(this), "touchspin.on.stopupspin");
       });
-      i.on("touchspin.on.stopdownspin", function() {
-        writeLine("touchspin.on.stopdownspin");
+      inputs.on("touchspin.on.stopdownspin", function() {
+        writeLine($(this), "touchspin.on.stopdownspin");
       });
-      i.on("touchspin.on.min", function() {
-        writeLine("touchspin.on.min");
+      inputs.on("touchspin.on.min", function() {
+        writeLine($(this), "touchspin.on.min");
       });
-      i.on("touchspin.on.max", function() {
-        writeLine("touchspin.on.max");
+      inputs.on("touchspin.on.max", function() {
+        writeLine($(this), "touchspin.on.max");
       });
     </script>
 
