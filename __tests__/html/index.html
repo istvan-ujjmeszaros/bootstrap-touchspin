@@ -31,7 +31,7 @@
 
     <div class="col-md-3">
       <label for="testinput2">#testinput2:</label>
-      <input id="testinput2" type="text" value="50" name="testinput2">
+      <input id="testinput2" type="text" value="0" name="testinput2">
     </div>
 
     <div class="col-md-12">
@@ -51,7 +51,11 @@
         );
       }
 
-      inputs.TouchSpin({});
+      $("#testinput1").TouchSpin({});
+      $("#testinput2").TouchSpin({
+        step:  10,
+      });
+
       inputs.on("change", function(e) {
         writeLine($(this), "change");
       });

@@ -105,4 +105,33 @@ describe('TouchSpin Tests', () => {
     expect(changeEventCounter).toBe(1);
   });
 
+  it('Reproducing #83', async () => {
+    await page.goto(`http://localhost:${port}/__tests__/html/index.html`);
+
+    // Focus on the input element
+    await page.focus('#testinput2');
+
+    // Clear the input
+    await page.keyboard.down('Control');
+    await page.keyboard.press('A');
+    await page.keyboard.up('Control');
+    await page.keyboard.press('Backspace');
+
+    // Type a new value
+    await page.keyboard.type('7');
+
+    // Press the TAB key to move out of the input field
+    await page.keyboard.press('Tab');
+
+    // Wait for a short period to ensure all events are processed
+    await page.waitForTimeout(500);
+
+    // Get the event log content
+    const eventLogContent = await page.$eval('#events_log', el => el.textContent);
+
+    // Count the number of 'change' events followed by a new line character
+    const changeEventCounter = (eventLogContent.match(/testinput2: change\n/g) || []).length;
+
+    expect(changeEventCounter).toBe(1);
+  });
 });
