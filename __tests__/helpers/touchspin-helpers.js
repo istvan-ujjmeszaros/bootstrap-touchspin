@@ -30,8 +30,7 @@ async function changeEventCounter(page) {
   const eventLogContent = await page.$eval('#events_log', el => el.textContent);
 
   // Count the number of 'change' events
-  //const changeEventCounter = (eventLogContent.match(/change/g) || []).length;
-  return (eventLogContent.match(/change/g) || []).length;
+  return (eventLogContent.match(/change\[/g) || []).length;
 }
 
 module.exports = { touchspinClick, touchspinClickUp, changeEventCounter };
