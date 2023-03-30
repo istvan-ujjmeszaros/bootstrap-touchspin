@@ -65,14 +65,7 @@ describe('TouchSpin Tests', () => {
     // Wait for a period to ensure all events are processed (the click event is waiting for 200ms, so we are using a larger value to be on the safe side)
     await page.waitForTimeout(300);
 
-    // Get the event log content
-    const eventLogContent = await page.$eval('#events_log', el => el.textContent);
-
-    // Count the number of 'change' events
-    //const changeEventCounter = (eventLogContent.match(/change/g) || []).length;
-    const changeEventCounter = (eventLogContent.match(/change\n/g) || []).length;
-
-    expect(changeEventCounter).toBe(1);
+    expect(await touchspinHelpers.changeEventCounter(page)).toBe(1);
   });
 
   it('should fire the change event only once when updating the value using the keyboard and pressing TAB', async () => {
@@ -96,13 +89,7 @@ describe('TouchSpin Tests', () => {
     // Wait for a short period to ensure all events are processed
     await page.waitForTimeout(500);
 
-    // Get the event log content
-    const eventLogContent = await page.$eval('#events_log', el => el.textContent);
-
-    // Count the number of 'change' events followed by a new line character
-    const changeEventCounter = (eventLogContent.match(/testinput1: change\n/g) || []).length;
-
-    expect(changeEventCounter).toBe(1);
+    expect(await touchspinHelpers.changeEventCounter(page)).toBe(1);
   });
 
   it('Reproducing #83', async () => {
@@ -126,12 +113,6 @@ describe('TouchSpin Tests', () => {
     // Wait for a short period to ensure all events are processed
     await page.waitForTimeout(500);
 
-    // Get the event log content
-    const eventLogContent = await page.$eval('#events_log', el => el.textContent);
-
-    // Count the number of 'change' events followed by a new line character
-    const changeEventCounter = (eventLogContent.match(/testinput2: change\n/g) || []).length;
-
-    expect(changeEventCounter).toBe(1);
+    expect(await touchspinHelpers.changeEventCounter(page)).toBe(1);
   });
 });
