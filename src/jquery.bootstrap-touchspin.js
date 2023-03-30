@@ -591,8 +591,6 @@
 
         returnval = _forcestepdivisibility(returnval);
 
-        console.log('val', val, 'parsedval', parsedval, 'returnval', returnval, 'settings.replacementval', settings.replacementval);
-        console.log(parseFloat(val).toString(), returnval.toString());
         if (parseFloat(val).toString() !== returnval.toString()) {
           originalinput.val(returnval);
           originalinput.trigger('change');
