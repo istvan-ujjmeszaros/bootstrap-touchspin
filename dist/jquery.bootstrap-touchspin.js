@@ -341,6 +341,9 @@
             }
             ev.preventDefault();
           }
+          else if (code  ===  9 || code === 13)  {
+            originalinput.val(_forcestepdivisibility(originalinput.val()));
+          }
         });
 
         originalinput.on('keyup.touchspin', function(ev) {
@@ -596,8 +599,6 @@
         if ((settings.max !== null) && (parsedval > settings.max)) {
           returnval = settings.max;
         }
-
-        returnval = _forcestepdivisibility(returnval);
 
         if (parseFloat(val).toString() !== returnval.toString()) {
           originalinput.val(returnval);
