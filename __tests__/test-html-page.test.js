@@ -66,4 +66,34 @@ describe('TouchSpin Tests', () => {
     expect(changeEventCounter).toBe(1);
   });
 
+  it('should fire the change event only once when updating the value using the keyboard and pressing TAB', async () => {
+    await page.goto(`http://localhost:${port}/__tests__/html/index.html`);
+
+    // Focus on the input element
+    await page.focus('#testinput1');
+
+    // Clear the input
+    await page.keyboard.down('Control');
+    await page.keyboard.press('A');
+    await page.keyboard.up('Control');
+    await page.keyboard.press('Backspace');
+
+    // Type a new value
+    await page.keyboard.type('45');
+
+    // Press the TAB key to move out of the input field
+    await page.keyboard.press('Tab');
+
+    // Wait for a short period to ensure all events are processed
+    await page.waitForTimeout(500);
+
+    // Get the event log content
+    const eventLogContent = await page.$eval('#events_log', el => el.textContent);
+
+    // Count the number of 'change' events followed by a new line character
+    const changeEventCounter = (eventLogContent.match(/change\n/g) || []).length;
+
+    expect(changeEventCounter).toBe(1);
+  });
+
 });
