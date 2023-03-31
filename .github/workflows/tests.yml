@@ -30,7 +30,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm build
+        run: npm run-script build
 
       - name: Run tests
         run: npm test
