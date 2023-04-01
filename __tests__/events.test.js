@@ -14,7 +14,7 @@ const server = app.listen(port, () => {
   console.log(`Express server listening on port ${port}...`);
 });
 
-describe('TouchSpin Tests', () => {
+describe('Events', () => {
   let browser;
   let page;
 
