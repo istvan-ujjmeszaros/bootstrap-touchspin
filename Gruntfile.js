@@ -34,7 +34,7 @@ module.exports = function (grunt) {
 
     // Lint definitions
     jshint: {
-      files: ['src/jquery.bootstrap-touchspin.js'],
+      files: ['src/**/*.js', '__tests__/**/*.js'],
       options: {
         jshintrc: '.jshintrc'
       }
