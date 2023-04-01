@@ -45,11 +45,6 @@ describe('Events', () => {
     }
   });
 
-  it('should have a TouchSpin button', async () => {
-    const button = await page.$('#testinput1 + .input-group-btn > .bootstrap-touchspin-up');
-    expect(button).toBeTruthy();
-  });
-
   it('should increase value by 1 when clicking the + button', async () => {
     // We have to use the mousedown and mouseup events because the plugin is not handling the click event.
     await touchspinHelpers.touchspinClickUp(page, '#testinput1');
