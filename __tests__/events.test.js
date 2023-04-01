@@ -2,7 +2,7 @@ const express = require('express');
 const puppeteer = require('puppeteer');
 const path = require('path');
 
-const touchspinHelpers = require('./helpers/touchspin-helpers');
+const touchspinHelpers = require('./helpers/touchspinHelpers');
 
 const puppeteerDebug = process.env.PUPPETEER_DEBUG === '1';
 
