@@ -52,7 +52,7 @@ describe('Events', () => {
 
   it('should increase value by 1 when clicking the + button', async () => {
     // We have to use the mousedown and mouseup events because the plugin is not handling the click event.
-    await touchspinHelpers.touchspinClickUp(page, "#testinput1");
+    await touchspinHelpers.touchspinClickUp(page, '#testinput1');
 
     const input = await page.$('#testinput1');
     const value = await input.evaluate(el => el.value);
@@ -62,7 +62,7 @@ describe('Events', () => {
 
   it('should fire the change event only once when updating the value', async () => {
     // Trigger the TouchSpin button
-    await touchspinHelpers.touchspinClickUp(page, "#testinput1");
+    await touchspinHelpers.touchspinClickUp(page, '#testinput1');
 
     // Wait for a period to ensure all events are processed (the click event is waiting for 200ms, so we are using a larger value to be on the safe side)
     await page.waitForTimeout(300);
