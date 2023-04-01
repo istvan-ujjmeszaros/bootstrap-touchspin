@@ -27,7 +27,6 @@ describe('Events', () => {
     } else {
       browser = await puppeteer.launch();
     }
-    page = await browser.newPage();
   });
 
   afterAll(async () => {
@@ -35,16 +34,23 @@ describe('Events', () => {
     server.close();
   });
 
-  it('should have a TouchSpin button', async () => {
-    await page.goto(`http://localhost:${port}/__tests__/html/index.html`);
+  beforeEach(async () => {
+    if (!page) {
+      // Create a new page if it doesn't exist
+      page = await browser.newPage();
+      await page.goto(`http://localhost:${port}/__tests__/html/index.html`);
+    } else {
+      // Reload the current page
+      await page.reload();
+    }
+  });
 
+  it('should have a TouchSpin button', async () => {
     const button = await page.$('#testinput1 + .input-group-btn > .bootstrap-touchspin-up');
     expect(button).toBeTruthy();
   });
 
   it('should increase value by 1 when clicking the + button', async () => {
-    await page.goto(`http://localhost:${port}/__tests__/html/index.html`);
-
     // We have to use the mousedown and mouseup events because the plugin is not handling the click event.
     await touchspinHelpers.touchspinClickUp(page, "#testinput1");
 
@@ -55,10 +61,6 @@ describe('Events', () => {
   });
 
   it('should fire the change event only once when updating the value', async () => {
-    await page.goto(`http://localhost:${port}/__tests__/html/index.html`);
-
-    await page.waitForSelector('#testinput1 + .input-group-btn > .bootstrap-touchspin-up');
-
     // Trigger the TouchSpin button
     await touchspinHelpers.touchspinClickUp(page, "#testinput1");
 
@@ -69,8 +71,6 @@ describe('Events', () => {
   });
 
   it('should fire the change event only once when updating the value using the keyboard and pressing TAB', async () => {
-    await page.goto(`http://localhost:${port}/__tests__/html/index.html`);
-
     // Focus on the input element
     await page.focus('#testinput1');
 
@@ -92,9 +92,7 @@ describe('Events', () => {
     expect(await touchspinHelpers.changeEventCounter(page)).toBe(1);
   });
 
-  it('Reproducing #83', async () => {
-    await page.goto(`http://localhost:${port}/__tests__/html/index.html`);
-
+  it('Should fire the change event only once when updating the value using the keyboard and pressing TAB', async () => {
     // Focus on the input element
     await page.focus('#testinput2');
 
@@ -109,6 +107,28 @@ describe('Events', () => {
 
     // Press the TAB key to move out of the input field
     await page.keyboard.press('Tab');
+
+    // Wait for a short period to ensure all events are processed
+    await page.waitForTimeout(500);
+
+    expect(await touchspinHelpers.changeEventCounter(page)).toBe(1);
+  });
+
+  it('Should fire the change event only once when updating the value using the keyboard and pressing Enter', async () => {
+    // Focus on the input element
+    await page.focus('#testinput2');
+
+    // Clear the input
+    await page.keyboard.down('Control');
+    await page.keyboard.press('A');
+    await page.keyboard.up('Control');
+    await page.keyboard.press('Backspace');
+
+    // Type a new value
+    await page.keyboard.type('7');
+
+    // Press the TAB key to move out of the input field
+    await page.keyboard.press('Enter');
 
     // Wait for a short period to ensure all events are processed
     await page.waitForTimeout(500);
