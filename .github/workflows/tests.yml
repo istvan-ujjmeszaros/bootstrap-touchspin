@@ -29,8 +29,8 @@ jobs:
         if: steps.cache-nodemodules.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Build
-        run: npm run-script build
-
       - name: Run tests
         run: npm test
+
+      - name: Check dist folder integrity
+        run: npm run check-build-integrity
