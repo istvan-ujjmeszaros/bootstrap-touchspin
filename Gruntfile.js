@@ -66,14 +66,10 @@ module.exports = function (grunt) {
 
   // Clean task for dist folder
   grunt.config('clean', {
-    dist: {
-      files: [{
-        dot: true,
-        src: ['dist/**/*']
-      }]
-    }
+    folder: [distFolder + '**/*'],
   });
 
+  // Checking if the dist folder has been properly rebuilt with "grunt default" before pushing to GitHub
   grunt.registerTask('build-checksum', 'Build task with checksum verification', function() {
     const done = this.async();
     const initialChecksum = calculateChecksum(distFolder);
@@ -81,29 +77,36 @@ module.exports = function (grunt) {
     grunt.log.writeln('Initial checksum:', initialChecksum);
 
     // Clean dist folder
-    grunt.task.run('clean:dist');
-
-    // Rebuild files asynchronously
     grunt.util.spawn({
       cmd: 'grunt',
-      args: ['default'],
+      args: ['clean'],
       opts: {stdio: 'inherit'}
-    }, function(error, result, code) {
+    }, function(error) {
       if (error) {
-        grunt.fail.fatal('Error running "default" task: ' + error);
+        grunt.fail.fatal('Error running "clean" task: ' + error);
       } else {
-        const finalChecksum = calculateChecksum(distFolder);
+        grunt.util.spawn({
+          cmd: 'grunt',
+          args: ['default'],
+          opts: {stdio: 'inherit'}
+        }, function(error) {
+          if (error) {
+            grunt.fail.fatal('Error running "default" task: ' + error);
+          } else {
+            const finalChecksum = calculateChecksum(distFolder);
 
-        grunt.log.writeln('Final checksum:', finalChecksum);
+            grunt.log.writeln('Final checksum:', finalChecksum);
 
-        if (initialChecksum !== finalChecksum) {
-          grunt.fail.fatal('Checksums do not match!');
-        } else {
-          grunt.log.ok('Checksums match!');
-        }
+            if (initialChecksum !== finalChecksum) {
+              grunt.fail.fatal('Checksums do not match, please rebuild the dist files with "grunt default"!');
+            } else {
+              grunt.log.ok('Checksums match, the dist folder is up-to-date!');
+            }
+          }
+
+          done();
+        });
       }
-
-      done();
     });
   });
 
