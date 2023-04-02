@@ -1,5 +1,5 @@
 import touchspinHelpers from './helpers/touchspinHelpers';
-import {page} from './setup';
+import {page} from './helpers/jestPuppeteerServerSetup';
 
 describe('Events', () => {
 
