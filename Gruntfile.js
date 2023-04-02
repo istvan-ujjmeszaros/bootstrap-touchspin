@@ -69,8 +69,16 @@ module.exports = function (grunt) {
     folder: [distFolder + '**/*'],
   });
 
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+
+  grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin']);
+
   // Checking if the dist folder has been properly rebuilt with "grunt default" before pushing to GitHub
-  grunt.registerTask('build-checksum', 'Build task with checksum verification', function() {
+  grunt.registerTask('check-build-integrity', 'Build task with checksum verification', function() {
     const done = this.async();
     const initialChecksum = calculateChecksum(distFolder);
 
@@ -123,11 +131,4 @@ module.exports = function (grunt) {
     return hasher.digest('hex');
   }
 
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-
-  grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin']);
 };
