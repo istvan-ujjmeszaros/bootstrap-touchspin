@@ -52,6 +52,7 @@
   },
   "scripts": {
     "test": "jest --runInBand",
-    "build": "grunt default"
+    "build": "grunt default",
+    "check-build-integrity": "grunt check-build-integrity"
   }
 }
