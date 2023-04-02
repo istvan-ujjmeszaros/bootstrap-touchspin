@@ -82,7 +82,7 @@ describe('Events', () => {
     await page.keyboard.press('Tab');
 
     // Wait for a short period to ensure all events are processed
-    await page.waitForTimeout(500);
+    await touchspinHelpers.waitForTimeout(500);
 
     expect(await touchspinHelpers.changeEventCounter(page)).toBe(1);
   });
@@ -104,7 +104,7 @@ describe('Events', () => {
     await page.keyboard.press('Tab');
 
     // Wait for a short period to ensure all events are processed
-    await page.waitForTimeout(500);
+    await touchspinHelpers.waitForTimeout(500);
 
     expect(await touchspinHelpers.changeEventCounter(page)).toBe(1);
   });
@@ -126,7 +126,7 @@ describe('Events', () => {
     await page.keyboard.press('Enter');
 
     // Wait for a short period to ensure all events are processed
-    await page.waitForTimeout(500);
+    await touchspinHelpers.waitForTimeout(500);
 
     expect(await touchspinHelpers.changeEventCounter(page)).toBe(1);
   });
