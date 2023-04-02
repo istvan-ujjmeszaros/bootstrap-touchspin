@@ -1,4 +1,6 @@
+const crypto = require("crypto");
 module.exports = function (grunt) {
+  const distFolder = 'dist/';
 
   grunt.initConfig({
 
@@ -34,7 +36,7 @@ module.exports = function (grunt) {
 
     // Lint definitions
     jshint: {
-      files: ['src/jquery.bootstrap-touchspin.js'],
+      files: ['src/**/*.js', '__tests__/**/*.js'],
       options: {
         jshintrc: '.jshintrc'
       }
@@ -62,12 +64,71 @@ module.exports = function (grunt) {
     }
   });
 
+  // Clean task for dist folder
+  grunt.config('clean', {
+    folder: [distFolder + '**/*'],
+  });
+
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
   grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin']);
-  grunt.registerTask('travis', ['jshint']);
+
+  // Checking if the dist folder has been properly rebuilt with "grunt default" before pushing to GitHub
+  grunt.registerTask('check-build-integrity', 'Build task with checksum verification', function() {
+    const done = this.async();
+    const initialChecksum = calculateChecksum(distFolder);
+
+    grunt.log.writeln('Initial checksum:', initialChecksum);
+
+    // Clean dist folder
+    grunt.util.spawn({
+      cmd: 'grunt',
+      args: ['clean'],
+      opts: {stdio: 'inherit'}
+    }, function(error) {
+      if (error) {
+        grunt.fail.fatal('Error running "clean" task: ' + error);
+      } else {
+        grunt.util.spawn({
+          cmd: 'grunt',
+          args: ['default'],
+          opts: {stdio: 'inherit'}
+        }, function(error) {
+          if (error) {
+            grunt.fail.fatal('Error running "default" task: ' + error);
+          } else {
+            const finalChecksum = calculateChecksum(distFolder);
+
+            grunt.log.writeln('Final checksum:', finalChecksum);
+
+            if (initialChecksum !== finalChecksum) {
+              grunt.fail.fatal('Checksums do not match, please rebuild the dist files with "grunt default"!');
+            } else {
+              grunt.log.ok('Checksums match, the dist folder is up-to-date!');
+            }
+          }
+
+          done();
+        });
+      }
+    });
+  });
+
+  function calculateChecksum(folderPath) {
+    const files = grunt.file.expand(folderPath + '**/*');
+    const hasher = crypto.createHash('md5');
+
+    files.forEach(function(filePath) {
+      if (grunt.file.isFile(filePath)) {
+        hasher.update(grunt.file.read(filePath));
+      }
+    });
+
+    return hasher.digest('hex');
+  }
 
 };
