@@ -1,49 +1,7 @@
 import touchspinHelpers from './helpers/touchspinHelpers';
-import express from 'express';
-import path from 'path';
-import puppeteer, {Browser, Page} from 'puppeteer';
-
-const puppeteerDebug = process.env.PUPPETEER_DEBUG === '1';
-
-const app = express();
-const port = 8080;
-
-app.use(express.static(path.join(__dirname, '..')));
-
-const server = app.listen(port, () => {
-  console.log(`Express server listening on port ${port}...`);
-});
+import {page} from './setup';
 
 describe('Events', () => {
-  let browser: Browser;
-  let page: Page;
-
-  beforeAll(async () => {
-    if (puppeteerDebug)  {
-      browser = await puppeteer.launch({
-        headless: false,
-        slowMo: 300
-      });
-    } else {
-      browser = await puppeteer.launch();
-    }
-  });
-
-  afterAll(async () => {
-    await browser.close();
-    server.close();
-  });
-
-  beforeEach(async () => {
-    if (!page) {
-      // Create a new page if it doesn't exist
-      page = await browser.newPage();
-      await page.goto(`http://localhost:${port}/__tests__/html/index.html`);
-    } else {
-      // Reload the current page
-      await page.reload();
-    }
-  });
 
   it('should increase value by 1 when clicking the + button', async () => {
     // We have to use the mousedown and mouseup events because the plugin is not handling the click event.
