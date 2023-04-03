@@ -28,11 +28,21 @@
       <div class="wrapper">
         <label for="testinput1">#testinput1:</label>
         <input id="testinput1" type="text" value="50" name="testinput1">
+
+        <script>
+          $("#testinput1").TouchSpin();
+        </script>
       </div>
 
       <div class="wrapper">
         <label for="testinput2">#testinput2:</label>
         <input id="testinput2" type="text" value="0" name="testinput2">
+
+        <script>
+          $("#testinput2").TouchSpin({
+            step:  10,
+          });
+        </script>
       </div>
     </div>
 
@@ -43,21 +53,16 @@
 
     <script>
       var inputs = $("input"),
-        demoarea = $("#events_log"),
+        events_log = $("#events_log"),
         text = "";
 
       function writeLine(input, line) {
         text += input.attr('id') + ': ' + line + "\n";
-        demoarea.text(text);
-        demoarea.scrollTop(
-          demoarea[0].scrollHeight - demoarea.height()
+        events_log.text(text);
+        events_log.scrollTop(
+          events_log[0].scrollHeight - events_log.height()
         );
       }
-
-      $("#testinput1").TouchSpin({});
-      $("#testinput2").TouchSpin({
-        step:  10,
-      });
 
       inputs.on("change", function(e) {
         writeLine($(this), "change[" + $(this).val() + "]");
