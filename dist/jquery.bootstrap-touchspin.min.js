@@ -1,5 +1,5 @@
 /*
- *  Bootstrap Touchspin - v4.5.1
+ *  Bootstrap Touchspin - v4.5.2
  *  A mobile and touch friendly input spinner component for Bootstrap 3 & 4.
  *  https://www.virtuosoft.eu/code/bootstrap-touchspin/
  *
