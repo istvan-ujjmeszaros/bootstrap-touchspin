@@ -5,7 +5,8 @@
   <title>Bootstrap TouchSpin</title>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css"
+        integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
 
 
   <!-- BOOTSTRAP 4 -->
@@ -40,7 +41,7 @@
 
         <script>
           $("#testinput2").TouchSpin({
-            step:  10,
+            step: 10,
           });
         </script>
       </div>
@@ -53,21 +54,21 @@
           $("#testinput3").TouchSpin();
         </script>
       </div>
+
+      <div class="wrapper">
+        <label for="testinput4">#testinput4 (readonly):</label>
+        <input id="testinput4" type="text" value="0" name="testinput4" readonly>
+
+        <script>
+          $("#testinput4").TouchSpin();
+        </script>
+      </div>
     </div>
 
-    <div class="wrapper">
-      <label for="testinput4">#testinput4 (readonly):</label>
-      <input id="testinput4" type="text" value="0" name="testinput4" readonly>
-
-      <script>
-        $("#testinput3").TouchSpin();
-      </script>
-    </div>
-  </div>
-
-  <div class="col-md-8" style="height:100vh;">
+    <div class="col-md-8" style="height:100vh;">
       <h6>Events</h6>
-      <pre id="events_log" style="height:200px;overflow:auto;outline:1px dotted gray;height:calc(100% - 50px);margin-top:15px;"></pre>
+      <pre id="events_log"
+           style="height:200px;overflow:auto;outline:1px dotted gray;height:calc(100% - 50px);margin-top:15px;"></pre>
     </div>
 
     <script>
@@ -92,8 +93,8 @@
         "touchspin.on.stopdownspin",
         "touchspin.on.min",
         "touchspin.on.max"
-      ].forEach(function(eventName) {
-        $("input").on(eventName, function(e) {
+      ].forEach(function (eventName) {
+        $("input").on(eventName, function (e) {
           var line = eventName;
           if (eventName === "change") {
             line += "[" + $(this).val() + "]";
@@ -104,8 +105,6 @@
     </script>
 
   </div>
-
-
 
 
 </div>
