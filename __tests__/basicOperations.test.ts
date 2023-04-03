@@ -64,5 +64,21 @@ describe('Core functionality', () => {
     expect(await touchspinHelpers.checkTouchspinUpIsDisabled(page, selector)).toBe(true);
   });
 
+  it('disabled input should initialize with disabled touchspin buttons', async () => {
+    const selector: string = '#testinput3';
 
+    // We have to use the mousedown and mouseup events because the plugin is not handling the click event.
+    await touchspinHelpers.touchspinClickUp(page, selector);
+
+    expect(await touchspinHelpers.checkTouchspinUpIsDisabled(page, selector)).toBe(true);
+  });
+
+  it('readonly input should initialize with disabled touchspin buttons', async () => {
+    const selector: string = '#testinput4';
+
+    // We have to use the mousedown and mouseup events because the plugin is not handling the click event.
+    await touchspinHelpers.touchspinClickUp(page, selector);
+
+    expect(await touchspinHelpers.checkTouchspinUpIsDisabled(page, selector)).toBe(true);
+  });
 });
