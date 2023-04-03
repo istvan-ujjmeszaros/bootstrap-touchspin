@@ -544,7 +544,7 @@
           const observer = new MutationObserver((mutations) => {
             mutations.forEach((mutation) => {
               if (mutation.type === 'attributes' && (mutation.attributeName === 'disabled' || mutation.attributeName === 'readonly')) {
-                updateButtonDisabledState();
+                _updateButtonDisabledState();
               }
             });
           });
@@ -640,7 +640,7 @@
         }
       }
 
-      function updateButtonDisabledState() {
+      function _updateButtonDisabledState() {
         const isDisabled = originalinput.is(':disabled,[readonly]');
         elements.up.prop('disabled', isDisabled);
         elements.down.prop('disabled', isDisabled);
