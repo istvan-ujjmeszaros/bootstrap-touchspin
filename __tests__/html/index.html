@@ -46,7 +46,7 @@
       </div>
 
       <div class="wrapper">
-        <label for="testinput3">#testinput3:</label>
+        <label for="testinput3">#testinput3 (disabled):</label>
         <input id="testinput3" type="text" value="0" name="testinput3" disabled>
 
         <script>
@@ -55,7 +55,17 @@
       </div>
     </div>
 
-    <div class="col-md-8" style="height:100vh;">
+    <div class="wrapper">
+      <label for="testinput4">#testinput4 (readonly):</label>
+      <input id="testinput4" type="text" value="0" name="testinput4" readonly>
+
+      <script>
+        $("#testinput3").TouchSpin();
+      </script>
+    </div>
+  </div>
+
+  <div class="col-md-8" style="height:100vh;">
       <h6>Events</h6>
       <pre id="events_log" style="height:200px;overflow:auto;outline:1px dotted gray;height:calc(100% - 50px);margin-top:15px;"></pre>
     </div>
