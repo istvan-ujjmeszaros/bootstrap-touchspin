@@ -9,6 +9,17 @@ async function readInputValue(page: Page, selector: string): Promise<string|unde
   return await input?.evaluate((el) => (el as HTMLInputElement).value);
 }
 
+async function setInputAttr(page: Page, selector: string, attributeName: 'disabled' | 'readonly', attributeValue: boolean): Promise<void> {
+  const input = await page.$(selector);
+  await input?.evaluate((el, attributeName, attributeValue) => {
+    if (attributeValue) {
+      (el as HTMLInputElement).setAttribute(attributeName, '');
+    } else {
+      (el as HTMLInputElement).removeAttribute(attributeName);
+    }
+  }, attributeName, attributeValue);
+}
+
 async function touchspinClick(page: Page, selector: string): Promise<void> {
   await page.evaluate((selector) => {
     document.querySelector(selector)!.dispatchEvent(new Event('mousedown'));
@@ -43,4 +54,4 @@ async function changeEventCounter(page: Page): Promise<number> {
   return (eventLogContent?.match(/change\[/g) ?? []).length;
 }
 
-export default { waitForTimeout, readInputValue, touchspinClick, touchspinClickUp, changeEventCounter };
+export default { waitForTimeout, readInputValue, setInputAttr, touchspinClick, touchspinClickUp, changeEventCounter };
