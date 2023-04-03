@@ -119,7 +119,7 @@ describe('Events', () => {
     await page.click(selector, { clickCount: 2 });
 
     // Type a new value
-    await page.keyboard.type('117');
+    await page.keyboard.type('-55');
 
     // Press the TAB key to move out of the input field
     await page.keyboard.press('Enter');
