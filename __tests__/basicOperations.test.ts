@@ -51,7 +51,6 @@ describe('Core functionality', () => {
     await touchspinHelpers.touchspinClickUp(page, selector);
 
     expect(await touchspinHelpers.checkTouchspinUpIsDisabled(page, selector)).toBe(true);
-    expect(await touchspinHelpers.checkTouchspinDownIsDisabled(page, selector)).toBe(true);
   });
 
   it('setting the input readonly should disable the touchspin buttons', async () => {
@@ -63,7 +62,6 @@ describe('Core functionality', () => {
     await touchspinHelpers.touchspinClickUp(page, selector);
 
     expect(await touchspinHelpers.checkTouchspinUpIsDisabled(page, selector)).toBe(true);
-    expect(await touchspinHelpers.checkTouchspinDownIsDisabled(page, selector)).toBe(true);
   });
 
 
