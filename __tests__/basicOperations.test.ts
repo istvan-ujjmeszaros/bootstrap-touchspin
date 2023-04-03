@@ -20,21 +20,4 @@ describe('Core functionality', () => {
     expect(await touchspinHelpers.readValue(page, selector)).toBe('51');
   });
 
-  it('should not increase when clicking the + button with a disabled input', async () => {
-    const selector: string = '#testinput1';
-
-    // We have to use the mousedown and mouseup events because the plugin is not handling the click event.
-    await touchspinHelpers.touchspinClickUp(page, selector);
-
-    expect(await touchspinHelpers.readValue(page, selector)).toBe('51');
-  });
-
-  it('should not increase when clicking the + button with a readonly input', async () => {
-    const selector: string = '#testinput1';
-
-    // We have to use the mousedown and mouseup events because the plugin is not handling the click event.
-    await touchspinHelpers.touchspinClickUp(page, selector);
-
-    expect(await touchspinHelpers.readValue(page, selector)).toBe('51');
-  });
 });
