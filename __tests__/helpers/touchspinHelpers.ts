@@ -4,7 +4,7 @@ async function waitForTimeout(ms: number): Promise<void> {
   return new Promise(r => setTimeout(r, ms));
 }
 
-async function readValue(page: Page, selector: string): Promise<string|undefined> {
+async function readInputValue(page: Page, selector: string): Promise<string|undefined> {
   const input = await page.$(selector);
   return await input?.evaluate((el) => (el as HTMLInputElement).value);
 }
@@ -43,4 +43,4 @@ async function changeEventCounter(page: Page): Promise<number> {
   return (eventLogContent?.match(/change\[/g) ?? []).length;
 }
 
-export default { waitForTimeout, readValue, touchspinClick, touchspinClickUp, changeEventCounter };
+export default { waitForTimeout, readInputValue, touchspinClick, touchspinClickUp, changeEventCounter };

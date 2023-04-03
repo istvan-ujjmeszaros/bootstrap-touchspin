@@ -9,7 +9,7 @@ describe('Events', () => {
     // We have to use the mousedown and mouseup events because the plugin is not handling the click event.
     await touchspinHelpers.touchspinClickUp(page, selector);
 
-    expect(await touchspinHelpers.readValue(page, selector)).toBe('51');
+    expect(await touchspinHelpers.readInputValue(page, selector)).toBe('51');
   });
 
   it('should fire the change event only once when updating the value', async () => {
