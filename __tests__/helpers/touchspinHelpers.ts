@@ -1,25 +1,31 @@
-import { Page } from 'puppeteer';
+import {Page, ElementHandle} from 'puppeteer';
 
 async function waitForTimeout(ms: number): Promise<void> {
   return new Promise(r => setTimeout(r, ms));
 }
 
-async function readValue(page: Page, selector: string): Promise<string|undefined> {
+async function readInputValue(page: Page, selector: string): Promise<string|undefined> {
   const input = await page.$(selector);
   return await input?.evaluate((el) => (el as HTMLInputElement).value);
 }
 
-async function touchspinClick(page: Page, selector: string): Promise<void> {
-  await page.evaluate((selector) => {
-    document.querySelector(selector)!.dispatchEvent(new Event('mousedown'));
-  }, selector);
+async function setInputAttr(page: Page, selector: string, attributeName: 'disabled' | 'readonly', attributeValue: boolean): Promise<void> {
+  const input = await page.$(selector);
+  await input?.evaluate((el, attributeName, attributeValue) => {
+    if (attributeValue) {
+      (el as HTMLInputElement).setAttribute(attributeName, '');
+    } else {
+      (el as HTMLInputElement).removeAttribute(attributeName);
+    }
+  }, attributeName, attributeValue);
+}
 
-  // Delay to allow the value to change.
-  await new Promise(r => setTimeout(r, 200));
+async function checkTouchspinUpIsDisabled(page: Page, selector: string): Promise<boolean> {
+  const input = await page.$(selector + ' + .input-group-btn > .bootstrap-touchspin-up');
 
-  await page.evaluate((selector) => {
-    document.querySelector(selector)!.dispatchEvent(new Event('mouseup'));
-  }, selector);
+  return await input!.evaluate((el) => {
+    return (el as HTMLInputElement).hasAttribute('disabled');
+  });
 }
 
 async function touchspinClickUp(page: Page, input_selector: string): Promise<void> {
@@ -43,4 +49,4 @@ async function changeEventCounter(page: Page): Promise<number> {
   return (eventLogContent?.match(/change\[/g) ?? []).length;
 }
 
-export default { waitForTimeout, readValue, touchspinClick, touchspinClickUp, changeEventCounter };
+export default { waitForTimeout, readInputValue, setInputAttr, checkTouchspinUpIsDisabled, touchspinClickUp, changeEventCounter };

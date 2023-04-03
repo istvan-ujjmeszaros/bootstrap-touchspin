@@ -127,6 +127,7 @@
         _buildHtml();
         _initElements();
         _hideEmptyPrefixPostfix();
+        _setupMutationObservers();
         _bindEvents();
         _bindEventsInterface();
       }
@@ -397,7 +398,7 @@
         elements.down.on('mousedown.touchspin', function(ev) {
           elements.down.off('touchstart.touchspin');  // android 4 workaround
 
-          if (originalinput.is(':disabled')) {
+          if (originalinput.is(':disabled,[readonly]')) {
             return;
           }
 
@@ -411,7 +412,7 @@
         elements.down.on('touchstart.touchspin', function(ev) {
           elements.down.off('mousedown.touchspin');  // android 4 workaround
 
-          if (originalinput.is(':disabled')) {
+          if (originalinput.is(':disabled,[readonly]')) {
             return;
           }
 
@@ -425,7 +426,7 @@
         elements.up.on('mousedown.touchspin', function(ev) {
           elements.up.off('touchstart.touchspin');  // android 4 workaround
 
-          if (originalinput.is(':disabled')) {
+          if (originalinput.is(':disabled,[readonly]')) {
             return;
           }
 
@@ -439,7 +440,7 @@
         elements.up.on('touchstart.touchspin', function(ev) {
           elements.up.off('mousedown.touchspin');  // android 4 workaround
 
-          if (originalinput.is(':disabled')) {
+          if (originalinput.is(':disabled,[readonly]')) {
             return;
           }
 
@@ -537,6 +538,21 @@
         });
       }
 
+      function _setupMutationObservers() {
+        if (typeof MutationObserver !== 'undefined') {
+          // MutationObserver is available
+          const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+              if (mutation.type === 'attributes' && (mutation.attributeName === 'disabled' || mutation.attributeName === 'readonly')) {
+                updateButtonDisabledState();
+              }
+            });
+          });
+
+          observer.observe(originalinput[0], { attributes: true });
+        }
+      }
+
       function _forcestepdivisibility(value) {
         switch (settings.forcestepdivisibility) {
           case 'round':
@@ -622,6 +638,12 @@
         } else {
           return (settings.min + settings.max) / 2;
         }
+      }
+
+      function updateButtonDisabledState() {
+        const isDisabled = originalinput.is(':disabled,[readonly]');
+        elements.up.prop('disabled', isDisabled);
+        elements.down.prop('disabled', isDisabled);
       }
 
       function upOnce() {
