@@ -52,8 +52,7 @@
     </div>
 
     <script>
-      var inputs = $("input"),
-        events_log = $("#events_log"),
+      var events_log = $("#events_log"),
         text = "";
 
       function writeLine(input, line) {
@@ -64,32 +63,24 @@
         );
       }
 
-      inputs.on("change", function(e) {
-        writeLine($(this), "change[" + $(this).val() + "]");
-      });
-      inputs.on("touchspin.on.startspin", function() {
-        writeLine($(this), "touchspin.on.startspin");
-      });
-      inputs.on("touchspin.on.startupspin", function() {
-        writeLine($(this), "touchspin.on.startupspin");
-      });
-      inputs.on("touchspin.on.startdownspin", function() {
-        writeLine($(this), "touchspin.on.startdownspin");
-      });
-      inputs.on("touchspin.on.stopspin", function() {
-        writeLine($(this), "touchspin.on.stopspin");
-      });
-      inputs.on("touchspin.on.stopupspin", function() {
-        writeLine($(this), "touchspin.on.stopupspin");
-      });
-      inputs.on("touchspin.on.stopdownspin", function() {
-        writeLine($(this), "touchspin.on.stopdownspin");
-      });
-      inputs.on("touchspin.on.min", function() {
-        writeLine($(this), "touchspin.on.min");
-      });
-      inputs.on("touchspin.on.max", function() {
-        writeLine($(this), "touchspin.on.max");
+      [
+        "change",
+        "touchspin.on.startspin",
+        "touchspin.on.startupspin",
+        "touchspin.on.startdownspin",
+        "touchspin.on.stopspin",
+        "touchspin.on.stopupspin",
+        "touchspin.on.stopdownspin",
+        "touchspin.on.min",
+        "touchspin.on.max"
+      ].forEach(function(eventName) {
+        $("input").on(eventName, function(e) {
+          var line = eventName;
+          if (eventName === "change") {
+            line += "[" + $(this).val() + "]";
+          }
+          writeLine($(this), line);
+        });
       });
     </script>
 
