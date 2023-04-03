@@ -28,10 +28,7 @@ describe('Events', () => {
     await page.focus('#testinput1');
 
     // Clear the input
-    await page.keyboard.down('Control');
-    await page.keyboard.press('A');
-    await page.keyboard.up('Control');
-    await page.keyboard.press('Backspace');
+    await page.click('#testinput1', { clickCount: 2 });
 
     // Type a new value
     await page.keyboard.type('45');
@@ -45,15 +42,12 @@ describe('Events', () => {
     expect(await touchspinHelpers.changeEventCounter(page)).toBe(1);
   });
 
-  it('Should fire the change event only once when updating the value using the keyboard and pressing TAB', async () => {
+  it('Should fire the change event only once when correcting the value according to step after pressing TAB', async () => {
     // Focus on the input element
     await page.focus('#testinput2');
 
     // Clear the input
-    await page.keyboard.down('Control');
-    await page.keyboard.press('A');
-    await page.keyboard.up('Control');
-    await page.keyboard.press('Backspace');
+    await page.click('#testinput2', { clickCount: 2 });
 
     // Type a new value
     await page.keyboard.type('7');
@@ -67,15 +61,12 @@ describe('Events', () => {
     expect(await touchspinHelpers.changeEventCounter(page)).toBe(1);
   });
 
-  it('Should fire the change event only once when updating the value using the keyboard and pressing Enter', async () => {
+  it('Should fire the change event only once when correcting the value according to step after pressing Enter', async () => {
     // Focus on the input element
     await page.focus('#testinput2');
 
     // Clear the input
-    await page.keyboard.down('Control');
-    await page.keyboard.press('A');
-    await page.keyboard.up('Control');
-    await page.keyboard.press('Backspace');
+    await page.click('#testinput2', { clickCount: 2 });
 
     // Type a new value
     await page.keyboard.type('7');
