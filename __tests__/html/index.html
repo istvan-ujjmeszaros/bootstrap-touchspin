@@ -24,18 +24,21 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-md-3">
-      <label for="testinput1">#testinput1:</label>
-      <input id="testinput1" type="text" value="50" name="testinput1">
+    <div class="col-md-4">
+      <div class="wrapper">
+        <label for="testinput1">#testinput1:</label>
+        <input id="testinput1" type="text" value="50" name="testinput1">
+      </div>
+
+      <div class="wrapper">
+        <label for="testinput2">#testinput2:</label>
+        <input id="testinput2" type="text" value="0" name="testinput2">
+      </div>
     </div>
 
-    <div class="col-md-3">
-      <label for="testinput2">#testinput2:</label>
-      <input id="testinput2" type="text" value="0" name="testinput2">
-    </div>
-
-    <div class="col-md-12">
-      <pre id="events_log" style="height:200px;overflow:auto;"></pre>
+    <div class="col-md-8" style="height:100vh;">
+      <h6>Events</h6>
+      <pre id="events_log" style="height:200px;overflow:auto;outline:1px dotted gray;height:calc(100% - 50px);margin-top:15px;"></pre>
     </div>
 
     <script>
