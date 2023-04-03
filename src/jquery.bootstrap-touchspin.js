@@ -126,6 +126,7 @@
         _checkValue();
         _buildHtml();
         _initElements();
+        _updateButtonDisabledState();
         _hideEmptyPrefixPostfix();
         _setupMutationObservers();
         _bindEvents();
