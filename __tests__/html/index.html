@@ -24,64 +24,63 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-md-3">
-      <label for="testinput1">#testinput1:</label>
-      <input id="testinput1" type="text" value="50" name="testinput1">
+    <div class="col-md-4">
+      <div class="wrapper">
+        <label for="testinput1">#testinput1:</label>
+        <input id="testinput1" type="text" value="50" name="testinput1">
+
+        <script>
+          $("#testinput1").TouchSpin();
+        </script>
+      </div>
+
+      <div class="wrapper">
+        <label for="testinput2">#testinput2:</label>
+        <input id="testinput2" type="text" value="0" name="testinput2">
+
+        <script>
+          $("#testinput2").TouchSpin({
+            step:  10,
+          });
+        </script>
+      </div>
     </div>
 
-    <div class="col-md-3">
-      <label for="testinput2">#testinput2:</label>
-      <input id="testinput2" type="text" value="0" name="testinput2">
-    </div>
-
-    <div class="col-md-12">
-      <pre id="events_log" style="height:200px;overflow:auto;"></pre>
+    <div class="col-md-8" style="height:100vh;">
+      <h6>Events</h6>
+      <pre id="events_log" style="height:200px;overflow:auto;outline:1px dotted gray;height:calc(100% - 50px);margin-top:15px;"></pre>
     </div>
 
     <script>
-      var inputs = $("input"),
-        demoarea = $("#events_log"),
+      var events_log = $("#events_log"),
         text = "";
 
       function writeLine(input, line) {
         text += input.attr('id') + ': ' + line + "\n";
-        demoarea.text(text);
-        demoarea.scrollTop(
-          demoarea[0].scrollHeight - demoarea.height()
+        events_log.text(text);
+        events_log.scrollTop(
+          events_log[0].scrollHeight - events_log.height()
         );
       }
 
-      $("#testinput1").TouchSpin({});
-      $("#testinput2").TouchSpin({
-        step:  10,
-      });
-
-      inputs.on("change", function(e) {
-        writeLine($(this), "change[" + $(this).val() + "]");
-      });
-      inputs.on("touchspin.on.startspin", function() {
-        writeLine($(this), "touchspin.on.startspin");
-      });
-      inputs.on("touchspin.on.startupspin", function() {
-        writeLine($(this), "touchspin.on.startupspin");
-      });
-      inputs.on("touchspin.on.startdownspin", function() {
-        writeLine($(this), "touchspin.on.startdownspin");
-      });
-      inputs.on("touchspin.on.stopspin", function() {
-        writeLine($(this), "touchspin.on.stopspin");
-      });
-      inputs.on("touchspin.on.stopupspin", function() {
-        writeLine($(this), "touchspin.on.stopupspin");
-      });
-      inputs.on("touchspin.on.stopdownspin", function() {
-        writeLine($(this), "touchspin.on.stopdownspin");
-      });
-      inputs.on("touchspin.on.min", function() {
-        writeLine($(this), "touchspin.on.min");
-      });
-      inputs.on("touchspin.on.max", function() {
-        writeLine($(this), "touchspin.on.max");
+      [
+        "change",
+        "touchspin.on.startspin",
+        "touchspin.on.startupspin",
+        "touchspin.on.startdownspin",
+        "touchspin.on.stopspin",
+        "touchspin.on.stopupspin",
+        "touchspin.on.stopdownspin",
+        "touchspin.on.min",
+        "touchspin.on.max"
+      ].forEach(function(eventName) {
+        $("input").on(eventName, function(e) {
+          var line = eventName;
+          if (eventName === "change") {
+            line += "[" + $(this).val() + "]";
+          }
+          writeLine($(this), line);
+        });
       });
     </script>
 
