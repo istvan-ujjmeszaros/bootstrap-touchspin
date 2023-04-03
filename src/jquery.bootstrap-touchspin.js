@@ -397,7 +397,7 @@
         elements.down.on('mousedown.touchspin', function(ev) {
           elements.down.off('touchstart.touchspin');  // android 4 workaround
 
-          if (originalinput.is(':disabled')) {
+          if (originalinput.is(':disabled,[readonly]')) {
             return;
           }
 
@@ -411,7 +411,7 @@
         elements.down.on('touchstart.touchspin', function(ev) {
           elements.down.off('mousedown.touchspin');  // android 4 workaround
 
-          if (originalinput.is(':disabled')) {
+          if (originalinput.is(':disabled,[readonly]')) {
             return;
           }
 
@@ -425,7 +425,7 @@
         elements.up.on('mousedown.touchspin', function(ev) {
           elements.up.off('touchstart.touchspin');  // android 4 workaround
 
-          if (originalinput.is(':disabled')) {
+          if (originalinput.is(':disabled,[readonly]')) {
             return;
           }
 
@@ -439,7 +439,7 @@
         elements.up.on('touchstart.touchspin', function(ev) {
           elements.up.off('mousedown.touchspin');  // android 4 workaround
 
-          if (originalinput.is(':disabled')) {
+          if (originalinput.is(':disabled,[readonly]')) {
             return;
           }
 
