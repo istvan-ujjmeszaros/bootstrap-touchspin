@@ -58,7 +58,7 @@
       mousewheel: true,
       buttondown_class: 'btn btn-primary',
       buttonup_class: 'btn btn-primary',
-      buttondown_txt: '-',
+      buttondown_txt: '&minus;',
       buttonup_txt: '+',
       callback_before_calculation: function(value) {
         return value;
