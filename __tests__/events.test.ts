@@ -86,4 +86,48 @@ describe('Events', () => {
 
     expect(await touchspinHelpers.changeEventCounter(page)).toBe(1);
   });
+
+  it('Should fire the change event with the maximum value when the entered value was larger than the specified max value', async () => {
+    const selector: string = '#testinput2';
+
+    // Focus on the input element
+    await page.focus(selector);
+
+    // Clear the input
+    await page.click(selector, { clickCount: 2 });
+
+    // Type a new value
+    await page.keyboard.type('117');
+
+    // Press the TAB key to move out of the input field
+    await page.keyboard.press('Enter');
+
+    // Wait for a short period to ensure all events are processed
+    await touchspinHelpers.waitForTimeout(500);
+
+    expect(await touchspinHelpers.changeEventCounter(page)).toBe(1);
+    expect(await touchspinHelpers.countChangeWithValue(page, "100")).toBe(1);
+  });
+
+  it('Should fire the change event with the minimum value when the entered value was lower than the specified min value', async () => {
+    const selector: string = '#testinput2';
+
+    // Focus on the input element
+    await page.focus(selector);
+
+    // Clear the input
+    await page.click(selector, { clickCount: 2 });
+
+    // Type a new value
+    await page.keyboard.type('117');
+
+    // Press the TAB key to move out of the input field
+    await page.keyboard.press('Enter');
+
+    // Wait for a short period to ensure all events are processed
+    await touchspinHelpers.waitForTimeout(500);
+
+    expect(await touchspinHelpers.changeEventCounter(page)).toBe(1);
+    expect(await touchspinHelpers.countChangeWithValue(page, "0")).toBe(1);
+  });
 });
