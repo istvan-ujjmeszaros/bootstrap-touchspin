@@ -1,4 +1,4 @@
-import { Page } from 'puppeteer';
+import {Page} from 'puppeteer';
 
 async function waitForTimeout(ms: number): Promise<void> {
   return new Promise(r => setTimeout(r, ms));
@@ -18,6 +18,22 @@ async function setInputAttr(page: Page, selector: string, attributeName: 'disabl
       (el as HTMLInputElement).removeAttribute(attributeName);
     }
   }, attributeName, attributeValue);
+}
+
+async function checkTouchspinUpIsDisabled(page: Page, selector: string): Promise<boolean> {
+  const input = await page.$(selector + ' + .input-group-btn > .bootstrap-touchspin-up');
+
+  return await input!.evaluate((el) => {
+    return (el as HTMLInputElement).hasAttribute('disabled');
+  });
+}
+
+async function checkTouchspinDownIsDisabled(page: Page, selector: string): Promise<boolean> {
+  const input = await page.$(selector + ' + .input-group-btn > .bootstrap-touchspin-down');
+
+  return await input!.evaluate((el) => {
+    return (el as HTMLInputElement).hasAttribute('disabled');
+  });
 }
 
 async function touchspinClick(page: Page, selector: string): Promise<void> {
@@ -54,4 +70,4 @@ async function changeEventCounter(page: Page): Promise<number> {
   return (eventLogContent?.match(/change\[/g) ?? []).length;
 }
 
-export default { waitForTimeout, readInputValue, setInputAttr, touchspinClick, touchspinClickUp, changeEventCounter };
+export default { waitForTimeout, readInputValue, setInputAttr, checkTouchspinUpIsDisabled, checkTouchspinDownIsDisabled, touchspinClick, touchspinClickUp, changeEventCounter };
