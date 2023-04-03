@@ -55,7 +55,6 @@ async function countChangeWithValue(page: Page, expectedValue: string): Promise<
 
   // Count the number of 'change' events with the expected value
   const pattern = new RegExp('change\\[' + expectedValue + '\\]', 'g');
-  console.log(pattern);
   return (eventLogContent?.match(pattern) ?? []).length;
 }
 
