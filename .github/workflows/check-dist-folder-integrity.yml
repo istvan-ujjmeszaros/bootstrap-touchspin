@@ -1,5 +1,5 @@
-name: run-tests
-run-name: Run tests
+name: check-dist-folder-integrity
+run-name: Check dist folder integrity
 
 on:
   push:
