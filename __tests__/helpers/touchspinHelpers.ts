@@ -49,4 +49,13 @@ async function changeEventCounter(page: Page): Promise<number> {
   return (eventLogContent?.match(/change\[/g) ?? []).length;
 }
 
-export default { waitForTimeout, readInputValue, setInputAttr, checkTouchspinUpIsDisabled, touchspinClickUp, changeEventCounter };
+async function countChangeWithValue(page: Page, expectedValue: string): Promise<number> {
+  // Get the event log content
+  const eventLogContent = await page.$eval('#events_log', el => el.textContent);
+
+  // Count the number of 'change' events with the expected value
+  const pattern = new RegExp('change\\[' + expectedValue + '\\]', 'g');
+  return (eventLogContent?.match(pattern) ?? []).length;
+}
+
+export default { waitForTimeout, readInputValue, setInputAttr, checkTouchspinUpIsDisabled, touchspinClickUp, changeEventCounter, countChangeWithValue };

@@ -4,7 +4,7 @@ import {page} from './helpers/jestPuppeteerServerSetup';
 describe('Core functionality', () => {
 
   it('should have a TouchSpin button', async () => {
-    const selector: string = '#testinput1';
+    const selector: string = '#testinput_default';
 
     const button = await page.$(selector + ' + .input-group-btn > .bootstrap-touchspin-up');
 
@@ -12,7 +12,7 @@ describe('Core functionality', () => {
   });
 
   it('should increase value by 1 when clicking the + button', async () => {
-    const selector: string = '#testinput1';
+    const selector: string = '#testinput_default';
 
     // We have to use the mousedown and mouseup events because the plugin is not handling the click event.
     await touchspinHelpers.touchspinClickUp(page, selector);
@@ -21,7 +21,7 @@ describe('Core functionality', () => {
   });
 
   it('should not increase value when clicking the + button with a disabled input', async () => {
-    const selector: string = '#testinput1';
+    const selector: string = '#testinput_default';
 
     await touchspinHelpers.setInputAttr(page, selector, 'disabled', true);
 
@@ -32,7 +32,7 @@ describe('Core functionality', () => {
   });
 
   it('should not increase value when clicking the + button with a readonly input', async () => {
-    const selector: string = '#testinput1';
+    const selector: string = '#testinput_default';
 
     await touchspinHelpers.setInputAttr(page, selector, 'readonly', true);
 
@@ -43,7 +43,7 @@ describe('Core functionality', () => {
   });
 
   it('setting the input disabled should disable the touchspin buttons', async () => {
-    const selector: string = '#testinput1';
+    const selector: string = '#testinput_default';
 
     await touchspinHelpers.setInputAttr(page, selector, 'disabled', true);
 
@@ -54,7 +54,7 @@ describe('Core functionality', () => {
   });
 
   it('setting the input readonly should disable the touchspin buttons', async () => {
-    const selector: string = '#testinput1';
+    const selector: string = '#testinput_default';
 
     await touchspinHelpers.setInputAttr(page, selector, 'readonly', true);
 
@@ -65,7 +65,7 @@ describe('Core functionality', () => {
   });
 
   it('disabled input should initialize with disabled touchspin buttons', async () => {
-    const selector: string = '#testinput3';
+    const selector: string = '#testinput_disabled';
 
     // We have to use the mousedown and mouseup events because the plugin is not handling the click event.
     await touchspinHelpers.touchspinClickUp(page, selector);
@@ -74,7 +74,7 @@ describe('Core functionality', () => {
   });
 
   it('readonly input should initialize with disabled touchspin buttons', async () => {
-    const selector: string = '#testinput4';
+    const selector: string = '#testinput_readonly';
 
     // We have to use the mousedown and mouseup events because the plugin is not handling the click event.
     await touchspinHelpers.touchspinClickUp(page, selector);

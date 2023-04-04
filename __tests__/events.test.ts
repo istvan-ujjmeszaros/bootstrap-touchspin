@@ -4,7 +4,7 @@ import {page} from './helpers/jestPuppeteerServerSetup';
 describe('Events', () => {
 
   it('should increase value by 1 when clicking the + button', async () => {
-    const selector: string = '#testinput1';
+    const selector: string = '#testinput_default';
 
     // We have to use the mousedown and mouseup events because the plugin is not handling the click event.
     await touchspinHelpers.touchspinClickUp(page, selector);
@@ -13,7 +13,7 @@ describe('Events', () => {
   });
 
   it('should fire the change event only once when updating the value', async () => {
-    const selector: string = '#testinput1';
+    const selector: string = '#testinput_default';
 
     // Trigger the TouchSpin button
     await touchspinHelpers.touchspinClickUp(page, selector);
@@ -24,8 +24,8 @@ describe('Events', () => {
     expect(await touchspinHelpers.changeEventCounter(page)).toBe(1);
   });
 
-  it('should fire the change event only once when updating the value using the keyboard and pressing TAB', async () => {
-    const selector: string = '#testinput1';
+  it('should fire the change event exactly once when entering a proper value and pressing TAB', async () => {
+    const selector: string = '#testinput_default';
 
     // Focus on the input element
     await page.focus(selector);
@@ -34,7 +34,7 @@ describe('Events', () => {
     await page.click(selector, { clickCount: 2 });
 
     // Type a new value
-    await page.keyboard.type('45');
+    await page.keyboard.type('67');
 
     // Press the TAB key to move out of the input field
     await page.keyboard.press('Tab');
@@ -46,7 +46,7 @@ describe('Events', () => {
   });
 
   it('Should fire the change event only once when correcting the value according to step after pressing TAB', async () => {
-    const selector: string = '#testinput2';
+    const selector: string = '#testinput_step10_min';
 
     // Focus on the input element
     await page.focus(selector);
@@ -55,7 +55,7 @@ describe('Events', () => {
     await page.click(selector, { clickCount: 2 });
 
     // Type a new value
-    await page.keyboard.type('7');
+    await page.keyboard.type('67');
 
     // Press the TAB key to move out of the input field
     await page.keyboard.press('Tab');
@@ -67,7 +67,7 @@ describe('Events', () => {
   });
 
   it('Should fire the change event only once when correcting the value according to step after pressing Enter', async () => {
-    const selector: string = '#testinput2';
+    const selector: string = '#testinput_step10_min';
 
     // Focus on the input element
     await page.focus(selector);
@@ -76,7 +76,7 @@ describe('Events', () => {
     await page.click(selector, { clickCount: 2 });
 
     // Type a new value
-    await page.keyboard.type('7');
+    await page.keyboard.type('67');
 
     // Press the TAB key to move out of the input field
     await page.keyboard.press('Enter');
@@ -85,5 +85,49 @@ describe('Events', () => {
     await touchspinHelpers.waitForTimeout(500);
 
     expect(await touchspinHelpers.changeEventCounter(page)).toBe(1);
+  });
+
+  it('Should not fire change event when already at max value and entering a higher value', async () => {
+    const selector: string = '#testinput_step10_max';
+
+    // Focus on the input element
+    await page.focus(selector);
+
+    // Clear the input
+    await page.click(selector, { clickCount: 2 });
+
+    // Type a new value
+    await page.keyboard.type('117');
+
+    // Press the TAB key to move out of the input field
+    await page.keyboard.press('Enter');
+
+    // Wait for a short period to ensure all events are processed
+    await touchspinHelpers.waitForTimeout(500);
+
+    expect(await touchspinHelpers.changeEventCounter(page)).toBe(0);
+    expect(await touchspinHelpers.countChangeWithValue(page, "100")).toBe(0);
+  });
+
+  it('Should not fire change event when already at min value and entering a lower value', async () => {
+    const selector: string = '#testinput_step10_min';
+
+    // Focus on the input element
+    await page.focus(selector);
+
+    // Clear the input
+    await page.click(selector, { clickCount: 2 });
+
+    // Type a new value
+    await page.keyboard.type('-55');
+
+    // Press the TAB key to move out of the input field
+    await page.keyboard.press('Enter');
+
+    // Wait for a short period to ensure all events are processed
+    await touchspinHelpers.waitForTimeout(500);
+
+    expect(await touchspinHelpers.changeEventCounter(page)).toBe(0);
+    expect(await touchspinHelpers.countChangeWithValue(page, "0")).toBe(0);
   });
 });
