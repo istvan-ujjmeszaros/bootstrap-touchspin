@@ -45,6 +45,7 @@ describe('Core functionality', () => {
     await page.keyboard.press('ArrowUp');
     await page.mouse.wheel({ deltaY: -100 });
 
+    expect(await touchspinHelpers.countEvent(page, selector, 'touchspin.on.startspin')).toBe(0);
     expect(await touchspinHelpers.readInputValue(page, selector)).toBe('50');
   });
 
