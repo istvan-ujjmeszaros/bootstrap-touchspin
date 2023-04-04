@@ -1,5 +1,5 @@
 /*
- *  Bootstrap Touchspin - v4.5.4
+ *  Bootstrap Touchspin - v4.6.0
  *  A mobile and touch friendly input spinner component for Bootstrap 3 & 4.
  *  https://www.virtuosoft.eu/code/bootstrap-touchspin/
  *
@@ -671,9 +671,17 @@
         const isDisabled = originalinput.is(':disabled,[readonly]');
         elements.up.prop('disabled', isDisabled);
         elements.down.prop('disabled', isDisabled);
+
+        if (isDisabled) {
+          stopSpin();
+        }
       }
 
       function upOnce() {
+        if (originalinput.is(':disabled,[readonly]')) {
+          return;
+        }
+
         _checkValue();
 
         value = parseFloat(settings.callback_before_calculation(elements.input.val()));
@@ -702,6 +710,10 @@
       }
 
       function downOnce() {
+        if (originalinput.is(':disabled,[readonly]')) {
+          return;
+        }
+
         _checkValue();
 
         value = parseFloat(settings.callback_before_calculation(elements.input.val()));
@@ -730,6 +742,10 @@
       }
 
       function startDownSpin() {
+        if (originalinput.is(':disabled,[readonly]')) {
+          return;
+        }
+
         stopSpin();
 
         spincount = 0;
@@ -747,6 +763,10 @@
       }
 
       function startUpSpin() {
+        if (originalinput.is(':disabled,[readonly]')) {
+          return;
+        }
+
         stopSpin();
 
         spincount = 0;
