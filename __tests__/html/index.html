@@ -118,7 +118,7 @@
         text = "";
 
       function writeLine(input, line) {
-        text += input.attr('id') + ': ' + line + "\n";
+        text += '#' + input.attr('id') + ': ' + line + "\n";
         events_log.text(text);
         events_log.scrollTop(
           events_log[0].scrollHeight - events_log.height()
