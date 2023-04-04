@@ -4,7 +4,7 @@
  *  https://www.virtuosoft.eu/code/bootstrap-touchspin/
  *
  *  Made by István Ujj-Mészáros
- *  Under Apache License v2.0 License
+ *  Under MIT License
  */
 (function (factory) {
   if (typeof define === 'function' && define.amd) {
