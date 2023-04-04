@@ -1,5 +1,5 @@
 import touchspinHelpers from './helpers/touchspinHelpers';
-import {page} from './helpers/jestPuppeteerServerSetup';
+import {page, port} from './helpers/jestPuppeteerServerSetup';
 
 describe('Core functionality', () => {
 
@@ -81,4 +81,23 @@ describe('Core functionality', () => {
 
     expect(await touchspinHelpers.checkTouchspinUpIsDisabled(page, selector)).toBe(true);
   });
+
+  it('clicking on an input with step=3 should increase the value by 3', async () => {
+    const selector: string = '#testinput_individual_min_max_step_properties';
+
+    // The initial value of 50 should be corrected to 51 by the browser as step = 3
+    expect(await touchspinHelpers.readInputValue(page, selector)).toBe('51');
+
+    // We have to use the mousedown and mouseup events because the plugin is not handling the click event.
+    await touchspinHelpers.touchspinClickUp(page, selector);
+
+    expect(await touchspinHelpers.readInputValue(page, selector)).toBe('54');
+
+    await touchspinHelpers.touchspinClickUp(page, selector);
+    await touchspinHelpers.touchspinClickUp(page, selector);
+    await touchspinHelpers.touchspinClickUp(page, selector);
+
+    expect(await touchspinHelpers.readInputValue(page, selector)).toBe('57');
+  });
+
 });
