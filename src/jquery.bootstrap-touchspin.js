@@ -336,7 +336,7 @@
             ev.preventDefault();
           }
           else if (code  ===  9 || code === 13)  {
-            originalinput.val(_forcestepdivisibility(originalinput.val()));
+            _checkValue();
           }
         });
 
@@ -601,6 +601,8 @@
           returnval = parsedval;
         }
 
+        returnval = _forcestepdivisibility(parsedval);
+
         if ((settings.min !== null) && (parsedval < settings.min)) {
           returnval = settings.min;
         }
@@ -609,9 +611,8 @@
           returnval = settings.max;
         }
 
-        if (parseFloat(val).toString() !== returnval.toString()) {
+        if (parseFloat(parsedval).toString() !== parseFloat(returnval).toString()) {
           originalinput.val(returnval);
-          originalinput.trigger('change');
         }
       }
 
