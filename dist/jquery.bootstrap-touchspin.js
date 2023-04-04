@@ -1,7 +1,7 @@
 /*
- *  Bootstrap TouchSpin - v4.3.0
+ *  Bootstrap Touchspin - v4.5.3
  *  A mobile and touch friendly input spinner component for Bootstrap 3 & 4.
- *  http://www.virtuosoft.eu/code/bootstrap-touchspin/
+ *  https://www.virtuosoft.eu/code/bootstrap-touchspin/
  *
  *  Made by István Ujj-Mészáros
  *  Under Apache License v2.0 License
@@ -58,7 +58,7 @@
       mousewheel: true,
       buttondown_class: 'btn btn-primary',
       buttonup_class: 'btn btn-primary',
-      buttondown_txt: '-',
+      buttondown_txt: '&minus;',
       buttonup_txt: '+',
       callback_before_calculation: function(value) {
         return value;
@@ -134,7 +134,9 @@
         _checkValue();
         _buildHtml();
         _initElements();
+        _updateButtonDisabledState();
         _hideEmptyPrefixPostfix();
+        _setupMutationObservers();
         _bindEvents();
         _bindEventsInterface();
       }
@@ -152,8 +154,8 @@
         var value = elements.input.val();
 
         if (value !== '') {
-          value = Number(settings.callback_before_calculation(elements.input.val()));
-          elements.input.val(settings.callback_after_calculation(Number(value).toFixed(settings.decimals)));
+          value = parseFloat(settings.callback_before_calculation(elements.input.val()));
+          elements.input.val(settings.callback_after_calculation(parseFloat(value).toFixed(settings.decimals)));
         }
       }
 
@@ -223,7 +225,7 @@
           parentelement = originalinput.parent();
 
         if (initval !== '') {
-          initval = settings.callback_after_calculation(Number(initval).toFixed(settings.decimals));
+          initval = settings.callback_after_calculation(parseFloat(initval).toFixed(settings.decimals));
         }
 
         originalinput.data('initvalue', initval).val(initval);
@@ -341,6 +343,9 @@
             }
             ev.preventDefault();
           }
+          else if (code  ===  9 || code === 13)  {
+            _checkValue();
+          }
         });
 
         originalinput.on('keyup.touchspin', function(ev) {
@@ -402,7 +407,7 @@
         elements.down.on('mousedown.touchspin', function(ev) {
           elements.down.off('touchstart.touchspin');  // android 4 workaround
 
-          if (originalinput.is(':disabled')) {
+          if (originalinput.is(':disabled,[readonly]')) {
             return;
           }
 
@@ -416,7 +421,7 @@
         elements.down.on('touchstart.touchspin', function(ev) {
           elements.down.off('mousedown.touchspin');  // android 4 workaround
 
-          if (originalinput.is(':disabled')) {
+          if (originalinput.is(':disabled,[readonly]')) {
             return;
           }
 
@@ -430,7 +435,7 @@
         elements.up.on('mousedown.touchspin', function(ev) {
           elements.up.off('touchstart.touchspin');  // android 4 workaround
 
-          if (originalinput.is(':disabled')) {
+          if (originalinput.is(':disabled,[readonly]')) {
             return;
           }
 
@@ -444,7 +449,7 @@
         elements.up.on('touchstart.touchspin', function(ev) {
           elements.up.off('mousedown.touchspin');  // android 4 workaround
 
-          if (originalinput.is(':disabled')) {
+          if (originalinput.is(':disabled,[readonly]')) {
             return;
           }
 
@@ -542,6 +547,21 @@
         });
       }
 
+      function _setupMutationObservers() {
+        if (typeof MutationObserver !== 'undefined') {
+          // MutationObserver is available
+          const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+              if (mutation.type === 'attributes' && (mutation.attributeName === 'disabled' || mutation.attributeName === 'readonly')) {
+                _updateButtonDisabledState();
+              }
+            });
+          });
+
+          observer.observe(originalinput[0], { attributes: true });
+        }
+      }
+
       function _forcestepdivisibility(value) {
         switch (settings.forcestepdivisibility) {
           case 'round':
@@ -589,6 +609,8 @@
           returnval = parsedval;
         }
 
+        returnval = _forcestepdivisibility(parsedval);
+
         if ((settings.min !== null) && (parsedval < settings.min)) {
           returnval = settings.min;
         }
@@ -597,11 +619,8 @@
           returnval = settings.max;
         }
 
-        returnval = _forcestepdivisibility(returnval);
-
-        if (Number(val).toString() !== returnval.toString()) {
+        if (parseFloat(parsedval).toString() !== parseFloat(returnval).toString()) {
           originalinput.val(returnval);
-          originalinput.trigger('change');
         }
       }
 
@@ -631,6 +650,12 @@
         }
       }
 
+      function _updateButtonDisabledState() {
+        const isDisabled = originalinput.is(':disabled,[readonly]');
+        elements.up.prop('disabled', isDisabled);
+        elements.down.prop('disabled', isDisabled);
+      }
+
       function upOnce() {
         _checkValue();
 
@@ -652,7 +677,7 @@
           stopSpin();
         }
 
-        elements.input.val(settings.callback_after_calculation(Number(value).toFixed(settings.decimals)));
+        elements.input.val(settings.callback_after_calculation(parseFloat(value).toFixed(settings.decimals)));
 
         if (initvalue !== value) {
           originalinput.trigger('change');
@@ -680,7 +705,7 @@
           stopSpin();
         }
 
-        elements.input.val(settings.callback_after_calculation(Number(value).toFixed(settings.decimals)));
+        elements.input.val(settings.callback_after_calculation(parseFloat(value).toFixed(settings.decimals)));
 
         if (initvalue !== value) {
           originalinput.trigger('change');
