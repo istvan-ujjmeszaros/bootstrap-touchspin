@@ -58,4 +58,15 @@ async function countChangeWithValue(page: Page, expectedValue: string): Promise<
   return (eventLogContent?.match(pattern) ?? []).length;
 }
 
-export default { waitForTimeout, readInputValue, setInputAttr, checkTouchspinUpIsDisabled, touchspinClickUp, changeEventCounter, countChangeWithValue };
+async function countEvent(page: Page, selector: string, event: string): Promise<number> {
+  // Get the event log content
+  const eventLogContent = await page.$eval('#events_log', el => el.textContent);
+
+  // Count the number of 'change' events with the expected value
+  const searchString = selector + ': ' + event;
+  console.log('searchString: ', searchString);
+  console.log('eventLogContent: ', eventLogContent);
+  return (eventLogContent ? eventLogContent.split(searchString).length - 1 : 0);
+}
+
+export default { waitForTimeout, readInputValue, setInputAttr, checkTouchspinUpIsDisabled, touchspinClickUp, changeEventCounter, countEvent, countChangeWithValue };
