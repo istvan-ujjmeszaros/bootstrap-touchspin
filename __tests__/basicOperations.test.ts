@@ -98,6 +98,9 @@ describe('Core functionality', () => {
     await touchspinHelpers.touchspinClickUp(page, selector);
 
     expect(await touchspinHelpers.readInputValue(page, selector)).toBe('57');
+
+    // Reaching 57 should fire the touchspin.on.max event twice
+    expect(await touchspinHelpers.countEvent(page, selector, 'touchspin.on.max')).toBe(2);
   });
 
 });
