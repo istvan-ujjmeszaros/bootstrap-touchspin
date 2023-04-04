@@ -64,8 +64,6 @@ async function countEvent(page: Page, selector: string, event: string): Promise<
 
   // Count the number of 'change' events with the expected value
   const searchString = selector + ': ' + event;
-  console.log('searchString: ', searchString);
-  console.log('eventLogContent: ', eventLogContent);
   return (eventLogContent ? eventLogContent.split(searchString).length - 1 : 0);
 }
 
