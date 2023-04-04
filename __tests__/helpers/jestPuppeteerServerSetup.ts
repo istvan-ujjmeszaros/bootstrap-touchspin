@@ -21,7 +21,8 @@ beforeAll(async () => {
   if (puppeteerDebug)  {
     browser = await puppeteer.launch({
       headless: false,
-      slowMo: 300
+      slowMo: 300,
+      devtools: true,
     });
   } else {
     browser = await puppeteer.launch();
