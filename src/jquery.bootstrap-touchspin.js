@@ -156,18 +156,26 @@
 
       function _parseAttributes() {
         var data = {};
+
+        // Setting up based on data attributes
         $.each(attributeMap, function (key, value) {
           var attrName = 'bts-' + value + '';
+
           if (originalinput.is('[data-' + attrName + ']')) {
             data[key] = originalinput.data(attrName);
-          } else if (key === 'min') {
-            data[key] = originalinput.attr(key);
-          } else if (key === 'max') {
-            data[key] = originalinput.attr(key);
-          } else if (key === 'step') {
+          }
+        });
+
+        // Setting up based on input attributes if specified (input attributes have precedence)
+        $.each(['min', 'max', 'step'], function (i, key) {
+          if (originalinput.is('['+key+']')) {
+            if (data[key] !== undefined) {
+              console.warn('Both the "data-bts-' + key + '" data attribute and the "' + key + '" individual attribute were specified, the individual attribute will take precedence on: ', originalinput);
+            }
             data[key] = originalinput.attr(key);
           }
         });
+
         return data;
       }
 
