@@ -152,6 +152,22 @@
 
       function _initSettings() {
         settings = $.extend({}, defaults, originalinput_data, _parseAttributes(), options);
+
+        if (parseFloat(settings.step) !== 1) {
+          let remainder;
+
+          // Modify settings.max to be divisible by step
+          remainder = settings.max % settings.step;
+          if (remainder !== 0) {
+            settings.max = parseFloat(settings.max) - remainder;
+          }
+
+          // Do the same with min, should work with negative numbers too
+          remainder = settings.min % settings.step;
+          if (remainder !== 0) {
+            settings.min = parseFloat(settings.min) + (parseFloat(settings.step) - remainder);
+          }
+        }
       }
 
       function _parseAttributes() {
