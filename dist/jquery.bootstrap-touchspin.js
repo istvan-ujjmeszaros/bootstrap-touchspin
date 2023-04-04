@@ -1,5 +1,5 @@
 /*
- *  Bootstrap Touchspin - v4.5.2
+ *  Bootstrap Touchspin - v4.5.3
  *  A mobile and touch friendly input spinner component for Bootstrap 3 & 4.
  *  https://www.virtuosoft.eu/code/bootstrap-touchspin/
  *
@@ -344,7 +344,7 @@
             ev.preventDefault();
           }
           else if (code  ===  9 || code === 13)  {
-            originalinput.val(_forcestepdivisibility(originalinput.val()));
+            _checkValue();
           }
         });
 
@@ -609,6 +609,8 @@
           returnval = parsedval;
         }
 
+        returnval = _forcestepdivisibility(parsedval);
+
         if ((settings.min !== null) && (parsedval < settings.min)) {
           returnval = settings.min;
         }
@@ -617,9 +619,8 @@
           returnval = settings.max;
         }
 
-        if (parseFloat(val).toString() !== returnval.toString()) {
+        if (parseFloat(parsedval).toString() !== parseFloat(returnval).toString()) {
           originalinput.val(returnval);
-          originalinput.trigger('change');
         }
       }
 
