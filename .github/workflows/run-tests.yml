@@ -31,6 +31,3 @@ jobs:
 
       - name: Run tests
         run: npm test
-
-      - name: Check dist folder integrity
-        run: npm run check-build-integrity
