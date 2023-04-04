@@ -27,40 +27,51 @@
   <div class="row">
     <div class="col-md-4">
       <div class="wrapper">
-        <label for="testinput1">#testinput1:</label>
-        <input id="testinput1" type="text" value="50" name="testinput1">
+        <label for="testinput_default">#testinput_default:</label>
+        <input id="testinput_default" type="text" value="50" name="testinput_default">
 
         <script>
-          $("#testinput1").TouchSpin();
+          $("#testinput_default").TouchSpin();
         </script>
       </div>
 
       <div class="wrapper">
-        <label for="testinput2">#testinput2:</label>
-        <input id="testinput2" type="text" value="0" name="testinput2">
+        <label for="testinput_step10_min">#testinput_step10_min:</label>
+        <input id="testinput_step10_min" type="text" value="0" name="testinput_step10_min">
 
         <script>
-          $("#testinput2").TouchSpin({
+          $("#testinput_step10_min").TouchSpin({
             step: 10,
           });
         </script>
       </div>
 
       <div class="wrapper">
-        <label for="testinput3">#testinput3 (disabled):</label>
-        <input id="testinput3" type="text" value="0" name="testinput3" disabled>
+        <label for="testinput_step10_max">#testinput_step10_max:</label>
+        <input id="testinput_step10_max" type="text" value="100" name="testinput_step10_max">
 
         <script>
-          $("#testinput3").TouchSpin();
+          $("#testinput_step10_max").TouchSpin({
+            step: 10,
+          });
         </script>
       </div>
 
       <div class="wrapper">
-        <label for="testinput4">#testinput4 (readonly):</label>
-        <input id="testinput4" type="text" value="0" name="testinput4" readonly>
+        <label for="testinput_disabled">#testinput_disabled:</label>
+        <input id="testinput_disabled" type="text" value="0" name="testinput_disabled" disabled>
 
         <script>
-          $("#testinput4").TouchSpin();
+          $("#testinput_disabled").TouchSpin();
+        </script>
+      </div>
+
+      <div class="wrapper">
+        <label for="testinput_readonly">#testinput_readonly:</label>
+        <input id="testinput_readonly" type="text" value="0" name="testinput_readonly" readonly>
+
+        <script>
+          $("#testinput_readonly").TouchSpin();
         </script>
       </div>
     </div>
