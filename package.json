@@ -16,7 +16,7 @@
     "url": "https://github.com/istvan-ujjmeszaros"
   },
   "main": "dist/jquery.bootstrap-touchspin.js",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "contributors": [],
   "repository": {
     "type": "git",
@@ -26,12 +26,6 @@
   "demo": "https://www.virtuosoft.eu/code/bootstrap-touchspin/",
   "docs": "https://www.virtuosoft.eu/code/bootstrap-touchspin/",
   "download": "https://github.com/istvan-ujjmeszaros/bootstrap-touchspin/archive/master.zip",
-  "licenses": [
-    {
-      "type": "Apache License v2.0",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0"
-    }
-  ],
   "devDependencies": {
     "@types/express": "^4.17.17",
     "@types/jest": "^29.5.0",
