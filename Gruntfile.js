@@ -2,9 +2,18 @@ const crypto = require("crypto");
 module.exports = function (grunt) {
   const distFolder = 'dist/';
 
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+
+  grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin', 'update-license-version']);
+
   grunt.initConfig({
 
     // Import package manifest
+    pkg: grunt.file.readJSON('package.json'),
     pkg: grunt.file.readJSON('package.json'),
 
     // Banner definitions
@@ -15,7 +24,7 @@ module.exports = function (grunt) {
         ' *  <%= pkg.homepage %>\n' +
         ' *\n' +
         ' *  Made by <%= pkg.author.name %>\n' +
-        ' *  Under <%= pkg.licenses[0].type %> License\n' +
+        ' *  Under <%= pkg.license %> License\n' +
         ' */\n'
     },
 
@@ -69,13 +78,42 @@ module.exports = function (grunt) {
     folder: [distFolder + '**/*'],
   });
 
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.registerTask('update-license-version', 'Update the LICENSE.md file with the current version number', function() {
+    const pkg = grunt.config.get('pkg');
+    const licenseTemplate = `
+MIT License
 
-  grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin']);
+Bootstrap TouchSpin
+v${pkg.version}
+
+A mobile and touch friendly input spinner component for Bootstrap 3 & 4.
+
+    https://github.com/istvan-ujjmeszaros/bootstrap-touchspin
+    http://www.virtuosoft.eu/code/bootstrap-touchspin/
+
+Copyright (c) 2013-${new Date().getFullYear()} István Ujj-Mészáros
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+`;
+
+    grunt.file.write('LICENSE.md', licenseTemplate);
+  });
 
   // Checking if the dist folder has been properly rebuilt with "grunt default" before pushing to GitHub
   grunt.registerTask('check-build-integrity', 'Build task with checksum verification', function() {
