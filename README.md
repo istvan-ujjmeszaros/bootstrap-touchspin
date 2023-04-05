@@ -8,4 +8,4 @@ Please report issues and feel free to make feature suggestions as well.
 
 ## License
 
-Apache License, Version 2.0
+MIT License
