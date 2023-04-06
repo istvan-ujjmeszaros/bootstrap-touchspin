@@ -295,11 +295,9 @@
         var html;
 
         var inputGroupSize = '';
-        if (originalinput.hasClass('input-sm')) {
+        if (originalinput.hasClass('input-sm') || originalinput.hasClass('form-control-sm')) {
           inputGroupSize = 'input-group-sm';
-        }
-
-        if (originalinput.hasClass('input-lg')) {
+        } else if (originalinput.hasClass('input-lg') || originalinput.hasClass('form-control-lg')) {
           inputGroupSize = 'input-group-lg';
         }
 
@@ -313,9 +311,9 @@
 
         $('.bootstrap-touchspin-prefix', container).after(originalinput);
 
-        if (originalinput.hasClass('input-sm')) {
+        if (originalinput.hasClass('input-sm') || originalinput.hasClass('form-control-sm')) {
           container.addClass('input-group-sm');
-        } else if (originalinput.hasClass('input-lg')) {
+        } else if (originalinput.hasClass('input-lg') || originalinput.hasClass('form-control-lg')) {
           container.addClass('input-group-lg');
         }
       }
