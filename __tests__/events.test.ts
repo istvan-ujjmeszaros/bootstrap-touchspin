@@ -130,4 +130,10 @@ describe('Events', () => {
     expect(await touchspinHelpers.changeEventCounter(page)).toBe(0);
     expect(await touchspinHelpers.countChangeWithValue(page, "0")).toBe(0);
   });
+
+  it('Should use the callback on the initial value', async () => {
+    const selector: string = '#input_callbacks';
+
+    expect(await touchspinHelpers.readInputValue(page, selector)).toBe('$5,000.00');
+  });
 });
