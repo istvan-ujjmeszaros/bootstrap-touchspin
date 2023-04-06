@@ -1,4 +1,4 @@
-import {Page, ElementHandle} from 'puppeteer';
+import {Page} from 'puppeteer';
 
 async function waitForTimeout(ms: number): Promise<void> {
   return new Promise(r => setTimeout(r, ms));
@@ -51,12 +51,10 @@ async function changeEventCounter(page: Page): Promise<number> {
 
 async function countChangeWithValue(page: Page, expectedValue: string): Promise<number> {
   const expectedText = '#input_callbacks: change[' + expectedValue + ']';
-  const occurrences = await page.evaluate((text) => {
+  return await page.evaluate((text) => {
     return Array.from(document.querySelectorAll('#events_log'))
       .filter(element => element.textContent!.includes(text)).length;
   }, expectedText);
-
-  return occurrences;
 }
 
 async function countEvent(page: Page, selector: string, event: string): Promise<number> {

@@ -101,4 +101,17 @@ describe('Events', () => {
 
     expect(await touchspinHelpers.readInputValue(page, selector)).toBe('$5,000.00');
   });
+
+  it('Should have the decorated value when firing the change event', async () => {
+    const selector: string = '#input_callbacks';
+
+    await touchspinHelpers.fillWithValue(page, selector, '1000');
+
+    await page.keyboard.press('Enter');
+
+    await touchspinHelpers.waitForTimeout(500);
+
+    expect(await touchspinHelpers.countChangeWithValue(page, '$1,000.00')).toBe(1);
+  });
+
 });
