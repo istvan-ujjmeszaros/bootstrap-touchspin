@@ -632,8 +632,10 @@
         }
 
         if (parseFloat(parsedval).toString() !== parseFloat(returnval).toString()) {
-          originalinput.val(settings.callback_after_calculation(returnval));
+          originalinput.val(returnval);
         }
+
+        originalinput.val(settings.callback_after_calculation(parseFloat(returnval).toFixed(settings.decimals)));
       }
 
       function _getBoostedStep() {
