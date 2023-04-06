@@ -8,16 +8,14 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css"
         integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
 
-
-  <!-- BOOTSTRAP 4 -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+  <!-- BOOTSTRAP 3 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
   <link href="../../src/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" media="all">
   <script src="../../src/jquery.bootstrap-touchspin.js"></script>
-
 
 </head>
 
@@ -105,6 +103,31 @@
           $("#testinput_individual_min_max_step_properties").TouchSpin();
         </script>
       </div>
+
+      <div class="wrapper">
+        <label for="input_group_sm">#input_group_sm:</label>
+        <input id="input_group_sm" type="text" class="form-control input-sm" value="50">
+
+        <script>
+          $("#input_group_sm").TouchSpin({
+            prefix: "$",
+            postfix: "/qty"
+          });
+        </script>
+      </div>
+
+      <div class="wrapper">
+        <label for="input_group_lg">#input_group_lg:</label>
+        <input id="input_group_lg" type="text" class="form-control input-lg" value="50">
+
+        <script>
+          $("#input_group_lg").TouchSpin({
+            prefix: "$",
+            postfix: "/qty"
+          });
+        </script>
+      </div>
+
     </div>
 
     <div class="col-md-8" style="height:100vh;">
@@ -147,7 +170,6 @@
     </script>
 
   </div>
-
 
 </div>
 
