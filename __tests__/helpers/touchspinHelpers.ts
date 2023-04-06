@@ -50,12 +50,13 @@ async function changeEventCounter(page: Page): Promise<number> {
 }
 
 async function countChangeWithValue(page: Page, expectedValue: string): Promise<number> {
-  // Get the event log content
-  const eventLogContent = await page.$eval('#events_log', el => el.textContent);
+  const expectedText = '#input_callbacks: change[' + expectedValue + ']';
+  const occurrences = await page.evaluate((text) => {
+    return Array.from(document.querySelectorAll('#events_log'))
+      .filter(element => element.textContent!.includes(text)).length;
+  }, expectedText);
 
-  // Count the number of 'change' events with the expected value
-  const pattern = new RegExp('change\\[' + expectedValue + '\\]', 'g');
-  return (eventLogContent?.match(pattern) ?? []).length;
+  return occurrences;
 }
 
 async function countEvent(page: Page, selector: string, event: string): Promise<number> {
@@ -69,7 +70,8 @@ async function countEvent(page: Page, selector: string, event: string): Promise<
 
 async function fillWithValue(page: Page, selector: string, value: string): Promise<void> {
   await page.focus(selector);
-  await page.click(selector, { clickCount: 2 });
+  // Has to be triple click to select all text when using decorators
+  await page.click(selector, { clickCount: 3 });
   await page.keyboard.type(value);
 }
 
