@@ -67,4 +67,10 @@ async function countEvent(page: Page, selector: string, event: string): Promise<
   return (eventLogContent ? eventLogContent.split(searchString).length - 1 : 0);
 }
 
-export default { waitForTimeout, readInputValue, setInputAttr, checkTouchspinUpIsDisabled, touchspinClickUp, changeEventCounter, countEvent, countChangeWithValue };
+async function fillWithValue(page: Page, selector: string, value: string): Promise<void> {
+  await page.focus(selector);
+  await page.click(selector, { clickCount: 2 });
+  await page.keyboard.type(value);
+}
+
+export default { waitForTimeout, readInputValue, setInputAttr, checkTouchspinUpIsDisabled, touchspinClickUp, changeEventCounter, countEvent, countChangeWithValue, fillWithValue };
