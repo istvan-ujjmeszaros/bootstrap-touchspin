@@ -38,11 +38,9 @@ beforeEach(async () => {
   if (!page) {
     // Create a new page if it doesn't exist
     page = await browser.newPage();
-    await page.goto(`http://localhost:${port}/__tests__/html/index.html`);
-  } else {
-    // Reload the current page
-    await page.reload();
   }
+
+  await page.goto(`http://localhost:${port}/__tests__/html/index.html`);
 });
 
 export { page, port };
