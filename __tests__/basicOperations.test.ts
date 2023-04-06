@@ -1,5 +1,6 @@
 import touchspinHelpers from './helpers/touchspinHelpers';
 import {page, port} from './helpers/jestPuppeteerServerSetup';
+import {ElementHandle} from "puppeteer";
 
 describe('Core functionality', () => {
 
@@ -108,6 +109,44 @@ describe('Core functionality', () => {
 
     // Reaching 57 should fire the touchspin.on.max event twice
     expect(await touchspinHelpers.countEvent(page, selector, 'touchspin.on.max')).toBe(2);
+  });
+
+  test("Bootstrap 3 should have input-group-sm class", async () => {
+    await page.goto(`http://localhost:${port}/__tests__/html/index-bs3.html`);
+    const selector: string = "#input_group_sm";
+    const inputGroupClasses = await page.$eval(selector, (input: Element) => {
+      const inputElement = input as HTMLInputElement;
+      return inputElement.parentElement?.className;
+    });
+    expect(inputGroupClasses).toContain("input-group-sm");
+  });
+
+  test("Bootstrap 4 should have input-group-sm class", async () => {
+    const selector: string = "#input_group_sm";
+    const inputGroupClasses = await page.$eval(selector, (input: Element) => {
+      const inputElement = input as HTMLInputElement;
+      return inputElement.parentElement?.className;
+    });
+    expect(inputGroupClasses).toContain("input-group-sm");
+  });
+
+  test("Bootstrap 3 should have input-group-lg class", async () => {
+    await page.goto(`http://localhost:${port}/__tests__/html/index-bs3.html`);
+    const selector: string = "#input_group_lg";
+    const inputGroupClasses = await page.$eval(selector, (input: Element) => {
+      const inputElement = input as HTMLInputElement;
+      return inputElement.parentElement?.className;
+    });
+    expect(inputGroupClasses).toContain("input-group-lg");
+  });
+
+  test("Bootstrap 4 should have input-group-lg class", async () => {
+    const selector: string = "#input_group_lg";
+    const inputGroupClasses = await page.$eval(selector, (input: Element) => {
+      const inputElement = input as HTMLInputElement;
+      return inputElement.parentElement?.className;
+    });
+    expect(inputGroupClasses).toContain("input-group-lg");
   });
 
 });
