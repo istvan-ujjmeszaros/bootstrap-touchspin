@@ -27,14 +27,7 @@ describe('Events', () => {
   it('should fire the change event exactly once when entering a proper value and pressing TAB', async () => {
     const selector: string = '#testinput_default';
 
-    // Focus on the input element
-    await page.focus(selector);
-
-    // Clear the input
-    await page.click(selector, { clickCount: 2 });
-
-    // Type a new value
-    await page.keyboard.type('67');
+    await touchspinHelpers.fillWithValue(page, selector, '67');
 
     // Press the TAB key to move out of the input field
     await page.keyboard.press('Tab');
@@ -48,14 +41,7 @@ describe('Events', () => {
   it('Should fire the change event only once when correcting the value according to step after pressing TAB', async () => {
     const selector: string = '#testinput_step10_min';
 
-    // Focus on the input element
-    await page.focus(selector);
-
-    // Clear the input
-    await page.click(selector, { clickCount: 2 });
-
-    // Type a new value
-    await page.keyboard.type('67');
+    await touchspinHelpers.fillWithValue(page, selector, '67');
 
     // Press the TAB key to move out of the input field
     await page.keyboard.press('Tab');
@@ -69,14 +55,7 @@ describe('Events', () => {
   it('Should fire the change event only once when correcting the value according to step after pressing Enter', async () => {
     const selector: string = '#testinput_step10_min';
 
-    // Focus on the input element
-    await page.focus(selector);
-
-    // Clear the input
-    await page.click(selector, { clickCount: 2 });
-
-    // Type a new value
-    await page.keyboard.type('67');
+    await touchspinHelpers.fillWithValue(page, selector, '67');
 
     // Press the TAB key to move out of the input field
     await page.keyboard.press('Enter');
@@ -90,14 +69,7 @@ describe('Events', () => {
   it('Should not fire change event when already at max value and entering a higher value', async () => {
     const selector: string = '#testinput_step10_max';
 
-    // Focus on the input element
-    await page.focus(selector);
-
-    // Clear the input
-    await page.click(selector, { clickCount: 2 });
-
-    // Type a new value
-    await page.keyboard.type('117');
+    await touchspinHelpers.fillWithValue(page, selector, '117');
 
     // Press the TAB key to move out of the input field
     await page.keyboard.press('Enter');
@@ -112,14 +84,7 @@ describe('Events', () => {
   it('Should not fire change event when already at min value and entering a lower value', async () => {
     const selector: string = '#testinput_step10_min';
 
-    // Focus on the input element
-    await page.focus(selector);
-
-    // Clear the input
-    await page.click(selector, { clickCount: 2 });
-
-    // Type a new value
-    await page.keyboard.type('-55');
+    await touchspinHelpers.fillWithValue(page, selector, '-55');
 
     // Press the TAB key to move out of the input field
     await page.keyboard.press('Enter');
@@ -130,4 +95,34 @@ describe('Events', () => {
     expect(await touchspinHelpers.changeEventCounter(page)).toBe(0);
     expect(await touchspinHelpers.countChangeWithValue(page, "0")).toBe(0);
   });
+
+  it('Should use the callback on the initial value', async () => {
+    const selector: string = '#input_callbacks';
+
+    expect(await touchspinHelpers.readInputValue(page, selector)).toBe('$5,000.00');
+  });
+
+  it('Should have the decorated value when firing the change event', async () => {
+    const selector: string = '#input_callbacks';
+
+    await touchspinHelpers.fillWithValue(page, selector, '1000');
+
+    await page.keyboard.press('Enter');
+
+    await touchspinHelpers.waitForTimeout(500);
+
+    expect(await touchspinHelpers.countChangeWithValue(page, '$1,000.00')).toBe(1);
+  });
+
+  it('Should have the decorated value on blur', async () => {
+    const selector: string = '#input_callbacks';
+
+    await touchspinHelpers.fillWithValue(page, selector, '1000');
+
+    await page.click('#input_group_lg', { clickCount: 1 });
+
+    expect(await touchspinHelpers.countChangeWithValue(page, '1000')).toBe(0);
+    expect(await touchspinHelpers.countChangeWithValue(page, '$1,000.00')).toBe(1);
+  });
+
 });

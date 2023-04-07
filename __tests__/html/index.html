@@ -130,6 +130,27 @@
         </script>
       </div>
 
+      <div class="wrapper">
+        <label for="input_callbacks">#input_callbacks:</label>
+        <input id="input_callbacks" type="text" class="form-control form-control-lg" value="">
+
+        <script>
+          $("#input_callbacks").TouchSpin({
+            min: 0,
+            max: 1000000,
+            step: 0.1,
+            decimals: 2,
+            initval: '$5,000.00',
+            callback_before_calculation: (value) => {
+              return numeral(value).value();
+            },
+            callback_after_calculation: (value) => {
+              return numeral(value).format("$0,0.00");
+            }
+          });
+        </script>
+      </div>
+
     </div>
 
     <div class="col-md-8" style="height:100vh;">

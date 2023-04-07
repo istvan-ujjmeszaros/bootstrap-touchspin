@@ -1,4 +1,4 @@
-import {Page, ElementHandle} from 'puppeteer';
+import {Page} from 'puppeteer';
 
 async function waitForTimeout(ms: number): Promise<void> {
   return new Promise(r => setTimeout(r, ms));
@@ -50,12 +50,11 @@ async function changeEventCounter(page: Page): Promise<number> {
 }
 
 async function countChangeWithValue(page: Page, expectedValue: string): Promise<number> {
-  // Get the event log content
-  const eventLogContent = await page.$eval('#events_log', el => el.textContent);
-
-  // Count the number of 'change' events with the expected value
-  const pattern = new RegExp('change\\[' + expectedValue + '\\]', 'g');
-  return (eventLogContent?.match(pattern) ?? []).length;
+  const expectedText = '#input_callbacks: change[' + expectedValue + ']';
+  return await page.evaluate((text) => {
+    return Array.from(document.querySelectorAll('#events_log'))
+      .filter(element => element.textContent!.includes(text)).length;
+  }, expectedText);
 }
 
 async function countEvent(page: Page, selector: string, event: string): Promise<number> {
@@ -67,4 +66,11 @@ async function countEvent(page: Page, selector: string, event: string): Promise<
   return (eventLogContent ? eventLogContent.split(searchString).length - 1 : 0);
 }
 
-export default { waitForTimeout, readInputValue, setInputAttr, checkTouchspinUpIsDisabled, touchspinClickUp, changeEventCounter, countEvent, countChangeWithValue };
+async function fillWithValue(page: Page, selector: string, value: string): Promise<void> {
+  await page.focus(selector);
+  // Has to be triple click to select all text when using decorators
+  await page.click(selector, { clickCount: 3 });
+  await page.keyboard.type(value);
+}
+
+export default { waitForTimeout, readInputValue, setInputAttr, checkTouchspinUpIsDisabled, touchspinClickUp, changeEventCounter, countEvent, countChangeWithValue, fillWithValue };
