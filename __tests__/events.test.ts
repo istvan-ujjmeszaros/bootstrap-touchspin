@@ -114,4 +114,15 @@ describe('Events', () => {
     expect(await touchspinHelpers.countChangeWithValue(page, '$1,000.00')).toBe(1);
   });
 
+  it('Should have the decorated value on blur', async () => {
+    const selector: string = '#input_callbacks';
+
+    await touchspinHelpers.fillWithValue(page, selector, '1000');
+
+    await page.click('#input_group_lg', { clickCount: 1 });
+
+    expect(await touchspinHelpers.countChangeWithValue(page, '1000')).toBe(0);
+    expect(await touchspinHelpers.countChangeWithValue(page, '$1,000.00')).toBe(1);
+  });
+
 });
