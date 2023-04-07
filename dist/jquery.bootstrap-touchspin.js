@@ -1,5 +1,5 @@
 /*
- *  Bootstrap Touchspin - v4.6.1
+ *  Bootstrap Touchspin - v4.6.2
  *  A mobile and touch friendly input spinner component for Bootstrap 3 & 4.
  *  https://www.virtuosoft.eu/code/bootstrap-touchspin/
  *
@@ -253,6 +253,8 @@
           parentelement = originalinput.parent();
 
         if (initval !== '') {
+	  // initval may not be parsable as a number (callback_after_calculation() may decorate it so it cant be parsed).  Use the callbacks if provided.
+	  initval = settings.callback_before_calculation(initval);
           initval = settings.callback_after_calculation(parseFloat(initval).toFixed(settings.decimals));
         }
 
@@ -377,9 +379,17 @@
           }
         });
 
+        // change is fired before blur, so we need to work around that
+        $(document).on('mousedown touchstart', function(event) {
+          if ($(event.target).is(originalinput)) {
+            return;
+          }
+
+          _checkValue();
+        });
+
         originalinput.on('blur.touchspin', function () {
           _checkValue();
-          originalinput.val(settings.callback_after_calculation(originalinput.val()));
         });
 
         elements.down.on('keydown', function (ev) {
@@ -638,6 +648,8 @@
         if (parseFloat(parsedval).toString() !== parseFloat(returnval).toString()) {
           originalinput.val(returnval);
         }
+
+        originalinput.val(settings.callback_after_calculation(parseFloat(returnval).toFixed(settings.decimals)));
       }
 
       function _getBoostedStep() {
