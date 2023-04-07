@@ -371,11 +371,17 @@
           }
         });
 
+        // change is fired before blur, so we need to work around that
+        $(document).on('mousedown', function(event) {
+          if ($(event.target).is(originalinput)) {
+            return;
+          }
+
+          _checkValue();
+        });
+
         originalinput.on('blur.touchspin', function () {
           _checkValue();
-	  // initval may not be parsable as a number (callback_after_calculation() may decorate it so it cant be parsed).  Use the callbacks if provided.
-	  var value = settings.callback_before_calculation(originalinput.val());
-          originalinput.val(settings.callback_after_calculation(value));
         });
 
         elements.down.on('keydown', function (ev) {
