@@ -372,7 +372,7 @@
         });
 
         // change is fired before blur, so we need to work around that
-        $(document).on('mousedown', function(event) {
+        $(document).on('mousedown touchstart', function(event) {
           if ($(event.target).is(originalinput)) {
             return;
           }
