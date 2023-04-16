@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Bootstrap TouchSpin</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css"
+        integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
+
+  <!-- BOOTSTRAP 3 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+
+  <link href="../../src/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" media="all">
+  <script src="../../src/jquery.bootstrap-touchspin.js"></script>
+
+</head>
+
+<body>
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="wrapper">
+        <label for="testinput_default">#testinput_default:</label>
+        <input id="testinput_default" type="text" value="50" name="testinput_default">
+
+        <script>
+          $("#testinput_default").TouchSpin({
+            verticalbuttons: true,
+          });
+        </script>
+      </div>
+
+      <div class="wrapper">
+        <label for="input_group_lg">#input_group_lg:</label>
+        <input id="input_group_lg" type="text" class="form-control form-control-lg" value="50">
+
+        <script>
+          $("#input_group_lg").TouchSpin({
+            prefix: "$",
+            postfix: "/qty",
+            verticalbuttons: true,
+          });
+        </script>
+      </div>
+
+    </div>
+
+    <div class="col-md-8" style="height:100vh;">
+      <h6>Events</h6>
+      <pre id="events_log"
+           style="height:200px;overflow:auto;outline:1px dotted gray;height:calc(100% - 50px);margin-top:15px;"></pre>
+    </div>
+
+    <script>
+      var events_log = $("#events_log"),
+        text = "";
+
+      function writeLine(input, line) {
+        text += '#' + input.attr('id') + ': ' + line + "\n";
+        events_log.text(text);
+        events_log.scrollTop(
+          events_log[0].scrollHeight - events_log.height()
+        );
+      }
+
+      [
+        "change",
+        "touchspin.on.startspin",
+        "touchspin.on.startupspin",
+        "touchspin.on.startdownspin",
+        "touchspin.on.stopspin",
+        "touchspin.on.stopupspin",
+        "touchspin.on.stopdownspin",
+        "touchspin.on.min",
+        "touchspin.on.max"
+      ].forEach(function (eventName) {
+        $("input").on(eventName, function (e) {
+          var line = eventName;
+          if (eventName === "change") {
+            line += "[" + $(this).val() + "]";
+          }
+          writeLine($(this), line);
+        });
+      });
+    </script>
+
+  </div>
+
+</div>
+
+</body>
+</html>
