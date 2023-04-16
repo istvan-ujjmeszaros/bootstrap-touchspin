@@ -27,22 +27,46 @@
   <div class="row">
     <div class="col-md-4">
       <div class="wrapper">
-        <label for="testinput_default">#testinput_default:</label>
-        <input id="testinput_default" type="text" value="50" name="testinput_default">
+        <label for="testinput_vertical">#testinput_vertical:</label>
+        <input id="testinput_vertical" type="text" value="50" name="testinput_vertical">
 
         <script>
-          $("#testinput_default").TouchSpin({
+          $("#testinput_vertical").TouchSpin({
             verticalbuttons: true,
           });
         </script>
       </div>
 
       <div class="wrapper">
-        <label for="input_group_lg">#input_group_lg:</label>
-        <input id="input_group_lg" type="text" class="form-control form-control-lg" value="50">
+        <label for="testinput_vertical_lg">#testinput_vertical_lg:</label>
+        <input id="testinput_vertical_lg" type="text" class="form-control form-control-lg" value="50">
 
         <script>
-          $("#input_group_lg").TouchSpin({
+          $("#testinput_vertical_lg").TouchSpin({
+            prefix: "$",
+            postfix: "/qty",
+            verticalbuttons: true,
+          });
+        </script>
+      </div>
+
+      <div class="wrapper rtl" dir="rtl">
+        <label for="rtl_testinput_vertical">#rtl_testinput_vertical:</label>
+        <input id="rtl_testinput_vertical" type="text" value="50" name="rtl_testinput_vertical">
+
+        <script>
+          $("#rtl_testinput_vertical").TouchSpin({
+            verticalbuttons: true,
+          });
+        </script>
+      </div>
+
+      <div class="wrapper rtl" dir="rtl">
+        <label for="rtl_testinput_vertical_lg">#rtl_testinput_vertical_lg:</label>
+        <input id="rtl_testinput_vertical_lg" type="text" class="form-control form-control-lg" value="50">
+
+        <script>
+          $("#rtl_testinput_vertical_lg").TouchSpin({
             prefix: "$",
             postfix: "/qty",
             verticalbuttons: true,
