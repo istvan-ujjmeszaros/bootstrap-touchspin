@@ -39,7 +39,8 @@
 }
 
 .bootstrap-touchspin .input-group-addon:not(:last-child) .input-group-btn-vertical .bootstrap-touchspin-up,
-.bootstrap-touchspin .input-group-addon:not(:last-child) .input-group-btn-vertical .bootstrap-touchspin-down {
+.bootstrap-touchspin .input-group-addon:not(:last-child) .input-group-btn-vertical .bootstrap-touchspin-down,
+.bootstrap-touchspin .input-group-btn:not(:last-child) .btn {
   border-radius: 0;
 }
 
