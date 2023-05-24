@@ -1,35 +1,37 @@
 /* This CSS file is unnecessary if you are not using vertical buttons functionality */
+.bootstrap-touchspin .bootstrap-touchspin-vertical-button-wrapper {
+  position: relative;
+  width: 25px;
+  border: none;
+}
 
 .bootstrap-touchspin .input-group-btn-vertical {
   position: absolute;
-  right: 0;
-  height: 100%;
-  z-index: 11;
-}
-
-.rtl .bootstrap-touchspin .input-group-btn-vertical {
-  right: initial;
   left: 0;
+  right: 0;
+  top: 0;
+  bottom:0;
+  z-index: 11;
 }
 
 .bootstrap-touchspin .input-group-btn-vertical > .btn {
   position: absolute;
+  left: 0;
   right: 0;
   height: 50%;
   padding: 0;
-  width: 2em;
   text-align: center;
   line-height: 1;
-}
-
-.rtl .bootstrap-touchspin .input-group-btn-vertical > .btn {
-  right: initial;
-  left: 0;
 }
 
 .bootstrap-touchspin .input-group-btn-vertical .bootstrap-touchspin-up {
   border-radius: 0 4px 0 0;
   top: 0;
+}
+
+.bootstrap-touchspin .input-group-btn-vertical .btn {
+  font-size: 12px;
+  line-height: 1;
 }
 
 .rtl .bootstrap-touchspin .input-group-btn-vertical .bootstrap-touchspin-up {

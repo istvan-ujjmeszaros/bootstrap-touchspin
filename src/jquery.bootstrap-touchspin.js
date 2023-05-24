@@ -338,7 +338,9 @@
               <span class="input-group-addon bootstrap-touchspin-postfix input-group-append">
                 <span class="input-group-text">${settings.postfix}</span>
               </span>
-              ${html_vertical}
+              <span class="input-group-addon bootstrap-touchspin-vertical-button-wrapper">
+                ${html_vertical}
+              </span>
             </div>`;
         } else {
           html = `
