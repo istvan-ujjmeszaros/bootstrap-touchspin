@@ -28,8 +28,7 @@
 }
 
 .rtl .bootstrap-touchspin .input-group-btn-vertical .bootstrap-touchspin-up {
-  border-top-right-radius: 0;
-  border-top-left-radius: 4px;
+  border-radius: 4px 0 0 0;
 }
 
 .bootstrap-touchspin .input-group-btn-vertical .bootstrap-touchspin-down {
@@ -39,8 +38,7 @@
 
 
 .rtl .bootstrap-touchspin .input-group-btn-vertical .bootstrap-touchspin-down {
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 4px;
+  border-radius: 0 0 0 4px;
 }
 
 .bootstrap-touchspin .input-group-btn-vertical i {
