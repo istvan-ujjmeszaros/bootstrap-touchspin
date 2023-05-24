@@ -7,6 +7,11 @@
   z-index: 11;
 }
 
+.rtl .bootstrap-touchspin .input-group-btn-vertical {
+  right: initial;
+  left: 0;
+}
+
 .bootstrap-touchspin .input-group-btn-vertical > .btn {
   position: absolute;
   right: 0;
@@ -18,8 +23,8 @@
 }
 
 .rtl .bootstrap-touchspin .input-group-btn-vertical > .btn {
-  margin-left: auto;
-  margin-right: -1px;
+  right: initial;
+  left: 0;
 }
 
 .bootstrap-touchspin .input-group-btn-vertical .bootstrap-touchspin-up {
