@@ -24,7 +24,7 @@
   line-height: 1;
 }
 
-.bootstrap-touchspin .input-group-btn-vertical .bootstrap-touchspin-up {
+.bootstrap-touchspin .input-group-addon .input-group-btn-vertical .bootstrap-touchspin-up {
   border-radius: 0 4px 0 0;
   top: 0;
 }
@@ -34,8 +34,13 @@
   line-height: 1;
 }
 
-.rtl .bootstrap-touchspin .input-group-btn-vertical .bootstrap-touchspin-up {
+.rtl .bootstrap-touchspin .input-group-addon .input-group-btn-vertical .bootstrap-touchspin-up {
   border-radius: 4px 0 0 0;
+}
+
+.bootstrap-touchspin .input-group-addon:not(:last-child) .input-group-btn-vertical .bootstrap-touchspin-up,
+.bootstrap-touchspin .input-group-addon:not(:last-child) .input-group-btn-vertical .bootstrap-touchspin-down {
+  border-radius: 0;
 }
 
 .bootstrap-touchspin .input-group-btn-vertical .bootstrap-touchspin-down {
