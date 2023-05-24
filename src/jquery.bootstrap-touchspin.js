@@ -35,8 +35,8 @@
       forcestepdivisibility: 'round', // none | floor | round | ceil
       stepintervaldelay: 500,
       verticalbuttons: false,
-      verticalup: '+',
-      verticaldown: '-',
+      verticalup: '&plus;',
+      verticaldown: '&minus;',
       verticalupclass: '',
       verticaldownclass: '',
       prefix: '',
@@ -50,7 +50,7 @@
       buttondown_class: 'btn btn-primary',
       buttonup_class: 'btn btn-primary',
       buttondown_txt: '&minus;',
-      buttonup_txt: '+',
+      buttonup_txt: '&plus;',
       callback_before_calculation: function (value) {
         return value;
       },
@@ -96,6 +96,7 @@
         _detached_postfix,
         container,
         elements,
+        verticalbuttons_html,
         value,
         downSpinTimer,
         upSpinTimer,
@@ -253,6 +254,15 @@
         originalinput.data('initvalue', initval).val(initval);
         originalinput.addClass('form-control');
 
+        verticalbuttons_html = `
+          <span class="input-group-addon bootstrap-touchspin-vertical-button-wrapper">
+            <span class="input-group-btn-vertical">
+              <button class="${settings.buttondown_class} bootstrap-touchspin-up ${settings.verticalupclass}" type="button">${settings.verticalup}</button>
+              <button class="${settings.buttonup_class} bootstrap-touchspin-down ${settings.verticaldownclass}" type="button">${settings.verticaldown}</button>
+            </span>
+          </span>
+       `;
+
         if (parentelement.hasClass('input-group')) {
           _advanceInputGroup(parentelement);
         } else {
@@ -268,23 +278,48 @@
 
         var downhtml,
           uphtml,
-          prefixhtml = '<span class="input-group-addon input-group-prepend bootstrap-touchspin-prefix input-group-prepend bootstrap-touchspin-injected"><span class="input-group-text">' + settings.prefix + '</span></span>',
-          postfixhtml = '<span class="input-group-addon input-group-append bootstrap-touchspin-postfix input-group-append bootstrap-touchspin-injected"><span class="input-group-text">' + settings.postfix + '</span></span>';
+          prefixhtml = `
+            <span class="input-group-addon input-group-prepend bootstrap-touchspin-prefix input-group-prepend bootstrap-touchspin-injected">
+              <span class="input-group-text">${settings.prefix}</span>
+            </span>
+          `,
+          postfixhtml = `
+            <span class="input-group-addon input-group-append bootstrap-touchspin-postfix input-group-append bootstrap-touchspin-injected">
+              <span class="input-group-text">${settings.postfix}</span>
+            </span>
+          `;
 
-        if (prev.hasClass('input-group-btn') || prev.hasClass('input-group-prepend')) {
-          downhtml = '<button class="' + settings.buttondown_class + ' bootstrap-touchspin-down bootstrap-touchspin-injected" type="button">' + settings.buttondown_txt + '</button>';
-          prev.append(downhtml);
-        } else {
-          downhtml = '<span class="input-group-btn input-group-prepend bootstrap-touchspin-injected"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">' + settings.buttondown_txt + '</button></span>';
-          $(downhtml).insertBefore(originalinput);
+        if (settings.verticalbuttons) {
+          $(verticalbuttons_html).insertAfter(originalinput);
         }
+        else {
+          if (prev.hasClass('input-group-btn') || prev.hasClass('input-group-prepend')) {
+            downhtml = `
+              <button class="${settings.buttondown_class} bootstrap-touchspin-down bootstrap-touchspin-injected" type="button">${settings.buttondown_txt}</button>
+            `;
+            prev.append(downhtml);
+          } else {
+            downhtml = `
+              <span class="input-group-btn input-group-prepend bootstrap-touchspin-injected">
+                <button class="${settings.buttondown_class} bootstrap-touchspin-down" type="button">${settings.buttondown_txt}</button>
+              </span>
+            `;
+            $(downhtml).insertBefore(originalinput);
+          }
 
-        if (next.hasClass('input-group-btn') || next.hasClass('input-group-append')) {
-          uphtml = '<button class="' + settings.buttonup_class + ' bootstrap-touchspin-up bootstrap-touchspin-injected" type="button">' + settings.buttonup_txt + '</button>';
-          next.prepend(uphtml);
-        } else {
-          uphtml = '<span class="input-group-btn input-group-append bootstrap-touchspin-injected"><button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">' + settings.buttonup_txt + '</button></span>';
-          $(uphtml).insertAfter(originalinput);
+          if (next.hasClass('input-group-btn') || next.hasClass('input-group-append')) {
+            uphtml = `
+            <button class="${settings.buttonup_class} bootstrap-touchspin-up bootstrap-touchspin-injected" type="button">${settings.buttonup_txt}</button>
+          `;
+            next.prepend(uphtml);
+          } else {
+            uphtml = `
+            <span class="input-group-btn input-group-append bootstrap-touchspin-injected">
+              <button class="${settings.buttonup_class} bootstrap-touchspin-up" type="button">${settings.buttonup_txt}</button>
+            </span>
+          `;
+            $(uphtml).insertAfter(originalinput);
+          }
         }
 
         $(prefixhtml).insertBefore(originalinput);
@@ -304,9 +339,33 @@
         }
 
         if (settings.verticalbuttons) {
-          html = '<div class="input-group ' + inputGroupSize + ' bootstrap-touchspin bootstrap-touchspin-injected"><span class="input-group-addon input-group-prepend bootstrap-touchspin-prefix"><span class="input-group-text">' + settings.prefix + '</span></span><span class="input-group-addon bootstrap-touchspin-postfix input-group-append"><span class="input-group-text">' + settings.postfix + '</span></span><span class="input-group-btn-vertical"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-up ' + settings.verticalupclass + '" type="button">' + settings.verticalup + '</button><button class="' + settings.buttonup_class + ' bootstrap-touchspin-down ' + settings.verticaldownclass + '" type="button">' + settings.verticaldown + '</button></span></div>';
+          html = `
+            <div class="input-group ${inputGroupSize} bootstrap-touchspin bootstrap-touchspin-injected">
+              <span class="input-group-addon input-group-prepend bootstrap-touchspin-prefix">
+                <span class="input-group-text">${settings.prefix}</span>
+              </span>
+              <span class="input-group-addon bootstrap-touchspin-postfix input-group-append">
+                <span class="input-group-text">${settings.postfix}</span>
+              </span>
+              ${verticalbuttons_html}
+            </div>
+          `;
         } else {
-          html = '<div class="input-group bootstrap-touchspin bootstrap-touchspin-injected"><span class="input-group-btn input-group-prepend"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">' + settings.buttondown_txt + '</button></span><span class="input-group-addon bootstrap-touchspin-prefix input-group-prepend"><span class="input-group-text">' + settings.prefix + '</span></span><span class="input-group-addon bootstrap-touchspin-postfix input-group-append"><span class="input-group-text">' + settings.postfix + '</span></span><span class="input-group-btn input-group-append"><button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">' + settings.buttonup_txt + '</button></span></div>';
+          html = `
+            <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
+              <span class="input-group-btn input-group-prepend">
+                <button class="${settings.buttondown_class} bootstrap-touchspin-down" type="button">${settings.buttondown_txt}</button>
+              </span>
+              <span class="input-group-addon bootstrap-touchspin-prefix input-group-prepend">
+                <span class="input-group-text">${settings.prefix}</span>
+              </span>
+              <span class="input-group-addon bootstrap-touchspin-postfix input-group-append">
+                <span class="input-group-text">${settings.postfix}</span>
+              </span>
+              <span class="input-group-btn input-group-append">
+                <button class="${settings.buttonup_class} bootstrap-touchspin-up" type="button">${settings.buttonup_txt}</button>
+              </span>
+            </div>`;
         }
 
         container = $(html).insertBefore(originalinput);

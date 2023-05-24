@@ -223,6 +223,41 @@
         </script>
       </div>
 
+      <div class="wrapper">
+        <label for="input_group_from_dom_prefix_postfix">#input_group_from_dom_prefix_postfix:</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">pre</span>
+          </div>
+          <input id="input_group_from_dom_prefix_postfix" type="text" class="form-control" value="50">
+          <div class="input-group-append">
+            <span class="input-group-text">post</span>
+          </div>
+        </div>
+
+        <script>
+          $("#input_group_from_dom_prefix_postfix").TouchSpin({
+            verticalbuttons: true
+          });
+        </script>
+      </div>
+
+      <div class="wrapper">
+        <label for="input_group_from_dom_prefix">#input_group_from_dom_prefix:</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">pre</span>
+          </div>
+          <input id="input_group_from_dom_prefix" type="text" class="form-control" value="50">
+        </div>
+
+        <script>
+          $("#input_group_from_dom_prefix").TouchSpin({
+            verticalbuttons: true
+          });
+        </script>
+      </div>
+
     </div>
 
     <div class="col-md-8" style="height:100vh;">
