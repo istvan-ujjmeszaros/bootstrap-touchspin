@@ -4,11 +4,27 @@
   <meta charset="utf-8">
   <title>Bootswatch: Cerulean</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-v4-rtl/4.6.2-1/css/bootstrap-rtl.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="../../src/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" media="all">
+  <script src="../../src/jquery.bootstrap-touchspin.js"></script>
 </head>
 <body class="rtl">
 <div class="container">
+  <div class="wrapper">
+    <label for="input_group_sm">#input_group_sm:</label>
+    <input id="input_group_sm" type="text" class="form-control form-control-sm" value="50">
+
+    <script>
+      $("#input_group_sm").TouchSpin({
+        prefix: "$",
+        postfix: "/qty"
+      });
+    </script>
+  </div>
+
   <!-- Navbar
   ================================================== -->
   <div class="bs-docs-section clearfix">

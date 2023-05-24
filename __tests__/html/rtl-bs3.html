@@ -5,6 +5,7 @@
   <title>Bootswatch: Cerulean</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" media="screen">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-rtl/3.4.0/css/bootstrap-rtl.css" media="screen">
   <link href="../../src/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" media="all">
@@ -12,6 +13,18 @@
 </head>
 <body>
 <div class="container">
+
+  <div class="wrapper">
+    <label for="input_group_sm">#input_group_sm:</label>
+    <input id="input_group_sm" type="text" class="form-control input-sm" value="50">
+
+    <script>
+      $("#input_group_sm").TouchSpin({
+        prefix: "$",
+        postfix: "/qty"
+      });
+    </script>
+  </div>
 
   <!-- Navbar
   ================================================== -->
