@@ -13,6 +13,19 @@
 </head>
 <body class="rtl">
 <div class="container">
+
+  <div class="wrapper">
+    <label for="input_group">#input_group:</label>
+    <input id="input_group" type="text" class="form-control" value="50">
+
+    <script>
+      $("#input_group").TouchSpin({
+        prefix: "$",
+        postfix: "/qty"
+      });
+    </script>
+  </div>
+
   <div class="wrapper">
     <label for="input_group_sm">#input_group_sm:</label>
     <input id="input_group_sm" type="text" class="form-control form-control-sm" value="50">
@@ -21,6 +34,90 @@
       $("#input_group_sm").TouchSpin({
         prefix: "$",
         postfix: "/qty"
+      });
+    </script>
+  </div>
+
+  <div class="wrapper">
+    <label for="input_group_lg">#input_group_lg:</label>
+    <input id="input_group_lg" type="text" class="form-control form-control-lg" value="50">
+
+    <script>
+      $("#input_group_lg").TouchSpin({
+        prefix: "$",
+        postfix: "/qty"
+      });
+    </script>
+  </div>
+
+  <div class="wrapper">
+    <label for="input_vertical">#input_vertical:</label>
+    <input id="input_vertical" type="text" class="form-control" value="50">
+
+    <script>
+      $("#input_vertical").TouchSpin({
+        verticalbuttons: true
+      });
+    </script>
+  </div>
+
+  <div class="wrapper">
+    <label for="input_sm_vertical">#input_sm_vertical:</label>
+    <input id="input_sm_vertical" type="text" class="form-control form-control-sm" value="50">
+
+    <script>
+      $("#input_sm_vertical").TouchSpin({
+        verticalbuttons: true
+      });
+    </script>
+  </div>
+
+  <div class="wrapper">
+    <label for="input_lg_vertical">#input_lg_vertical:</label>
+    <input id="input_lg_vertical" type="text" class="form-control form-control-lg" value="50">
+
+    <script>
+      $("#input_lg_vertical").TouchSpin({
+        verticalbuttons: true
+      });
+    </script>
+  </div>
+
+  <div class="wrapper">
+    <label for="input_group_vertical">#input_group_vertical:</label>
+    <input id="input_group_vertical" type="text" class="form-control" value="50">
+
+    <script>
+      $("#input_group_vertical").TouchSpin({
+        prefix: "$",
+        postfix: "/qty",
+        verticalbuttons: true
+      });
+    </script>
+  </div>
+
+  <div class="wrapper">
+    <label for="input_group_sm_vertical">#input_group_sm_vertical:</label>
+    <input id="input_group_sm_vertical" type="text" class="form-control form-control-sm" value="50">
+
+    <script>
+      $("#input_group_sm_vertical").TouchSpin({
+        prefix: "$",
+        postfix: "/qty",
+        verticalbuttons: true
+      });
+    </script>
+  </div>
+
+  <div class="wrapper">
+    <label for="input_group_lg_vertical">#input_group_lg_vertical:</label>
+    <input id="input_group_lg_vertical" type="text" class="form-control form-control-lg" value="50">
+
+    <script>
+      $("#input_group_lg_vertical").TouchSpin({
+        prefix: "$",
+        postfix: "/qty",
+        verticalbuttons: true
       });
     </script>
   </div>
