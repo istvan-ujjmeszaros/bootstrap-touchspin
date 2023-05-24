@@ -201,6 +201,35 @@
       </div>
 
       <div class="wrapper">
+        <label for="input_group_from_dom_prefix_postfix_vertical">#input_group_from_dom_prefix_postfix_vertical:</label>
+        <div class="input-group">
+          <span class="input-group-addon">pre</span>
+          <input id="input_group_from_dom_prefix_postfix_vertical" type="text" class="form-control" value="50">
+          <span class="input-group-addon">post</span>
+        </div>
+
+        <script>
+          $("#input_group_from_dom_prefix_postfix_vertical").TouchSpin({
+            verticalbuttons: true
+          });
+        </script>
+      </div>
+
+      <div class="wrapper">
+        <label for="input_group_from_dom_prefix_vertical">#input_group_from_dom_prefix_vertical:</label>
+        <div class="input-group">
+          <span class="input-group-addon">pre</span>
+          <input id="input_group_from_dom_prefix_vertical" type="text" class="form-control" value="50">
+        </div>
+
+        <script>
+          $("#input_group_from_dom_prefix_vertical").TouchSpin({
+            verticalbuttons: true
+          });
+        </script>
+      </div>
+
+      <div class="wrapper">
         <label for="input_group_from_dom_prefix_postfix">#input_group_from_dom_prefix_postfix:</label>
         <div class="input-group">
           <span class="input-group-addon">pre</span>
@@ -209,9 +238,7 @@
         </div>
 
         <script>
-          $("#input_group_from_dom_prefix_postfix").TouchSpin({
-            verticalbuttons: true
-          });
+          $("#input_group_from_dom_prefix_postfix").TouchSpin();
         </script>
       </div>
 
@@ -223,9 +250,7 @@
         </div>
 
         <script>
-          $("#input_group_from_dom_prefix").TouchSpin({
-            verticalbuttons: true
-          });
+          $("#input_group_from_dom_prefix").TouchSpin();
         </script>
       </div>
 
