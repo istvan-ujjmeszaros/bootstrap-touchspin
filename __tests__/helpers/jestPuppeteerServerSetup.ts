@@ -40,7 +40,7 @@ beforeEach(async () => {
     page = await browser.newPage();
   }
 
-  await page.goto(`http://localhost:${port}/__tests__/html/index.html`);
+  await page.goto(`http://localhost:${port}/__tests__/html/index-bs4.html`);
 });
 
 export { page, port };
