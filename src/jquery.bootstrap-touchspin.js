@@ -35,8 +35,8 @@
       forcestepdivisibility: 'round', // none | floor | round | ceil
       stepintervaldelay: 500,
       verticalbuttons: false,
-      verticalup: '+',
-      verticaldown: '-',
+      verticalup: '&plus;',
+      verticaldown: '&minus;',
       verticalupclass: '',
       verticaldownclass: '',
       prefix: '',
@@ -50,7 +50,7 @@
       buttondown_class: 'btn btn-primary',
       buttonup_class: 'btn btn-primary',
       buttondown_txt: '&minus;',
-      buttonup_txt: '+',
+      buttonup_txt: '&plus;',
       callback_before_calculation: function (value) {
         return value;
       },
