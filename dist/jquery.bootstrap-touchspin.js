@@ -2,7 +2,7 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 /*
- *  Bootstrap Touchspin - v4.7.2
+ *  Bootstrap Touchspin - v4.7.3
  *  A mobile and touch friendly input spinner component for Bootstrap 3 & 4.
  *  https://www.virtuosoft.eu/code/bootstrap-touchspin/
  *
@@ -233,7 +233,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         }
         originalinput.data('initvalue', initval).val(initval);
         originalinput.addClass('form-control');
-        verticalbuttons_html = "\n          <span class=\"input-group-addon bootstrap-touchspin-vertical-button-wrapper\">\n            <span class=\"input-group-btn-vertical\">\n              <button class=\"".concat(settings.buttondown_class, " bootstrap-touchspin-up ").concat(settings.verticalupclass, "\" type=\"button\">").concat(settings.verticalup, "</button>\n              <button class=\"").concat(settings.buttonup_class, " bootstrap-touchspin-down ").concat(settings.verticaldownclass, "\" type=\"button\">").concat(settings.verticaldown, "</button>\n            </span>\n          </span>\n       ");
+        verticalbuttons_html = "\n          <span class=\"input-group-addon bootstrap-touchspin-vertical-button-wrapper\">\n            <span class=\"input-group-btn-vertical\">\n              <button tabindex=\"-1\" class=\"".concat(settings.buttondown_class, " bootstrap-touchspin-up ").concat(settings.verticalupclass, "\" type=\"button\">").concat(settings.verticalup, "</button>\n              <button tabindex=\"-1\" class=\"").concat(settings.buttonup_class, " bootstrap-touchspin-down ").concat(settings.verticaldownclass, "\" type=\"button\">").concat(settings.verticaldown, "</button>\n            </span>\n          </span>\n       ");
         if (parentelement.hasClass('input-group')) {
           _advanceInputGroup(parentelement);
         } else {
@@ -252,17 +252,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
           $(verticalbuttons_html).insertAfter(originalinput);
         } else {
           if (prev.hasClass('input-group-btn') || prev.hasClass('input-group-prepend')) {
-            downhtml = "\n              <button class=\"".concat(settings.buttondown_class, " bootstrap-touchspin-down bootstrap-touchspin-injected\" type=\"button\">").concat(settings.buttondown_txt, "</button>\n            ");
+            downhtml = "\n              <button tabindex=\"-1\" class=\"".concat(settings.buttondown_class, " bootstrap-touchspin-down bootstrap-touchspin-injected\" type=\"button\">").concat(settings.buttondown_txt, "</button>\n            ");
             prev.append(downhtml);
           } else {
-            downhtml = "\n              <span class=\"input-group-btn input-group-prepend bootstrap-touchspin-injected\">\n                <button class=\"".concat(settings.buttondown_class, " bootstrap-touchspin-down\" type=\"button\">").concat(settings.buttondown_txt, "</button>\n              </span>\n            ");
+            downhtml = "\n              <span class=\"input-group-btn input-group-prepend bootstrap-touchspin-injected\">\n                <button tabindex=\"-1\" class=\"".concat(settings.buttondown_class, " bootstrap-touchspin-down\" type=\"button\">").concat(settings.buttondown_txt, "</button>\n              </span>\n            ");
             $(downhtml).insertBefore(originalinput);
           }
           if (next.hasClass('input-group-btn') || next.hasClass('input-group-append')) {
-            uphtml = "\n            <button class=\"".concat(settings.buttonup_class, " bootstrap-touchspin-up bootstrap-touchspin-injected\" type=\"button\">").concat(settings.buttonup_txt, "</button>\n          ");
+            uphtml = "\n            <button tabindex=\"-1\" class=\"".concat(settings.buttonup_class, " bootstrap-touchspin-up bootstrap-touchspin-injected\" type=\"button\">").concat(settings.buttonup_txt, "</button>\n          ");
             next.prepend(uphtml);
           } else {
-            uphtml = "\n            <span class=\"input-group-btn input-group-append bootstrap-touchspin-injected\">\n              <button class=\"".concat(settings.buttonup_class, " bootstrap-touchspin-up\" type=\"button\">").concat(settings.buttonup_txt, "</button>\n            </span>\n          ");
+            uphtml = "\n            <span class=\"input-group-btn input-group-append bootstrap-touchspin-injected\">\n              <button tabindex=\"-1\" class=\"".concat(settings.buttonup_class, " bootstrap-touchspin-up\" type=\"button\">").concat(settings.buttonup_txt, "</button>\n            </span>\n          ");
             $(uphtml).insertAfter(originalinput);
           }
         }
@@ -281,7 +281,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
         if (settings.verticalbuttons) {
           html = "\n            <div class=\"input-group ".concat(inputGroupSize, " bootstrap-touchspin bootstrap-touchspin-injected\">\n              <span class=\"input-group-addon input-group-prepend bootstrap-touchspin-prefix\">\n                <span class=\"input-group-text\">").concat(settings.prefix, "</span>\n              </span>\n              <span class=\"input-group-addon bootstrap-touchspin-postfix input-group-append\">\n                <span class=\"input-group-text\">").concat(settings.postfix, "</span>\n              </span>\n              ").concat(verticalbuttons_html, "\n            </div>\n          ");
         } else {
-          html = "\n            <div class=\"input-group bootstrap-touchspin bootstrap-touchspin-injected\">\n              <span class=\"input-group-btn input-group-prepend\">\n                <button class=\"".concat(settings.buttondown_class, " bootstrap-touchspin-down\" type=\"button\">").concat(settings.buttondown_txt, "</button>\n              </span>\n              <span class=\"input-group-addon bootstrap-touchspin-prefix input-group-prepend\">\n                <span class=\"input-group-text\">").concat(settings.prefix, "</span>\n              </span>\n              <span class=\"input-group-addon bootstrap-touchspin-postfix input-group-append\">\n                <span class=\"input-group-text\">").concat(settings.postfix, "</span>\n              </span>\n              <span class=\"input-group-btn input-group-append\">\n                <button class=\"").concat(settings.buttonup_class, " bootstrap-touchspin-up\" type=\"button\">").concat(settings.buttonup_txt, "</button>\n              </span>\n            </div>");
+          html = "\n            <div class=\"input-group bootstrap-touchspin bootstrap-touchspin-injected\">\n              <span class=\"input-group-btn input-group-prepend\">\n                <button tabindex=\"-1\" class=\"".concat(settings.buttondown_class, " bootstrap-touchspin-down\" type=\"button\">").concat(settings.buttondown_txt, "</button>\n              </span>\n              <span class=\"input-group-addon bootstrap-touchspin-prefix input-group-prepend\">\n                <span class=\"input-group-text\">").concat(settings.prefix, "</span>\n              </span>\n              <span class=\"input-group-addon bootstrap-touchspin-postfix input-group-append\">\n                <span class=\"input-group-text\">").concat(settings.postfix, "</span>\n              </span>\n              <span class=\"input-group-btn input-group-append\">\n                <button tabindex=\"-1\" class=\"").concat(settings.buttonup_class, " bootstrap-touchspin-up\" type=\"button\">").concat(settings.buttonup_txt, "</button>\n              </span>\n            </div>");
         }
         container = $(html).insertBefore(originalinput);
         $('.bootstrap-touchspin-prefix', container).after(originalinput);

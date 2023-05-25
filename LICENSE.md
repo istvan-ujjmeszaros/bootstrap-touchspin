@@ -2,7 +2,7 @@
 MIT License
 
 Bootstrap TouchSpin
-v4.7.2
+v4.7.3
 
 A mobile and touch friendly input spinner component for Bootstrap 3 & 4.
 
