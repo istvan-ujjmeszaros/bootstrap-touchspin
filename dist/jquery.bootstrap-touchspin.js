@@ -1,5 +1,5 @@
 /*
- *  Bootstrap Touchspin - v4.7.0
+ *  Bootstrap Touchspin - v4.7.1
  *  A mobile and touch friendly input spinner component for Bootstrap 3 & 4.
  *  https://www.virtuosoft.eu/code/bootstrap-touchspin/
  *
@@ -765,7 +765,7 @@
           value = value + boostedstep;
         }
 
-        if ((settings.max !== null) && (value > settings.max)) {
+        if ((settings.max !== null) && (value >= settings.max)) {
           value = settings.max;
           originalinput.trigger('touchspin.on.max');
           stopSpin();
@@ -797,7 +797,7 @@
           value = value - boostedstep;
         }
 
-        if ((settings.min !== null) && (value < settings.min)) {
+        if ((settings.min !== null) && (value <= settings.min)) {
           value = settings.min;
           originalinput.trigger('touchspin.on.min');
           stopSpin();
