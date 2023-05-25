@@ -7,8 +7,9 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-babel');
 
-  grunt.registerTask('default', ['jshint', 'concat', 'uglify', 'cssmin', 'update-license-version']);
+  grunt.registerTask('default', ['jshint', 'concat', 'babel', 'uglify', 'cssmin', 'update-license-version']);
 
   grunt.initConfig({
 
@@ -40,6 +41,18 @@ module.exports = function (grunt) {
       },
       options: {
         banner: '<%= meta.banner %>'
+      }
+    },
+
+    babel: {
+      options: {
+        sourceMap: true,
+        presets: ['@babel/preset-env']
+      },
+      dist: {
+        files: {
+          'dist/jquery.bootstrap-touchspin.js': 'dist/jquery.bootstrap-touchspin.js'
+        }
       }
     },
 
