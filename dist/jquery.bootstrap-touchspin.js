@@ -2,7 +2,7 @@
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 /*
- *  Bootstrap Touchspin - v4.7.1
+ *  Bootstrap Touchspin - v4.7.2
  *  A mobile and touch friendly input spinner component for Bootstrap 3 & 4.
  *  https://www.virtuosoft.eu/code/bootstrap-touchspin/
  *
