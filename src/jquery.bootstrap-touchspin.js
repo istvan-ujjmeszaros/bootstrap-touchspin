@@ -641,6 +641,10 @@
       }
 
       function _forcestepdivisibility(value) {
+        if (typeof value !== 'number') {
+          return value;
+        }
+
         switch (settings.forcestepdivisibility) {
           case 'round':
             return (Math.round(value / settings.step) * settings.step).toFixed(settings.decimals);
