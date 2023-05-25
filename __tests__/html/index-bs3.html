@@ -55,6 +55,24 @@
       </div>
 
       <div class="wrapper">
+        <label for="testinput_no_forcestepdivisibility">#testinput_no_forcestepdivisibility:</label>
+        <input id="testinput_no_forcestepdivisibility" type="number" value="1200.22" name="testinput_no_forcestepdivisibility">
+
+        <script>
+          $("#testinput_no_forcestepdivisibility").TouchSpin({
+            min: 1200.22,
+            max: null,
+            step: 100,
+            decimals: 2,
+            boostat: 5,
+            maxboostedstep: 10,
+            postfix: '$',
+            forcestepdivisibility: 'none'
+          });
+        </script>
+      </div>
+
+      <div class="wrapper">
         <label for="testinput_step10_min">#testinput_step10_min:</label>
         <input id="testinput_step10_min" type="text" value="0" name="testinput_step10_min">
 
