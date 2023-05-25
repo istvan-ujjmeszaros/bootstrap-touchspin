@@ -107,8 +107,8 @@ describe('Core functionality', () => {
 
     expect(await touchspinHelpers.readInputValue(page, selector)).toBe('57');
 
-    // Reaching 57 should fire the touchspin.on.max event twice
-    expect(await touchspinHelpers.countEvent(page, selector, 'touchspin.on.max')).toBe(2);
+    // Reaching 57 should fire the touchspin.on.max event three times (min is getting corrected to 45)
+    expect(await touchspinHelpers.countEvent(page, selector, 'touchspin.on.max')).toBe(3);
   });
 
   test("Bootstrap 3 should have input-group-sm class", async () => {
