@@ -125,4 +125,16 @@ describe('Events', () => {
     expect(await touchspinHelpers.countChangeWithValue(page, '$1,000.00')).toBe(1);
   });
 
+  it('The touchspin.on.min and touchspin.on.max events should fire as soon as the value reaches the minimum or maximum value', async () => {
+    const selector: string = '#testinput_default';
+
+    await touchspinHelpers.fillWithValue(page, selector, '1');
+    await page.keyboard.press('ArrowDown');
+    expect(await touchspinHelpers.countEvent(page, selector, 'touchspin.on.min')).toBe(1);
+
+    await touchspinHelpers.fillWithValue(page, selector, '99');
+    await page.keyboard.press('ArrowUp');
+    expect(await touchspinHelpers.countEvent(page, selector, 'touchspin.on.max')).toBe(1);
+  });
+
 });
