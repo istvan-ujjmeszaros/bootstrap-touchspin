@@ -34,6 +34,27 @@
       </div>
 
       <div class="wrapper">
+        <label for="testinput_number">#testinput_number:</label>
+        <input id="testinput_number" type="number" value="50" name="testinput_number">
+
+        <script>
+          $("#testinput_number").TouchSpin();
+        </script>
+      </div>
+
+      <div class="wrapper">
+        <label for="testinput_decimals">#testinput_decimals:</label>
+        <input id="testinput_decimals" type="number" value="50" name="testinput_decimals">
+
+        <script>
+          $("#testinput_decimals").TouchSpin({
+            decimals: 2,
+            step: 0.01
+          });
+        </script>
+      </div>
+
+      <div class="wrapper">
         <label for="testinput_step10_min">#testinput_step10_min:</label>
         <input id="testinput_step10_min" type="text" value="0" name="testinput_step10_min">
 
