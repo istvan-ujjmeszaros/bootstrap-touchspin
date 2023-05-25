@@ -25,7 +25,9 @@ beforeAll(async () => {
       devtools: true,
     });
   } else {
-    browser = await puppeteer.launch();
+    browser = await puppeteer.launch({
+      headless: 'new',
+    });
   }
 });
 
