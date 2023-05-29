@@ -750,7 +750,7 @@
         }
 
         if ((settings.max !== null) && (value >= settings.max)) {
-          value = settings.max;
+          value = parseFloat(settings.max);
           originalinput.trigger('touchspin.on.max');
           stopSpin();
         }
@@ -782,7 +782,7 @@
         }
 
         if ((settings.min !== null) && (value <= settings.min)) {
-          value = settings.min;
+          value = parseFloat(settings.min);
           originalinput.trigger('touchspin.on.min');
           stopSpin();
         }
