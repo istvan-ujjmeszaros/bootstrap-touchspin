@@ -153,18 +153,28 @@
       }
 
       function _convertSettingsToNumeric() {
-        settings.initval = parseFloat(settings.initval) || null;
-        settings.replacementval = parseFloat(settings.replacementval) || null;
-        settings.firstclickvalueifempty = parseFloat(settings.firstclickvalueifempty) || null;
-        settings.offset = parseFloat(settings.offset) || null;
-        settings.decimals = parseFloat(settings.decimals) || null;
-        settings.stepinterval = parseFloat(settings.stepinterval) || null;
-        settings.stepintervaldelay = parseFloat(settings.stepintervaldelay) || null;
-        settings.boostat = parseFloat(settings.boostat) || null;
+        settings.initval = _parseNumber(settings.initval);
+        settings.replacementval = _parseNumber(settings.replacementval);
+        settings.firstclickvalueifempty = _parseNumber(settings.firstclickvalueifempty);
+        settings.offset = _parseNumber(settings.offset);
+        settings.decimals = _parseNumber(settings.decimals);
+        settings.stepinterval = _parseNumber(settings.stepinterval);
+        settings.stepintervaldelay = _parseNumber(settings.stepintervaldelay);
+        settings.boostat = _parseNumber(settings.boostat);
 
-        settings.min = parseFloat(settings.min).toFixed(settings.decimals) || null;
-        settings.max = parseFloat(settings.max).toFixed(settings.decimals) || null;
-        settings.step = parseFloat(settings.step).toFixed(settings.decimals) || null;
+        settings.min = _parseNumber(settings.min, settings.decimals);
+        settings.max = _parseNumber(settings.max, settings.decimals);
+        settings.step = _parseNumber(settings.step, settings.decimals);
+      }
+
+      function _parseNumber(value, decimals = 0) {
+        var returnval = parseFloat(value);
+
+        if (isNaN(returnval)) {
+          return null;
+        }
+
+        return parseFloat(returnval.toFixed(decimals));
       }
 
       function _initSettings() {
@@ -648,7 +658,7 @@
       }
 
       function _forcestepdivisibility(value) {
-        if (typeof value !== 'number') {
+        if (typeof value !== 'number' || isNaN(value)) {
           return value;
         }
 
