@@ -153,9 +153,6 @@
       }
 
       function _convertSettingsToNumeric() {
-        settings.initval = _parseNumber(settings.initval);
-        settings.replacementval = _parseNumber(settings.replacementval);
-        settings.firstclickvalueifempty = _parseNumber(settings.firstclickvalueifempty);
         settings.offset = _parseNumber(settings.offset);
         settings.decimals = _parseNumber(settings.decimals);
         settings.stepinterval = _parseNumber(settings.stepinterval);
