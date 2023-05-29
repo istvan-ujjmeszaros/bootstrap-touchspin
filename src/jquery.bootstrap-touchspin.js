@@ -30,6 +30,7 @@
       replacementval: '',
       firstclickvalueifempty: null,
       step: 1,
+      offset: 0, // Makes sense when step is other than 1, like step=0.22 with a step of 100 will force values like 0.22, 100.22, 200.22 and so on
       decimals: 0,
       stepinterval: 100,
       forcestepdivisibility: 'round', // none | floor | round | ceil
@@ -151,8 +152,24 @@
         }
       }
 
+      function _convertSettingsToNumeric() {
+        settings.initval = parseFloat(settings.initval) || null;
+        settings.replacementval = parseFloat(settings.replacementval) || null;
+        settings.firstclickvalueifempty = parseFloat(settings.firstclickvalueifempty) || null;
+        settings.offset = parseFloat(settings.offset) || null;
+        settings.decimals = parseFloat(settings.decimals) || null;
+        settings.stepinterval = parseFloat(settings.stepinterval) || null;
+        settings.stepintervaldelay = parseFloat(settings.stepintervaldelay) || null;
+        settings.boostat = parseFloat(settings.boostat) || null;
+
+        settings.min = parseFloat(settings.min).toFixed(settings.decimals) || null;
+        settings.max = parseFloat(settings.max).toFixed(settings.decimals) || null;
+        settings.step = parseFloat(settings.step).toFixed(settings.decimals) || null;
+      }
+
       function _initSettings() {
         settings = $.extend({}, defaults, originalinput_data, _parseAttributes(), options);
+        _convertSettingsToNumeric();
 
         if (parseFloat(settings.step) !== 1) {
           settings.min = _forcestepdivisibility(settings.min);
@@ -205,6 +222,7 @@
 
       function _updateSettings(newsettings) {
         settings = $.extend({}, settings, newsettings);
+        _convertSettingsToNumeric();
 
         // Update postfix and prefix texts if those settings were changed.
         if (newsettings.postfix) {
