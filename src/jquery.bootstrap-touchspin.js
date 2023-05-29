@@ -181,10 +181,12 @@
         settings = $.extend({}, defaults, originalinput_data, _parseAttributes(), options);
         _convertSettingsToNumeric();
 
-        if (parseFloat(settings.step) !== 1) {
-          settings.min = _forcestepdivisibility(settings.min);
-          settings.max = _forcestepdivisibility(settings.max);
-        }
+        _adjustMinMax();
+      }
+
+      function _adjustMinMax() {
+        settings.min = parseFloat(_forcestepdivisibility(settings.min));
+        settings.max = parseFloat(_forcestepdivisibility(settings.max));
       }
 
       function _parseAttributes() {
