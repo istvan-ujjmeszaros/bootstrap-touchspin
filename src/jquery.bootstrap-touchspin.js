@@ -732,6 +732,7 @@
           if (settings.maxboostedstep) {
             if (boosted > settings.maxboostedstep) {
               boosted = settings.maxboostedstep;
+              value = Math.round((value / boosted)) * boosted;
             }
           }
 
