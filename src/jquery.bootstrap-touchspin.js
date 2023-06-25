@@ -30,6 +30,7 @@
       replacementval: '',
       firstclickvalueifempty: null,
       step: 1,
+      offset: 0, // Makes sense when step is other than 1, like step=0.22 with a step of 100 will force values like 0.22, 100.22, 200.22 and so on
       decimals: 0,
       stepinterval: 100,
       forcestepdivisibility: 'round', // none | floor | round | ceil
@@ -151,24 +152,38 @@
         }
       }
 
+      function _convertSettingsToNumeric() {
+        settings.offset = _parseNumber(settings.offset);
+        settings.decimals = _parseNumber(settings.decimals);
+        settings.stepinterval = _parseNumber(settings.stepinterval);
+        settings.stepintervaldelay = _parseNumber(settings.stepintervaldelay);
+        settings.boostat = _parseNumber(settings.boostat);
+
+        settings.min = _parseNumber(settings.min, settings.decimals);
+        settings.max = _parseNumber(settings.max, settings.decimals);
+        settings.step = _parseNumber(settings.step, settings.decimals);
+      }
+
+      function _parseNumber(value, decimals = 0) {
+        var returnval = parseFloat(value);
+
+        if (isNaN(returnval)) {
+          return null;
+        }
+
+        return parseFloat(returnval.toFixed(decimals));
+      }
+
       function _initSettings() {
         settings = $.extend({}, defaults, originalinput_data, _parseAttributes(), options);
+        _convertSettingsToNumeric();
 
-        if (parseFloat(settings.step) !== 1) {
-          let remainder;
+        _adjustMinMax();
+      }
 
-          // Modify settings.max to be divisible by step
-          remainder = settings.max % settings.step;
-          if (remainder !== 0) {
-            settings.max = parseFloat(settings.max) - remainder;
-          }
-
-          // Do the same with min, should work with negative numbers too
-          remainder = settings.min % settings.step;
-          if (remainder !== 0) {
-            settings.min = parseFloat(settings.min) + (parseFloat(settings.step) - remainder);
-          }
-        }
+      function _adjustMinMax() {
+        settings.min = parseFloat(_forcestepdivisibility(settings.min));
+        settings.max = parseFloat(_forcestepdivisibility(settings.max));
       }
 
       function _parseAttributes() {
@@ -216,6 +231,7 @@
 
       function _updateSettings(newsettings) {
         settings = $.extend({}, settings, newsettings);
+        _convertSettingsToNumeric();
 
         // Update postfix and prefix texts if those settings were changed.
         if (newsettings.postfix) {
@@ -641,6 +657,10 @@
       }
 
       function _forcestepdivisibility(value) {
+        if (typeof value !== 'number' || isNaN(value)) {
+          return value;
+        }
+
         switch (settings.forcestepdivisibility) {
           case 'round':
             return (Math.round(value / settings.step) * settings.step).toFixed(settings.decimals);
@@ -758,7 +778,7 @@
         }
 
         if ((settings.max !== null) && (value >= settings.max)) {
-          value = settings.max;
+          value = parseFloat(settings.max);
           originalinput.trigger('touchspin.on.max');
           stopSpin();
         }
@@ -790,7 +810,7 @@
         }
 
         if ((settings.min !== null) && (value <= settings.min)) {
-          value = settings.min;
+          value = parseFloat(settings.min);
           originalinput.trigger('touchspin.on.min');
           stopSpin();
         }

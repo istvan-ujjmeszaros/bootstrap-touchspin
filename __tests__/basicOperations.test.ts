@@ -149,4 +149,11 @@ describe('Core functionality', () => {
     expect(inputGroupClasses).toContain("input-group-lg");
   });
 
+  it('Should not round the decimals when forcestepdivisibility is disabled', async () => {
+    const selector: string = '#testinput_decimals_no_forcestepdivisibility';
+
+    // The initial value of 50 should be corrected to 51 by the browser as step = 3
+    expect(await touchspinHelpers.readInputValue(page, selector)).toBe('1200.22');
+  });
+
 });
