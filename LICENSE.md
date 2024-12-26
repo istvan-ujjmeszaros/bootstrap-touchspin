@@ -9,7 +9,7 @@ A mobile and touch friendly input spinner component for Bootstrap 3 & 4.
     https://github.com/istvan-ujjmeszaros/bootstrap-touchspin
     http://www.virtuosoft.eu/code/bootstrap-touchspin/
 
-Copyright (c) 2013-2023 István Ujj-Mészáros
+Copyright (c) 2013-2024 István Ujj-Mészáros
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
